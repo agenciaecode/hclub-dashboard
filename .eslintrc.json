@@ -55,6 +55,9 @@
       { "namedComponents": "arrow-function" }
     ],
 
+    "no-use-before-define": "off",
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-alert": "error",
     "no-restricted-imports": [
       "error",
       {
