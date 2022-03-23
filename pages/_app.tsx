@@ -1,9 +1,42 @@
-import '../styles/globals.css';
-import type { AppProps } from 'next/app';
+import Head from 'next/head';
 
-const MyApp = ({ Component, pageProps }: AppProps) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  <Component {...pageProps} />
-);
+import { ToastContainer, Bounce } from 'react-toastify';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
-export default MyApp;
+import { AppTheme, GlobalStyle } from '../src/theme';
+import { AuthProvider } from '../src/libs/auth/react';
+
+import { AuthAppProps } from '../src/libs/auth/next/types';
+
+import 'react-toastify/dist/ReactToastify.css';
+
+const queryClient = new QueryClient();
+
+const App = (props: AuthAppProps) => {
+  const { Component, pageProps } = props;
+
+  return (
+    <>
+      <Head>
+        <title>Next.js</title>
+      </Head>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider auth={Component.auth}>
+          <AppTheme>
+            <GlobalStyle />
+            <ToastContainer
+              limit={3}
+              autoClose={5000}
+              transition={Bounce}
+              icon
+            />
+            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+            <Component {...pageProps} />
+          </AppTheme>
+        </AuthProvider>
+      </QueryClientProvider>
+    </>
+  );
+};
+
+export default App;
