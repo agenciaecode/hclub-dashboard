@@ -2,6 +2,7 @@ export type FontFamily = {
   fontFamily: string;
   fontWeight: number;
   fontStyle: string;
+  path: string;
 };
 
 export type Family = {
@@ -19,7 +20,7 @@ export type Family = {
     /**
      * @object {
      *
-     * * `fontFamily: FiraSans-Regular`
+     * * `fontFamily: Raleway-Regular`
      * * `fontWeight: 400`
      * * `fontStyle: normal`
      *
@@ -29,7 +30,7 @@ export type Family = {
     /**
      * @object {
      *
-     * * `fontFamily: FiraSans-Medium`
+     * * `fontFamily: Raleway-Medium`
      * * `fontWeight: 500`
      * * `fontStyle: normal`
      *
@@ -39,106 +40,98 @@ export type Family = {
     /**
      * @object {
      *
-     * * `fontFamily: FiraSans-SemiBold`
-     * * `fontWeight: 600`
+     * * `fontFamily: Raleway-Bold`
+     * * `fontWeight: 700`
      * * `fontStyle: normal`
      *
      * }
      */
-    semiBold: FontFamily;
+    bold: FontFamily;
   };
 };
 
 export type Size = {
   /**
-   * @number `14 [14px]`
-   */
-  xs: number;
-  /**
-   * @number `16 [16px]`
+   * @number `1.2 [12px]`
    */
   sm: number;
   /**
-   * @number `18 [18px]`
+   * @number `1.6 [16px]`
    */
-  md: number;
+  base: number;
   /**
-   * @number `22 [22px]`
+   * @number `2.0 [20px]`
    */
   lg: number;
   /**
-   * @number `28 [28px]`
+   * @number `2.4 [24px]`
    */
   xl: number;
   /**
-   * @number `12 [12px]`
+   * @number `3.0 [30px]`
    */
-  '2xs': number;
+  '2xl': number;
   /**
-   * @number `16 [16px]`
+   * @number `3.4 [34px]`
    */
-  '2sm': number;
-  /**
-   * @number `20 [20px]`
-   */
-  '2md': number;
+  '3xl': number;
 };
 
 export type LineHeight = {
   /**
-   * @number `115 [115px]`
+   * @number `1.4 [14px]`
    */
-  md: number;
+  sm: number;
   /**
-   * @number `150 [150px]`
+   * @number `1.9 [19px]`
+   */
+  base: number;
+  /**
+   * @number `2.3 [23px]`
+   */
+  lg: number;
+  /**
+   * @number `2.8 [28px]`
    */
   xl: number;
   /**
-   * @number `12 [12px]`
+   * @number `3.5 [35px]`
    */
-  '2xs': number;
+  '2xl': number;
   /**
-   * @number `16 [16px]`
+   * @number `4.0 [40px]`
    */
-  '2sm': number;
-  /**
-   * @number `20 [20px]`
-   */
-  '2md': number;
+  '3xl': number;
 };
 
 export type Typography = {
   /**
    * @object {
    *
-   * * `default: Fira Sans`
+   * * `default: Raleway`
    *
    * }
    */
   family: Family;
   /**
    * @object {
-   *
-   * * `xs:  14  [14px] `
-   * * `sm:  16  [16px] `
-   * * `md:  18  [18px] `
-   * * `lg:  22  [22px] `
-   * * `xl:  28  [28px] `
-   * * `2xs: 12  [12px] `
-   * * `2sm: 16  [16px] `
-   * * `2md: 20  [20px] `
-   *
+   * * `sm: 1.2 [12]`
+   * * `base: 1.6 [16]`
+   * * `lg: 2.0 [20]`
+   * * `xl: 2.4 [24]`
+   * * `'2xl': 3.0 [30]`
+   * * `'3xl': 3.4 [34]`
    * }
    */
   size: Size;
   /**
    * @object {
-   *
-   * * `md: 115 [115px]`
-   * * `xl: 150 [150px]`
-   * * `2xs: 12  [12px] `
-   * * `2xs: 16  [16px] `
-   * * `2md: 20  [20px] `
+   * * `sm: 1.4 [14]`
+   * * `base: 1.9 [19]`
+   * * `lg: 2.3 [23]`
+   * * `xl: 2.8 [28]`
+   * * `'2xl': 3.5 [35]`
+   * * `'3xl': 4.0 [40]`
    * }
    */
   lineHeight: LineHeight;
