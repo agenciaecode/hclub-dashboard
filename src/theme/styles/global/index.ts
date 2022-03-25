@@ -16,6 +16,11 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 62.5% /* 10px */
   }
 
+  body {
+    font-size: ${({ theme }) => theme.typography.size.base}rem;
+    line-height: ${({ theme }) => theme.typography.lineHeight.base}rem;
+  }
+
   ol, ul {
     list-style: none;
     margin: 0;
