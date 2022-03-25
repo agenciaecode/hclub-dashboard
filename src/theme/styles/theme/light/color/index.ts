@@ -1,77 +1,87 @@
 import {
-  Colors,
-  Palette,
-  Neutral,
-  Primary,
+  Auxiliary,
+  Background,
+  Black,
   Gray,
   Green,
-  Teal,
+  Palette,
+  Primary,
+  Red,
   White,
-  Auxiliary,
+  Text,
+  Colors,
 } from './types';
 
+const black: Black = {
+  base: '#000000', // used in everthing everywhere
+  light: '#00000099', // 60% used in progressbar, 'conquistas' background
+  lighter: '#00000066', // 40% used in input placeholder, progressbar, inactive tab text
+  scroll: '#00000033', // used only in custom scrollbar
+  disabled: '#353535', // used only in 'disabled' button
+};
+
 const white: White = {
-  default: '#ffffff',
-};
-
-const teal: Teal = {
-  default: '#2C91AD',
-  dark: '#206A7F',
-  light: '#54B8D3',
-  soft: '#EEF7FA',
-};
-
-const green: Green = {
-  default: '#29A152',
-  dark: '#1D7246',
-  light: '#47D089',
-  soft: '#DDF5E4',
+  base: '#FFFFFF', // used in texts and backgrounds
+  dark: '#FAFAFA', // used in texts of outlined buttons
 };
 
 const gray: Gray = {
-  100: '#1D1D26',
-  200: '#363A40',
-  300: '#4D5766',
-  400: '#828C99',
-  500: '#A1A8B3',
-  600: '#B8C0CC',
-  700: '#CAD3E0',
-  800: '#EDEFF2',
-  900: '#F8FAFD',
+  base: '#C4C4C4', // used in separators and progressbar
+  light: '#E0E0E0', // used as background of disabled inputs
+};
+
+const red: Red = {
+  base: '#FE3F61', // used in input border error and error text
+};
+
+const green: Green = {
+  base: '#1DC9A0', // used in positive switch
 };
 
 const palette: Palette = {
+  black,
   white,
-  teal,
-  green,
   gray,
-};
-
-const auxiliary: Auxiliary = {
-  negative: '#E61739',
-  warning: '#F27A00',
-  informational: teal.default,
+  red,
+  green,
 };
 
 const primary: Primary = {
-  teal: teal.default,
-  green: green.default,
-  'gray-100': gray[100],
-  white: white.default,
+  white: white.base,
+  black: black.base,
 };
 
-const neutral: Neutral = {
-  100: gray[100],
-  300: gray[300],
-  700: gray[700],
-  900: white.default,
+const auxiliary: Auxiliary = {
+  negative: red.base,
+  positive: green.base,
 };
 
-export const color: Colors = {
-  palette,
-  neutral,
+const background: Background = {
+  black: black.base,
+  white: white.base,
+};
+
+const text: Text = {
+  black: black.base,
+  white: white.base,
+};
+
+const color: Colors = {
   primary,
   auxiliary,
+  background,
+  text,
 };
 
-export default color;
+export {
+  black,
+  white,
+  gray,
+  red,
+  green,
+  palette,
+  primary,
+  auxiliary,
+  background,
+  color,
+};
