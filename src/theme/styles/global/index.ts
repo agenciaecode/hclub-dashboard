@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { typography } from '../theme/light/typography';
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -10,8 +11,9 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  html, body {
-    font-size: 1em;
+  html {
+    /* 1rem = 16px (User Agent) = 100% (User Agent) */
+    font-size: 62.5% /* 10px */
   }
 
   ol, ul {
@@ -21,67 +23,59 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   button {
-    background: 'none';
-    border: 'none';
+    background: none;
+    border: none;
     outline: 0;
   }
 
   *,
   *:after,
   *:before {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      text-decoration: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
   }
 
   :root {
-    --default-white: ${({ theme }) => theme.color.palette.white.default};
-
-    --default-gray-100: ${({ theme }) => theme.color.palette.gray[100]};
-    --default-gray-200: ${({ theme }) => theme.color.palette.gray[200]};
-    --default-gray-300: ${({ theme }) => theme.color.palette.gray[300]};
-    --default-gray-400: ${({ theme }) => theme.color.palette.gray[400]};
-    --default-gray-500: ${({ theme }) => theme.color.palette.gray[500]};
-    --default-gray-600: ${({ theme }) => theme.color.palette.gray[600]};
-    --default-gray-700: ${({ theme }) => theme.color.palette.gray[700]};
-    --default-gray-800: ${({ theme }) => theme.color.palette.gray[800]};
-    --default-gray-900: ${({ theme }) => theme.color.palette.gray[900]};
-
-    --default-base-white: var(--white);
-
-    --default-teal: ${({ theme }) => theme.color.auxiliary.informational};
+    --default-white: ${({ theme }) => theme.color.primary.white};
+    --default-black: ${({ theme }) => theme.color.primary.black};
 
     --default-font-heading: ${({ theme }) =>
-      theme.typography.family.default.medium};
+      theme.typography.family.default.medium.fontFamily};
     --default-font-body: ${({ theme }) =>
-      theme.typography.family.default.medium};
+      theme.typography.family.default.medium.fontFamily};
 
     --default-fontWeight-regular: 400;
     --default-fontWeight-medium: 500;
-    --default-fontWeight-semiBold: 600;
     --default-fontWeight-bold: 700;
 
-    --default-fontSize-xs: ${({ theme }) => theme.typography.size.xs};
     --default-fontSize-sm: ${({ theme }) => theme.typography.size.sm};
-    --default-fontSize-md: ${({ theme }) => theme.typography.size.md};
+    --default-fontSize-base: ${({ theme }) => theme.typography.size.base};
     --default-fontSize-lg: ${({ theme }) => theme.typography.size.lg};
     --default-fontSize-xl: ${({ theme }) => theme.typography.size.xl};
-    --default-fontSize-2xl: ${({ theme }) => theme.typography.size['2xs']};
+    --default-fontSize-2xl: ${({ theme }) => theme.typography.size['2xl']};
+    --default-fontSize-3xl: ${({ theme }) => theme.typography.size['3xl']};
 
-    --default-lineHeight-md: ${({ theme }) => theme.typography.lineHeight.md};
-    --default-lineHeight-xl: ${({ theme }) => theme.typography.lineHeight.xl};
+    --default-fontHeight-sm: ${({ theme }) => theme.typography.lineHeight.sm};
+    --default-fontHeight-base: ${({ theme }) =>
+      theme.typography.lineHeight.base};
+    --default-fontHeight-lg: ${({ theme }) => theme.typography.lineHeight.lg};
+    --default-fontHeight-xl: ${({ theme }) => theme.typography.lineHeight.xl};
+    --default-fontHeight-2xl: ${({ theme }) =>
+      theme.typography.lineHeight['2xl']};
+    --default-fontHeight-3xl: ${({ theme }) =>
+      theme.typography.lineHeight['3xl']};
 
     --default-border-radius-0: ${({ theme }) => theme.border['0px']};
     --default-border-radius-4: ${({ theme }) => theme.border['16px']};
     --default-border-radius-8: ${({ theme }) => theme.border['8px']};
     --default-border-radius-16: ${({ theme }) => theme.border['16px']};
 
-    --toastify-font-family: "FiraSans-Medium";
-    --toastify-color-dark: var(--default-gray-100);
+    --toastify-font-family: "Raleway-Medium";
+    /*--toastify-color-dark: var(--default-gray-100);
     --toastify-color-info: var(--default-teal);
     --toastify-color-success: var(--default-green-200);
-    --toastify-color-warning: ${({ theme }) => theme.color.auxiliary.warning};
     --toastify-color-error: ${({ theme }) => theme.color.auxiliary.negative};
 
     --toastify-icon-color-info: var(--toastify-color-info);
@@ -96,44 +90,29 @@ export const GlobalStyle = createGlobalStyle`
     --toastify-color-progress-error: var(--toastify-color-error);
 
     --toastify-spinner-color: var(--default-teal);
-    --toastify-spinner-color-empty-area: var(--default-gray-800);
+    --toastify-spinner-color-empty-area: var(--default-gray-800);*/
   }
 
   // Font-Family Default
   // Utilizada para corpo, tags, hats e outros textos menores.
-  @font-face {
-    font-family: "FiraSans-Regular";
-    src: url("/fonts/fira/FiraSans-Regular.ttf");
-    font-weight: 400;
-    font-style: normal;
-  }
+  ${() =>
+    Object.values(typography.family.default).reduce(
+      (previous, current) =>
+        `${previous}
 
-  @font-face {
-    font-family: "FiraSans-Medium";
-    src: url("/fonts/fira/FiraSans-Medium.ttf");
-    font-weight: 500;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: "FiraSans-SemiBold";
-    src: url("/fonts/fira/FiraSans-SemiBold.ttf");
-    font-weight: 600;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: "FiraSans-Bold";
-    src: url("/fonts/fira/FiraSans-Bold.ttf");
-    font-weight: 700;
-    font-style: normal;
-  }
-
+        @font-face {
+          font-family: ${current.fontFamily};
+          src: url( ${current.path});
+          font-weight: ${current.fontWeight};
+          font-style: ${current.fontStyle};
+        }`,
+      '',
+    )}
   .icon-loader {
     width: 100%;
   }
 
-  .icon-loader svg{
+  .icon-loader svg {
     animation: is-rotating 0.8s infinite;
   }
 
@@ -144,11 +123,9 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .Toastify__toast-body > div:last-child {
-    font-family: "FiraSans-Medium";
-    font-weight: 500;
-    font-style: normal;
-    font-size: 0.95rem;
+    font-family: ${typography.family.default.medium.fontFamily};
+    font-weight: ${typography.family.default.medium.fontWeight};
+    font-style: ${typography.family.default.medium.fontStyle};
+    font-size: ${typography.size.base};
   }
 `;
-
-export default GlobalStyle;

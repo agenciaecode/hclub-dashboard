@@ -7,9 +7,8 @@ export const light = {
   typography,
   border: {
     '0px': '0px',
-    '4px': '4px',
-    '8px': '8px',
-    '10px': '10px',
-    '16px': '16px',
+    '5px': '4px',
+    '10px': '8px',
+    '14px': '14px',
   },
 };
