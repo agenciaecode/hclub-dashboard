@@ -12,7 +12,7 @@ const {
   theme,
   config: configTheme,
 } = createStitches({
-  prefix: 'stitches',
+  prefix: 'hclub',
   theme: defaultTheme,
   media: {
     sx: '(max-width: 767px)',
