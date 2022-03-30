@@ -1,4 +1,4 @@
-import { ButtonType } from '../../../../../../form/button/types';
+import { ButtonType } from '@components/form/button/types';
 
 export type AlertDialogProps = {
   title: string;

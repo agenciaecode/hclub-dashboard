@@ -1,4 +1,4 @@
-import { Button } from '../../../../../form/button';
+import { Button } from '@components/form/button';
 import {
   AlertDialogAction,
   AlertDialogCancel,

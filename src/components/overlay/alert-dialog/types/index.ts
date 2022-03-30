@@ -1,3 +1,3 @@
-import { AlertDialogProps as AlertDialogPropsV1 } from '../v1/types';
+import { AlertDialogProps } from '../components/default/types';
 
-export type AlertDialogProps = AlertDialogPropsV1;
+export type { AlertDialogProps };
