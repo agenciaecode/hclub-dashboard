@@ -1,3 +1,7 @@
-import { ButtonType as ButtonTypeV1 } from '../v1/types';
-
-export type ButtonType = ButtonTypeV1;
+export type ButtonType =
+  | 'danger'
+  | 'warning'
+  | 'link'
+  | 'secondary'
+  | 'success'
+  | 'info';

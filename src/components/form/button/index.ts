@@ -1,3 +1,3 @@
-import { Button } from './v1';
+import { Button } from './components/default';
 
 export { Button };
