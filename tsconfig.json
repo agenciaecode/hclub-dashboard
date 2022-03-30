@@ -21,7 +21,6 @@
       "@features/*": ["./src/features/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@styles/*": ["./src/styles/*"],
-      "@theme/*": ["./src/theme/*"],
       "@utils/*": ["./src/utils/*"],
       "@/*": ["./src/*"]
     }
