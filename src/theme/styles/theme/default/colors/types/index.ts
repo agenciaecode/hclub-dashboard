@@ -57,14 +57,6 @@ export type Green = {
   base: string;
 };
 
-export type Palette = {
-  black: Black;
-  white: White;
-  gray: Gray;
-  red: Red;
-  green: Green;
-};
-
 export type Auxiliary = {
   /**
    * @String `#FE3F61`
@@ -110,8 +102,23 @@ export type Text = {
 };
 
 export type Colors = {
-  primary: Primary;
-  auxiliary: Auxiliary;
-  background: Background;
-  text: Text;
+  black: string;
+  blackLight: string;
+  blackLighter: string;
+  blackScroll: string;
+  blackDisabled: string;
+  white: string;
+  whiteDark: string;
+  gray: string;
+  grayLight: string;
+  red: string;
+  green: string;
+  primaryWhite: string;
+  primaryBlack: string;
+  auxiliaryNegative: string;
+  auxiliaryPositive: string;
+  backgroundBlack: string;
+  backgroundWhite: string;
+  textBlack: string;
+  textWhite: string;
 };

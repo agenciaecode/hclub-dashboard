@@ -4,7 +4,6 @@ import {
   Black,
   Gray,
   Green,
-  Palette,
   Primary,
   Red,
   White,
@@ -38,14 +37,6 @@ const green: Green = {
   base: '#1DC9A0', // used in positive switch
 };
 
-const palette: Palette = {
-  black,
-  white,
-  gray,
-  red,
-  green,
-};
-
 const primary: Primary = {
   white: white.base,
   black: black.base,
@@ -66,22 +57,34 @@ const text: Text = {
   white: white.base,
 };
 
-const color: Colors = {
-  primary,
-  auxiliary,
-  background,
-  text,
+const colors: Colors = {
+  black: black.base,
+  blackLight: black.light,
+  blackLighter: black.lighter,
+  blackScroll: black.scroll,
+  blackDisabled: black.disabled,
+
+  white: white.base,
+  whiteDark: white.dark,
+
+  gray: gray.base,
+  grayLight: gray.light,
+
+  red: red.base,
+
+  green: green.base,
+
+  primaryWhite: primary.white,
+  primaryBlack: primary.white,
+
+  auxiliaryNegative: auxiliary.negative,
+  auxiliaryPositive: auxiliary.positive,
+
+  backgroundBlack: background.black,
+  backgroundWhite: background.white,
+
+  textBlack: text.black,
+  textWhite: text.white,
 };
 
-export {
-  black,
-  white,
-  gray,
-  red,
-  green,
-  palette,
-  primary,
-  auxiliary,
-  background,
-  color,
-};
+export { colors };
