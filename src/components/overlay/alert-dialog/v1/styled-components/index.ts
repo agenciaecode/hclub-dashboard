@@ -1,5 +1,5 @@
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
-import { keyframes, styled } from '../../../../theme';
+import { keyframes, styled } from '../../../../../theme';
 
 export const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
 export const AlertDialogRoot = AlertDialogPrimitive.Root;

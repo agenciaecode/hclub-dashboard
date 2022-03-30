@@ -1,4 +1,4 @@
-import { Button } from '../../../../button';
+import { Button } from '../../../../../form/button';
 import {
   AlertDialogAction,
   AlertDialogCancel,
