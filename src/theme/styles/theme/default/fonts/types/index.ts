@@ -1,3 +1,5 @@
+import { type } from 'os';
+
 export type Fonts = {
   defaultRegular: string;
   defaultMedium: string;
@@ -10,20 +12,25 @@ export type FontWeights = {
   defaultBold: number;
 };
 
+export type TypographySizes = {
+  fonts: string[];
+  lineHeights: string[];
+};
+
 export type FontSizes = {
-  sm: number;
-  base: number;
-  lg: number;
-  xl: number;
-  '2xl': number;
-  '3xl': number;
+  sm: string;
+  base: string;
+  lg: string;
+  xl: string;
+  '2xl': string;
+  '3xl': string;
 };
 
 export type LineHeights = {
-  sm: number;
-  base: number;
-  lg: number;
-  xl: number;
-  '2xl': number;
-  '3xl': number;
+  sm: string;
+  base: string;
+  lg: string;
+  xl: string;
+  '2xl': string;
+  '3xl': string;
 };

@@ -1,3 +1,11 @@
+export type ColorsPalette = {
+  blacks: string[];
+  whites: string[];
+  grays: string[];
+  reds: string[];
+  greens: string[];
+};
+
 export type Black = {
   /**
    * @string `#000000` - used in everthing everywhere

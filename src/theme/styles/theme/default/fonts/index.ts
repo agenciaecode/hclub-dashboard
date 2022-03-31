@@ -1,4 +1,10 @@
-import { Fonts, FontSizes, FontWeights, LineHeights } from './types';
+import {
+  Fonts,
+  FontSizes,
+  FontWeights,
+  LineHeights,
+  TypographySizes,
+} from './types';
 
 const fonts: Fonts = {
   defaultRegular: 'Raleway-Regular',
@@ -12,22 +18,27 @@ const fontWeights: FontWeights = {
   defaultBold: 700,
 };
 
+const typographySizes: TypographySizes = {
+  fonts: ['1.2rem', '1.6rem', '2.0rem', '2.4rem', '3.0rem', '3.4rem'],
+  lineHeights: ['1.4rem', '1.9rem', '2.3rem', '2.8rem', '3.5rem', '4.0rem'],
+};
+
 const fontSizes: FontSizes = {
-  sm: 1.2, // 12px
-  base: 1.6, // 16px
-  lg: 2.0, // 20px
-  xl: 2.4, // 24px
-  '2xl': 3.0, // 30px
-  '3xl': 3.4, // 34px
+  sm: typographySizes.fonts[0], // 12px
+  base: typographySizes.fonts[1], // 16px
+  lg: typographySizes.fonts[2], // 20px
+  xl: typographySizes.fonts[3], // 24px
+  '2xl': typographySizes.fonts[4], // 30px
+  '3xl': typographySizes.fonts[5], // 34px
 };
 
 const lineHeights: LineHeights = {
-  sm: 1.4, // 14px
-  base: 1.9, // 19px
-  lg: 2.3, // 23px
-  xl: 2.8, // 28px
-  '2xl': 3.5, // 35px
-  '3xl': 4.0, // 40px
+  sm: typographySizes.lineHeights[0], // 14px
+  base: typographySizes.lineHeights[1], // 19px
+  lg: typographySizes.lineHeights[2], // 23px
+  xl: typographySizes.lineHeights[3], // 28px
+  '2xl': typographySizes.lineHeights[4], // 35px
+  '3xl': typographySizes.lineHeights[5], // 40px
 };
 
 export { fonts, fontWeights, fontSizes, lineHeights };
