@@ -1,5 +1,4 @@
 import { ConfigType } from '@stitches/react/types/config';
-import { Breakpoints } from '../breakpoints/types';
 import { Colors } from '../colors/types';
 import { Fonts, FontSizes, FontWeights, LineHeights } from '../fonts/types';
 
@@ -18,5 +17,4 @@ export type DefaultTheme = ConfigType.Theme<{
   shadows: undefined;
   zIndices: undefined;
   transitions: undefined;
-  media: Breakpoints;
 }>;

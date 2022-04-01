@@ -1,4 +1,6 @@
+import { breakpoints } from '@/theme/styles/theme/default/breakpoints';
 import { createStitches } from '@stitches/react';
+import mapValues from 'lodash.mapvalues';
 
 import { defaultTheme } from '../../styles/theme';
 
@@ -14,12 +16,7 @@ const {
 } = createStitches({
   prefix: 'hclub',
   theme: defaultTheme,
-  media: {
-    sx: '(max-width: 767px)',
-    sm: '(max-width: 768px)',
-    md: '(max-width: 992px)',
-    lg: '(max-width: 1232px)',
-  },
+  media: mapValues(breakpoints, breakpoint => `(min-width: ${breakpoint})`),
 });
 
 export {
