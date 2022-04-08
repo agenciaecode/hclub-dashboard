@@ -2,14 +2,14 @@ import {
   Auxiliary,
   Background,
   Black,
+  Colors,
+  ColorsPalette,
   Gray,
   Green,
   Primary,
   Red,
-  White,
   Text,
-  Colors,
-  ColorsPalette,
+  White,
 } from './types';
 
 const colorsPalette: ColorsPalette = {
