@@ -13,8 +13,14 @@ const defaultTheme: DefaultTheme = {
   sizes: {},
   borderWidths: {},
   borderStyles: {},
-  radii: {},
-  shadows: {},
+  radii: {
+    base: '0.5rem',
+  },
+  shadows: {
+    shadowBlack: colors.black,
+    shadowGray: colors.gray,
+    shadowRed: '#fe3f6133',
+  },
   zIndices: {},
   transitions: {},
 };
