@@ -83,6 +83,50 @@
       "error",
       "never",
       { "ignorePackages": true, "pattern": { "svg": "ignorePackages" } }
+    ],
+    "import/order": [
+      "error",
+      {
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "builtin",
+            "position": "before"
+          },
+          {
+            "pattern": "next",
+            "group": "builtin",
+            "position": "before"
+          },
+          {
+            "pattern": "@components/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "@features/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "@/features/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "@hooks/**",
+            "group": "external",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": [
+          "react",
+          "next",
+          "@components",
+          "@hooks"
+        ],
+        "newlines-between": "always-and-inside-groups"
+      }
     ]
   }
 }
