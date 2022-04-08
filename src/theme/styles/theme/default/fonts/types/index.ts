@@ -1,5 +1,3 @@
-import { type } from 'os';
-
 export type Fonts = {
   defaultRegular: string;
   defaultItalic: string;
