@@ -14,6 +14,8 @@ const globalDefaultStyles = globalCss({
   body: {
     fontSize: '$base',
     lineHeight: '$base',
+    fontFamily: '$defaultRegular',
+    color: '$textBlack',
   },
   'ol, ul': {
     listStyle: 'none',
@@ -24,6 +26,8 @@ const globalDefaultStyles = globalCss({
     backgroundColor: 'transparent',
     border: 'none',
     outline: 0,
+    fontSize: '$base',
+    lineHeight: '$base',
   },
   '@font-face': [
     {
