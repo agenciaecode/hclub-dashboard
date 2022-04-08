@@ -35,6 +35,10 @@ const globalDefaultStyles = globalCss({
       src: 'url("/fonts/raleway/Raleway-Regular.ttf")',
     },
     {
+      fontFamily: 'Raleway-italic',
+      src: 'url("/fonts/raleway/Raleway-Italic.ttf")',
+    },
+    {
       fontFamily: 'Raleway-Medium',
       src: 'url("/fonts/raleway/Raleway-Medium.ttf")',
     },

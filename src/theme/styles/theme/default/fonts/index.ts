@@ -8,6 +8,7 @@ import {
 
 const fonts: Fonts = {
   defaultRegular: 'Raleway-Regular',
+  defaultItalic: 'Raleway-Italic',
   defaultMedium: 'Raleway-Medium',
   defaultBold: 'Raleway-Bold',
 };

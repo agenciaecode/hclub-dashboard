@@ -2,6 +2,7 @@ import { type } from 'os';
 
 export type Fonts = {
   defaultRegular: string;
+  defaultItalic: string;
   defaultMedium: string;
   defaultBold: string;
 };
