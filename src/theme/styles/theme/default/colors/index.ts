@@ -25,7 +25,7 @@ const black: Black = {
   light: colorsPalette.blacks[1], // 60% used in progressbar, 'conquistas' background
   lighter: colorsPalette.blacks[2], // 40% used in input placeholder, progressbar, inactive tab text
   scroll: colorsPalette.blacks[3], // used only in custom scrollbar
-  disabled: colorsPalette.blacks[4], // used only in 'disabled' button
+  hover: colorsPalette.blacks[4], // used only in 'disabled' button
 };
 
 const white: White = {
@@ -71,7 +71,7 @@ const colors: Colors = {
   blackLight: black.light,
   blackLighter: black.lighter,
   blackScroll: black.scroll,
-  blackDisabled: black.disabled,
+  blackHover: black.hover,
 
   white: white.base,
   whiteDark: white.dark,
@@ -84,7 +84,7 @@ const colors: Colors = {
   green: green.base,
 
   primaryWhite: primary.white,
-  primaryBlack: primary.white,
+  primaryBlack: primary.black,
 
   auxiliaryNegative: auxiliary.negative,
   auxiliaryPositive: auxiliary.positive,

@@ -26,7 +26,7 @@ export type Black = {
   /**
    * @string `#353535` - used only in 'disabled' button
    */
-  disabled: string;
+  hover: string;
 };
 
 export type White = {
@@ -114,7 +114,7 @@ export type Colors = {
   blackLight: string;
   blackLighter: string;
   blackScroll: string;
-  blackDisabled: string;
+  blackHover: string;
   white: string;
   whiteDark: string;
   gray: string;
