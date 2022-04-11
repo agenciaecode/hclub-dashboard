@@ -1,8 +1,7 @@
-// import { Button } from '@components/forms/button';
-// import { AlertDialog } from '@components/overlay/alert-dialog';
-import { DescriptiveModal } from '@components/overlay/modal';
-
+import { Button } from '@components/forms/button';
 import { TextInput } from '@components/forms/text-input';
+import { Alert } from '@components/overlay/alert-dialog';
+import { DescriptiveModal } from '@components/overlay/modal';
 
 import { useQuery } from '@hooks/useQuery/api/dashboard';
 
@@ -23,7 +22,7 @@ const ForgotPasswordModal = () => {
           placeholder="Insira seu e-mail"
           type="email"
         />
-        {/* <AlertDialog
+        <Alert
           title="Te enviamos um e-mail"
           description="Cheque sua caixa de entrada para restaurar a sua senha"
           confirmButtonText="Entendi"
@@ -32,7 +31,7 @@ const ForgotPasswordModal = () => {
               Enviar
             </Button>
           }
-        /> */}
+        />
       </form>
     </DescriptiveModal>
   );
