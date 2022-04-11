@@ -11,7 +11,7 @@ import {
 
 import { FlexRow, StyledButton } from './Alert.styles';
 
-type DescriptiveAlertProps = {
+type AlertProps = {
   title: string;
   description: string;
   confirmButtonText: string;
@@ -19,7 +19,7 @@ type DescriptiveAlertProps = {
   isOpen?: boolean;
 };
 
-const DescriptiveAlert = (alertDialogProps: DescriptiveAlertProps) => {
+const Alert = (alertDialogProps: AlertProps) => {
   const { title, description, confirmButtonText, triggerButton, isOpen } =
     alertDialogProps;
   return (
@@ -43,10 +43,10 @@ const DescriptiveAlert = (alertDialogProps: DescriptiveAlertProps) => {
   );
 };
 
-DescriptiveAlert.defaultProps = {
+Alert.defaultProps = {
   confirmButtonText: 'Ok',
   isOpen: false,
 };
 
-export { DescriptiveAlert };
-export type { DescriptiveAlertProps };
+export { Alert };
+export type { AlertProps };
