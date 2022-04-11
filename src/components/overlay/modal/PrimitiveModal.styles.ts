@@ -35,7 +35,7 @@ const StyledContent = styled(DialogPrimitive.Content, {
   maxHeight: '85vh',
   padding: '3.2rem',
   '@media (prefers-reduced-motion: no-preference)': {
-    animation: `${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1) forwards`,
+    animation: `${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
   },
   '&:focus': { outline: 'none' },
 });
