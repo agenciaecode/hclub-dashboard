@@ -3,12 +3,12 @@ import * as Modal from '@radix-ui/react-dialog';
 import { ModalCloseButton } from '../../components/close-button';
 import { StyledContent, StyledOverlay } from '../../PrimitiveModal.styles';
 
-type BaseModalProps = {
+type ModalProps = {
   triggerButton: React.ReactElement;
   children: React.ReactNode;
 };
 
-const BaseModal = ({ triggerButton, children }: BaseModalProps) => (
+const PresetModal = ({ triggerButton, children }: ModalProps) => (
   <Modal.Root>
     <Modal.Trigger asChild>{triggerButton}</Modal.Trigger>
     <Modal.Portal>
@@ -24,5 +24,5 @@ const BaseModal = ({ triggerButton, children }: BaseModalProps) => (
   </Modal.Root>
 );
 
-export { BaseModal };
-export type { BaseModalProps };
+export { PresetModal as Modal };
+export type { ModalProps };

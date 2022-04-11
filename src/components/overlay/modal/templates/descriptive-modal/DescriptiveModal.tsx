@@ -1,7 +1,7 @@
-import { BaseModal, BaseModalProps } from '../base-modal';
+import { Modal, ModalProps } from '../modal';
 import { StyledDescription, StyledTitle } from '../../PrimitiveModal.styles';
 
-type DescriptiveModalProps = BaseModalProps & {
+type DescriptiveModalProps = ModalProps & {
   title: string;
   description: string;
 };
@@ -12,11 +12,11 @@ const DescriptiveModal = ({
   triggerButton,
   children,
 }: DescriptiveModalProps) => (
-  <BaseModal triggerButton={triggerButton}>
+  <Modal triggerButton={triggerButton}>
     <StyledTitle>{title}</StyledTitle>
     <StyledDescription>{description}</StyledDescription>
     {children}
-  </BaseModal>
+  </Modal>
 );
 
 export { DescriptiveModal };
