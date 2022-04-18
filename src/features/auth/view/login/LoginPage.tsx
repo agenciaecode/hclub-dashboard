@@ -1,15 +1,15 @@
 import Head from 'next/head';
+import Image from 'next/image';
 
 import {
   StyledContentSection,
   StyledFooter,
-  StyledImage,
   StyledMain,
   StyledSplashSection,
 } from './LoginPage.styles';
 
 import { LoginForm } from './sections';
-import whiteWalletImage from './assets/images/wallet-white-1.png';
+import whiteWalletImage from './assets/images/wallet-white-revision-1-1.png';
 
 const LoginPage = () => (
   <>
@@ -22,7 +22,12 @@ const LoginPage = () => (
         <LoginForm />
       </StyledContentSection>
       <StyledSplashSection>
-        <StyledImage src={whiteWalletImage} alt="Carteira Essencial Branca" />
+        <Image
+          src={whiteWalletImage}
+          alt="Carteira Essencial Branca"
+          width={368}
+          height={560}
+        />
       </StyledSplashSection>
       <StyledFooter />
     </StyledMain>

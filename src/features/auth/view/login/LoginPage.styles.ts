@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import { Footer } from '@components/layout/footer';
 
 import { styled } from '@/theme';
@@ -29,12 +27,10 @@ const StyledSplashSection = styled('section', {
   gridRow: 'span 2 / span 2',
   '@desktop': {
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
   },
   '& > span': {
-    maxWidth: 'min(70%, 57rem) !important',
-    minWidth: '40rem',
+    left: 'calc(32% - 12.3rem)',
   },
 });
 
@@ -45,14 +41,4 @@ const StyledFooter = styled(Footer, {
   },
 });
 
-const StyledImage = styled(Image, {
-  transform: 'rotate(-45deg)',
-});
-
-export {
-  StyledMain,
-  StyledContentSection,
-  StyledSplashSection,
-  StyledFooter,
-  StyledImage,
-};
+export { StyledMain, StyledContentSection, StyledSplashSection, StyledFooter };
