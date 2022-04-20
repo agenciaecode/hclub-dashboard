@@ -33,7 +33,7 @@ const StyledLoginArticle = styled('article', {
   display: 'flex',
   flexDirection: 'column',
   flex: 1,
-  gap: '3.8rem',
+  gap: '4rem',
 });
 
 const StyledFormHeader = styled('header', {
