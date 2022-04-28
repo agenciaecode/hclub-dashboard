@@ -11,13 +11,19 @@ const StyledCheckbox = styled(CheckboxPrimitive.Root, {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  boxShadow: `0 2px 10px $primaryShadow`,
+  boxShadow: `0 2px 10px $shadowGray`,
+  border: 'solid 1px $blackLight',
+  borderColor: '$blackLighter',
   '&:hover': { backgroundColor: '$grayLight' },
-  '&:focus': { boxShadow: `0 0 0 2px black` },
+  '&:focus': { boxShadow: `0 0 0 2px $shadowGray` },
 });
 
 const StyledIndicator = styled(CheckboxPrimitive.Indicator, {
   color: '$primary',
+  display: 'flex',
+  svg: {
+    transform: 'scale(1.4)',
+  },
 });
 
 export { StyledCheckbox, StyledIndicator };
