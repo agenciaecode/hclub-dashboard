@@ -6,7 +6,7 @@ const StyledInputGroup = styled('div', {
   color: '$textBlack',
   gap: '0.8rem',
   padding: '0 0.2rem',
-  '& > label:first-child': {
+  '& > span:first-child': {
     fontSize: '$sm',
     lineHeight: '$sm',
   },
@@ -31,15 +31,6 @@ const StyledInputGroup = styled('div', {
     '&::placeholder': {
       fontFamily: '$defaultItalic',
       color: '$blackLighter',
-    },
-    '& + label': {
-      color: '$red',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.4rem',
-      '& svg path': {
-        fill: '$red',
-      },
     },
   },
   variants: {
