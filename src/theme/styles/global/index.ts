@@ -28,6 +28,7 @@ const globalDefaultStyles = globalCss({
     outline: 0,
     fontSize: '$base',
     lineHeight: '$base',
+    cursor: 'pointer',
   },
   '@font-face': [
     {
