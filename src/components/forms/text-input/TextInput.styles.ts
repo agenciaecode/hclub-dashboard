@@ -23,9 +23,10 @@ const StyledInputGroup = styled('div', {
     '&:focus': {
       boxShadow: '0 0 0 0.2rem $shadowGray',
     },
-    '&:disabled': {
+    '&:disabled, &:read-only': {
       backgroundColor: '$grayLight',
       borderColor: '$gray',
+      color: '$blackLighter',
     },
     '&::placeholder': {
       fontFamily: '$defaultItalic',
