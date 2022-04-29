@@ -92,6 +92,7 @@ const AccountForm = ({ backToLoginForm }: AccountFormProps) => {
           padding: '4rem 4rem 0',
         },
       }}
+      formHeaderCss={{ displayOnlyOnDesktop: 'flex' }}
       formSlot={
         <>
           <StyledFormInputsSections>

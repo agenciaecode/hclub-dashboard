@@ -49,9 +49,7 @@ const LoginForm = ({ openRegisterForm }: LoginFormProps) => {
       description="Se conecte com a sua conta"
       formSubmitHandler={handleSubmit(handleLoginSubmit)}
       headerSlot={
-        <StyledLogoFigure>
-          <Image src={logoImage} alt="H.man Logo" layout="fill" />
-        </StyledLogoFigure>
+        <Image src={logoImage} alt="H.man Logo" width={60} height={60} />
       }
       formSlot={
         <>

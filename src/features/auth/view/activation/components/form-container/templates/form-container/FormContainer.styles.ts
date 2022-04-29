@@ -1,9 +1,7 @@
 import { styled } from '@/theme';
 
 const StyledContentHeader = styled('header', {
-  padding: '10rem 0 6rem',
-  display: 'flex',
-  justifyContent: 'center',
+  padding: '3.2rem 2rem 2rem',
   '@desktop': {
     display: 'block',
     padding: '4rem 4rem 0',
@@ -28,21 +26,18 @@ const StyledFormArticle = styled('article', {
 });
 
 const StyledFormHeader = styled('header', {
-  display: 'none',
-  '@desktop': {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.8rem',
-    '& > h1': {
-      fontSize: '$2xl',
-      lineHeight: '$2xl',
-      fontWeight: '$defaultRegular',
-    },
-    '& > h2': {
-      fontSize: '$base',
-      lineHeight: '$base',
-      fontWeight: '$defaultRegular',
-    },
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '0.8rem',
+  '& > h1': {
+    fontSize: '$2xl',
+    lineHeight: '$2xl',
+    fontWeight: '$defaultRegular',
+  },
+  '& > h2': {
+    fontSize: '$base',
+    lineHeight: '$base',
+    fontWeight: '$defaultRegular',
   },
 });
 

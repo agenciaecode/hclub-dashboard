@@ -8,12 +8,15 @@ import {
   StyledFormHeader,
 } from './FormContainer.styles';
 
+import { configTheme } from '@/theme';
+
 type FormContainerProps = {
   title: string;
   description: string;
   headerSlot: React.ReactNode;
-  headerCss?: CSS;
+  headerCss?: CSS<typeof configTheme>;
   formSlot: React.ReactNode;
+  formHeaderCss?: CSS<typeof configTheme>;
   formSubmitHandler: (event: React.FormEvent<HTMLFormElement>) => void;
 };
 
@@ -23,13 +26,14 @@ const FormContainer = ({
   headerSlot,
   headerCss,
   formSlot,
+  formHeaderCss,
   formSubmitHandler,
 }: FormContainerProps) => (
   <>
     <StyledContentHeader css={headerCss}>{headerSlot}</StyledContentHeader>
     <StyledContentSection>
       <StyledFormArticle>
-        <StyledFormHeader>
+        <StyledFormHeader css={formHeaderCss}>
           <h1>{title}</h1>
           <h2>{description}</h2>
         </StyledFormHeader>
@@ -40,7 +44,8 @@ const FormContainer = ({
 );
 
 FormContainer.defaultProps = {
-  headerCss: {},
+  headerCss: undefined,
+  formHeaderCss: undefined,
 };
 
 export { FormContainer };
