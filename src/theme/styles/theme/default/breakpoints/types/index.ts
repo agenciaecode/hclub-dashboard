@@ -11,4 +11,6 @@ export type Breakpoints = {
   tablet: string;
   /** (min-width: 1024px) */
   desktop: string;
+  /** (max-width: 1023.9px) */
+  mobile: string;
 };
