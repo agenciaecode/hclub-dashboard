@@ -1,3 +1,2 @@
-import { LoginPage } from './view/login';
-
-export { LoginPage };
+export * from './view/login';
+export * from './view/activation';

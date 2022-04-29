@@ -1,14 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { HTMLAttributes } from 'react';
+import { ComponentProps } from 'react';
 
 import { styled } from '@/theme';
 
-const StyledButton = styled('button', {
-  cursor: 'pointer',
-});
+const StyledButton = styled('button', {});
 
 export const BackButton = (
-  backButtonProps: HTMLAttributes<HTMLButtonElement>,
+  backButtonProps: ComponentProps<typeof StyledButton>,
 ) => (
   <StyledButton type="button" {...backButtonProps}>
     <svg
