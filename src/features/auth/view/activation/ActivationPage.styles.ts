@@ -39,6 +39,32 @@ const StyledFooter = styled(Footer, {
   '@desktop': {
     padding: '4rem 0 4rem 12rem',
   },
+  variants: {
+    'mobile-dark': {
+      true: {
+        '@mobile': {
+          backgroundColor: '$backgroundBlack',
+          color: '$textWhite',
+        },
+      },
+    },
+  },
 });
 
-export { StyledMain, StyledContentSection, StyledSplashSection, StyledFooter };
+const StyledMobileSplashSection = styled('section', {
+  background:
+    'linear-gradient(to bottom, $backgroundWhite 50%, $backgroundBlack 50%)',
+  display: 'flex',
+  justifyContent: 'center',
+  '@desktop': {
+    display: 'none',
+  },
+});
+
+export {
+  StyledMain,
+  StyledContentSection,
+  StyledSplashSection,
+  StyledMobileSplashSection,
+  StyledFooter,
+};

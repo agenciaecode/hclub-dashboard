@@ -5,10 +5,13 @@ import Image from 'next/image';
 
 import whiteWalletImage from '../../assets/images/wallet-white-revision-1-1.png';
 
+import whiteWalletMobileImage from './assets/images/white-1.png';
+
 import {
   StyledContentSection,
   StyledFooter,
   StyledMain,
+  StyledMobileSplashSection,
   StyledSplashSection,
 } from './ActivationPage.styles';
 import { AccountForm } from './sections/account-form/AccountForm';
@@ -34,7 +37,15 @@ const ActivationPage = () => {
           ) : (
             <>
               <LoginForm openRegisterForm={toggleRegisterForm} />
-              <StyledFooter />
+              <StyledMobileSplashSection>
+                <Image
+                  src={whiteWalletMobileImage}
+                  alt="Carteira Essencial Branca"
+                  width={298}
+                  height={249}
+                />
+              </StyledMobileSplashSection>
+              <StyledFooter mobile-dark />
             </>
           )}
         </StyledContentSection>
