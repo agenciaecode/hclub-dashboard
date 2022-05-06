@@ -14,7 +14,7 @@ export function useQuery<Data, Error = unknown>(
     optionsQuery = undefined,
   } = options || {};
   const response = useReactQuery<Data, Error>(
-    query,
+    [query, params],
     async () => {
       const { data } = await apiDashboard.get(url, { params });
       return data;

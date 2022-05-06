@@ -1,31 +1,29 @@
-import React, { createContext, useMemo } from 'react';
+import React, { createContext, useMemo, useState } from 'react';
 
-import { ThemeProvider } from 'styled-components';
+import { globalDefaultStyles, defaultTheme } from '../../styles';
 
-import { light } from '../../styles/theme/light';
+import { AppThemeDataContext, AppThemeProps } from './types';
 
-import { DataAppThemeContext, AppThemeProps } from './types';
+export const AppThemeContext = createContext({} as AppThemeDataContext);
 
-export const AppThemeContext = createContext({} as DataAppThemeContext);
+export const AppThemeProvider = ({
+  children,
+}: AppThemeProps): React.ReactElement => {
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
-export const AppTheme = ({ children }: AppThemeProps): React.ReactElement => {
-  const value = useMemo(
+  const configTheme = useMemo(
     () => ({
-      theme: 'light',
+      changeTheme: () => setIsDarkTheme(prevState => !prevState),
+      mode: isDarkTheme ? 'dark' : 'default',
+      theme: isDarkTheme ? undefined : defaultTheme,
     }),
-    [],
+    [isDarkTheme],
   );
 
-  const theme = useMemo(
-    () => ({
-      ...light,
-    }),
-    [],
-  );
-
+  globalDefaultStyles();
   return (
-    <AppThemeContext.Provider value={value}>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+    <AppThemeContext.Provider value={configTheme}>
+      <div className={undefined}>{children}</div>
     </AppThemeContext.Provider>
   );
 };

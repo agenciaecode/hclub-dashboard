@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { ToastContainer, Bounce } from 'react-toastify';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import { AppTheme, GlobalStyle } from '../src/theme';
+import { AppThemeProvider } from '../src/theme';
 import { AuthProvider } from '../src/libs/auth/react';
 
 import { AuthAppProps } from '../src/libs/auth/next/types';
@@ -22,8 +22,7 @@ const App = (props: AuthAppProps) => {
       </Head>
       <QueryClientProvider client={queryClient}>
         <AuthProvider auth={Component.auth}>
-          <AppTheme>
-            <GlobalStyle />
+          <AppThemeProvider>
             <ToastContainer
               limit={3}
               autoClose={5000}
@@ -32,7 +31,7 @@ const App = (props: AuthAppProps) => {
             />
             {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <Component {...pageProps} />
-          </AppTheme>
+          </AppThemeProvider>
         </AuthProvider>
       </QueryClientProvider>
     </>
