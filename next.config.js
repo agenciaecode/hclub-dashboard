@@ -30,6 +30,15 @@ const nextConfig = {
     locales: ['pt-BR'],
     defaultLocale: 'pt-BR',
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/login',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
