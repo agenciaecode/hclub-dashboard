@@ -7,7 +7,6 @@ import { Button } from '@components/forms/button';
 import { TextInput } from '@components/forms/text-input';
 
 import { ForgotPasswordModal } from '../forgot-password-modal';
-import { LoginCredentialsDTO } from '../../api/login';
 
 import {
   StyledForgotPasswordContainer,
@@ -28,7 +27,7 @@ const LoginForm = () => {
     handleSubmit,
     getValues: getFormValues,
     formState: { errors },
-  } = useForm<LoginCredentialsDTO>({
+  } = useForm({
     resolver: yupResolver(loginFormSchema),
   });
 
