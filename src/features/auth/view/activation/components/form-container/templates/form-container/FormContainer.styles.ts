@@ -12,9 +12,10 @@ const StyledContentSection = styled('section', {
   display: 'flex',
   flexGrow: 1,
   alignItems: 'center',
+  justifyContent: 'center',
   padding: '0 3.2rem 3rem',
   '@desktop': {
-    padding: '0 0 3rem 12rem',
+    padding: '0 3.2rem 3rem',
   },
 });
 
@@ -23,6 +24,7 @@ const StyledFormArticle = styled('article', {
   flexDirection: 'column',
   flex: 1,
   gap: '4rem',
+  maxWidth: '60.2rem',
 });
 
 const StyledFormHeader = styled('header', {

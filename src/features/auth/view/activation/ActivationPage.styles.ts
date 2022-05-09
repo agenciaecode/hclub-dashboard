@@ -37,7 +37,7 @@ const StyledSplashSection = styled('section', {
 const StyledFooter = styled(Footer, {
   padding: '4rem',
   '@desktop': {
-    padding: '4rem 0 4rem 12rem',
+    padding: '4rem 0 4rem 0rem',
   },
   variants: {
     'mobile-dark': {
