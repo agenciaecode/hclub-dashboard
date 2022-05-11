@@ -48,6 +48,14 @@ const globalDefaultStyles = globalCss({
       src: 'url("/fonts/raleway/Raleway-Bold.ttf")',
     },
   ],
+  [`input:-webkit-autofill,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:focus`]: {
+    transition: 'background-color 600000s 0s, color 600000s 0s',
+  },
 });
 
 export { globalDefaultStyles };
