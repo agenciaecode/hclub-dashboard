@@ -1,4 +1,5 @@
 import { styled } from '@/theme';
+import { fixAutofillTransition } from '@utils/styles/fix-autofill-transition';
 
 const StyledInputGroup = styled('div', {
   display: 'flex',
@@ -19,7 +20,7 @@ const StyledInputGroup = styled('div', {
     lineHeight: '$base',
     borderRadius: '$base',
     boxShadow: '0 0 0 0.0rem $shadowBlack',
-    transition: 'box-shadow ease-in-out 0.15s',
+    transition: fixAutofillTransition('box-shadow ease-in-out 0.15s'),
     '&:focus': {
       boxShadow: '0 0 0 0.2rem $shadowGray',
     },
