@@ -1,1 +1,1 @@
-export * from './templates/form-container';
+export * from './FormContainer';
