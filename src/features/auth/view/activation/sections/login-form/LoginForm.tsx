@@ -8,14 +8,13 @@ import { Button } from '@components/forms/button';
 import { TextInput } from '@components/forms/text-input';
 
 // eslint-disable-next-line no-restricted-imports
-import { ForgotPasswordModal } from '@features/auth/view/login/sections';
+import { ForgotPasswordModal } from '@features/auth/sections/forgot-password-modal';
 
 import { FormContainer } from '../../components/form-container';
 
 import {
   StyledForgotPasswordContainer,
   StyledFormInputsSections,
-  StyledLogoFigure,
   StyledRegisterButtonContainer,
 } from './LoginForm.styles';
 import { loginFormSchema } from './LoginForm.schema';
