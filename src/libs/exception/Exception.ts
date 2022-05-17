@@ -1,6 +1,7 @@
 /**
  * Custom Error class to be extended by all custom exceptions
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#examples}
+ * @author @extendslcc
  */
 export class Exception extends Error {
   readonly date: Date;
