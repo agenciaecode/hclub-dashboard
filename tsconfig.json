@@ -23,6 +23,7 @@
       "@hooks/*": ["./src/hooks/*"],
       "@styles/*": ["./src/styles/*"],
       "@utils/*": ["./src/utils/*"],
+      "@libs/*": ["./src/libs/*"],
       "@/*": ["./src/*"]
     }
   },
