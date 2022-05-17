@@ -1,18 +1,20 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { InferType } from 'yup';
 import { useRouter } from 'next/router';
 
-import { Button } from '@components/forms/button';
+import { StatusCodes } from 'http-status-codes';
+
 import { TextInput } from '@components/forms/text-input';
 import { BackButton } from '@components/others/back-button';
 import { ControlledCheckbox } from '@components/forms/checkbox';
 import { Label } from '@components/forms/label';
 import { ErrorLabel } from '@components/forms/error-label';
 import { Navbar } from '@components/layout/navbar';
+import { LoadingButton } from '@components/forms/loading-button';
 
 import { FormContainer } from '../../components/form-container';
+import {
+  CreateAccountValidationErrors,
+  useCreateAccountMutation,
+} from '../../api/createAccount';
 
 import {
   HiddenOnDesktop,
@@ -23,28 +25,53 @@ import {
 import { accountFormSchema } from './AccountForm.schema';
 import { IconUser } from './components/icon-user';
 
+import {
+  useFormWithSchema,
+  setFormErrorsFromException,
+} from '@/libs/hook-form';
+import {
+  showToastErrorMessage,
+  showToastSuccessMessage,
+} from '@/libs/toast/showToastMessage';
+import { useHttpExceptionHandler } from '@/services/http/hooks/useHttpExceptionHandler';
+import { handleClientExceptionByStatus } from '@/services/http/default-status-code-handlers';
+
 type AccountFormProps = {
   backToLoginForm: () => void;
 };
-
-type AccountForm = InferType<typeof accountFormSchema>;
 
 const AccountForm = ({ backToLoginForm }: AccountFormProps) => {
   const router = useRouter();
   const { serial } = router.query;
   const {
-    register,
-    handleSubmit,
-    getValues: getFormValues,
-    formState: { errors },
-    control,
-  } = useForm<AccountForm>({
-    resolver: yupResolver(accountFormSchema),
-  });
+    formState: { errors: accountFormErrors },
+    ...accountForm
+  } = useFormWithSchema(accountFormSchema);
+  const createAccountMutation = useCreateAccountMutation();
+
+  useHttpExceptionHandler(createAccountMutation.error, exceptionHandler =>
+    exceptionHandler
+      .setValidationExceptionHandler<CreateAccountValidationErrors>(
+        setFormErrorsFromException(accountForm.setError),
+      )
+      .setClientExceptionHandler(
+        handleClientExceptionByStatus({
+          [StatusCodes.NOT_FOUND]: () =>
+            showToastErrorMessage('Número de série não encontrado'),
+        }),
+      )
+      .executeHandler(),
+  );
+
+  if (createAccountMutation.isSuccess) {
+    backToLoginForm();
+    showToastSuccessMessage(
+      'Conta criada com sucesso! Você já pode realizar o login.',
+    );
+  }
 
   function handleAccountSubmit() {
-    // eslint-disable-next-line no-console
-    console.log('account form values', getFormValues());
+    createAccountMutation.mutate(accountForm.getValues());
   }
 
   //! TODO - restructure this code
@@ -82,7 +109,7 @@ const AccountForm = ({ backToLoginForm }: AccountFormProps) => {
     <FormContainer
       title="Cadastro"
       description="Preencha os campos abaixo para criar sua conta"
-      formSubmitHandler={handleSubmit(handleAccountSubmit)}
+      formSubmitHandler={accountForm.handleSubmit(handleAccountSubmit)}
       headerSlot={Header}
       headerCss={{
         display: 'block',
@@ -98,75 +125,80 @@ const AccountForm = ({ backToLoginForm }: AccountFormProps) => {
           <StyledFormInputsSections>
             <TextInput
               label="Série do Produto"
-              name="serial"
+              name="serial_number"
               placeholder="Insira o número de série do produto"
               type="text"
-              errorMessage={errors.serial?.message}
+              errorMessage={accountFormErrors.serial_number?.message}
               defaultValue={serial as string}
               readOnly
-              register={register}
+              register={accountForm.register}
             />
             <TextInput
               label="Usuário"
               name="username"
               placeholder="Insira o nome de usuário"
               type="text"
-              errorMessage={errors.username?.message}
-              register={register}
+              errorMessage={accountFormErrors.username?.message}
+              register={accountForm.register}
             />
             <TextInput
               label="Seu Nome"
               name="name"
               placeholder="Insira o seu nome"
               type="text"
-              errorMessage={errors.name?.message}
-              register={register}
+              errorMessage={accountFormErrors.name?.message}
+              register={accountForm.register}
             />
             <TextInput
               label="E-mail"
               name="email"
               placeholder="Insira o seu email"
               type="text"
-              errorMessage={errors.email?.message}
-              register={register}
+              errorMessage={accountFormErrors.email?.message}
+              register={accountForm.register}
             />
             <TextInput
               label="Senha"
               name="password"
               placeholder="Crie sua senha"
               type="password"
-              errorMessage={errors.password?.message}
-              register={register}
+              errorMessage={accountFormErrors.password?.message}
+              register={accountForm.register}
             />
             <TextInput
               label="Confirmar Senha"
               name="password_confirmation"
               placeholder="Confirme sua senha"
               type="password"
-              errorMessage={errors.password_confirmation?.message}
-              register={register}
+              errorMessage={accountFormErrors.password_confirmation?.message}
+              register={accountForm.register}
             />
             <div>
               <StyledFlexRow>
-                <ControlledCheckbox name="accept_link" control={control} />
+                <ControlledCheckbox
+                  name="accept_link"
+                  control={accountForm.control}
+                />
                 <Label htmlFor="accept_link">
                   Criar conta e vincular produto.
                 </Label>
               </StyledFlexRow>
               <ErrorLabel
                 htmlFor="accept_link"
-                errorMessage={errors.accept_link?.message}
+                errorMessage={accountFormErrors.accept_link?.message}
               />
             </div>
           </StyledFormInputsSections>
-          <Button
+          <LoadingButton
             type="submit"
             css={{
               marginTop: 'calc(2.4rem - 1.6rem) !important',
             }}
+            isLoading={createAccountMutation.isLoading}
+            isSuccess={createAccountMutation.isSuccess}
           >
-            <span>Criar a minha conta</span>
-          </Button>
+            Criar a minha conta
+          </LoadingButton>
         </>
       }
     />

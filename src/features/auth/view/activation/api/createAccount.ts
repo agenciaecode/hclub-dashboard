@@ -1,8 +1,8 @@
 // eslint-disable-next-line max-classes-per-file
 import { useMutation } from 'react-query';
 
-import { http } from '@/services/http/AxiosHttpClient';
-import { ValidationError } from '@/services/http/HttpException';
+import { ValidationError } from '@libs/http/HttpException';
+import { http } from '@/services/http/api-client';
 
 type CreateAccountInput = {
   serial_number: string;

@@ -3,7 +3,9 @@ import { yup } from '@/libs/yup';
 
 export const accountFormSchema = yup
   .object({
-    serial: yup.string().required('O número de série do produto é obrigatório'),
+    serial_number: yup
+      .string()
+      .required('O número de série do produto é obrigatório'),
     username: yup
       .string()
       .matches(
@@ -22,9 +24,11 @@ export const accountFormSchema = yup
       .required('A senha é obrigatória'),
     password_confirmation: yup
       .string()
-      .oneOf([yup.ref('password'), null], 'As senhas não conferem'),
+      .oneOf([yup.ref('password'), null], 'As senhas não conferem')
+      .required('A confirmação de senha é obrigatória'),
     accept_link: yup
       .bool()
-      .oneOf([true], 'Você não pode criar a conta sem vincular um produto'),
+      .oneOf([true], 'Você não pode criar a conta sem vincular um produto')
+      .required('Você deve aceitar o vínculo do produto'),
   })
   .required();
