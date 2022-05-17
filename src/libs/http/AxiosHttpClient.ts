@@ -1,5 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios from 'axios';
+import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import {
   ClientHttpException,
@@ -10,10 +11,14 @@ import {
 } from './HttpException';
 import { HttpClient } from './HttpClient';
 
-import { apiDashboard } from '@/services/app';
-
 // # TODO: Apply DRY principle
 
+/**
+ * Axios HttpClient implementation, wrapping all possible errors into HttpExceptions
+ * Use it to fetch http requests and get better error handling and better type inferring
+ * @see {@link https://github.com/axios/axios}
+ * @author @extendslcc
+ */
 class AxiosHttpClient implements HttpClient {
   constructor(protected readonly httpClient: AxiosInstance) {}
 
@@ -108,6 +113,11 @@ class AxiosHttpClient implements HttpClient {
   }
 }
 
+/**
+ * Create specific HttpException subclass accordingly given error data.
+ * Returning error can be used for type narrowing the error that has occurred.
+ * @author @extendslcc
+ */
 abstract class HttpExceptionFactory {
   static createFrom(error: unknown) {
     if (axios.isAxiosError(error) && error.response) {
@@ -152,4 +162,4 @@ abstract class HttpExceptionFactory {
   }
 }
 
-export const http = new AxiosHttpClient(apiDashboard);
+export { AxiosHttpClient, HttpExceptionFactory };

@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { Exception } from '@utils/error/exception';
+import { Exception } from '@libs/exception';
 
 export type HttpExceptionParams<Details = unknown> = {
   statusCode?: StatusCodes;
@@ -17,6 +17,10 @@ export type DefaultExceptionResponseBody<DetailsShape = unknown> = {
   };
 };
 
+/**
+ * Base Http Exception to be extended to narrow more specific exceptions types
+ * @author @extendslcc
+ */
 export abstract class HttpException<
   ExceptionDetails = unknown,
 > extends Exception {
@@ -52,6 +56,7 @@ export class OfflineException extends HttpException {}
  * throws if request returned 4xx status code - except status code 422
  */
 export class ClientHttpException extends HttpException {}
+
 /**
  * ServerHttpException exception
  * should throw if request failed because of server error

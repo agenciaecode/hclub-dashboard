@@ -1,3 +1,7 @@
+/**
+ * Http Client api contract
+ * @author @extendslcc
+ */
 export interface HttpClient {
   get<ResponsePayload, RequestConfig = unknown>(
     url: string,
