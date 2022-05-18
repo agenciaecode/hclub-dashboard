@@ -14,10 +14,10 @@ const PresetModal = ({ triggerButton, children }: ModalProps) => (
     <Modal.Portal>
       <StyledOverlay>
         <StyledContent>
-          {children}
           <Modal.Close asChild>
             <ModalCloseButton />
           </Modal.Close>
+          {children}
         </StyledContent>
       </StyledOverlay>
     </Modal.Portal>
