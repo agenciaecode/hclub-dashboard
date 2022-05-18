@@ -18,5 +18,6 @@ export const useHttpExceptionHandler = <Error = unknown>(
     if (notNullish(error)) {
       effect(factory(error));
     }
-  }, [error, effect, factory]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error]);
 };
