@@ -7,6 +7,7 @@ const StyledCloseButton = styled(Button, {
   height: 40,
   width: 40,
   margin: '1rem',
+  marginTop: 0,
   padding: 0,
   display: 'inline-flex',
   alignItems: 'center',
