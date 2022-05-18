@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
 
+import { LoginForm } from '../../sections/login-form';
 import whiteWalletImage from '../../assets/images/wallet-white-revision-1-1.png';
 
 import {
@@ -9,8 +10,6 @@ import {
   StyledMain,
   StyledSplashSection,
 } from './LoginPage.styles';
-
-import { LoginForm } from './sections';
 
 const LoginPage = () => (
   <>

@@ -12,7 +12,7 @@ import { LoadingButton } from '@components/forms/loading-button';
 
 import { useSuccessEffect } from '@hooks/useSuccessEffect';
 
-import { FormContainer } from '../../components/form-container';
+import { FormContainer } from '../../../../components/form-container';
 import {
   CreateAccountValidationErrors,
   useCreateAccountMutation,
