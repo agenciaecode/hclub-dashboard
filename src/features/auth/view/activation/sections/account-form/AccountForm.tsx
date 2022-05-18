@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-
 import { StatusCodes } from 'http-status-codes';
+import { sleep } from '@antfu/utils';
 
 import { TextInput } from '@components/forms/text-input';
 import { BackButton } from '@components/others/back-button';
@@ -9,6 +9,8 @@ import { Label } from '@components/forms/label';
 import { ErrorLabel } from '@components/forms/error-label';
 import { Navbar } from '@components/layout/navbar';
 import { LoadingButton } from '@components/forms/loading-button';
+
+import { useSuccessEffect } from '@hooks/useSuccessEffect';
 
 import { FormContainer } from '../../components/form-container';
 import {
@@ -56,19 +58,19 @@ const AccountForm = ({ backToLoginForm }: AccountFormProps) => {
       )
       .setClientExceptionHandler(
         handleClientExceptionByStatus({
-          [StatusCodes.NOT_FOUND]: () =>
-            showToastErrorMessage('Número de série não encontrado'),
+          [StatusCodes.BAD_REQUEST]: () =>
+            showToastErrorMessage('Número de série inválido'),
         }),
       )
       .executeHandler(),
   );
 
-  if (createAccountMutation.isSuccess) {
-    backToLoginForm();
+  useSuccessEffect(createAccountMutation.isSuccess, () => {
     showToastSuccessMessage(
       'Conta criada com sucesso! Você já pode realizar o login.',
     );
-  }
+    sleep(500, () => backToLoginForm());
+  });
 
   function handleAccountSubmit() {
     createAccountMutation.mutate(accountForm.getValues());
