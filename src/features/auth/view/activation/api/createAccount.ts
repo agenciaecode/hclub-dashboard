@@ -28,7 +28,16 @@ function createAccount(
 
 const useCreateAccountMutation = () => useMutation(createAccount);
 
-export { useCreateAccountMutation };
+const accountErrorCodes = {
+  /**
+   * Device serial was not found or already registered
+   * @statusCode 404
+   * @see {@link https://github.com/agenciaecode/hman/tree/develop/docs/Errors#devicenotactivatednotfoundexception}
+   */
+  NO_DEVICE: '10250',
+} as const;
+
+export { useCreateAccountMutation, accountErrorCodes };
 export type {
   CreateAccountInput,
   CreateAccountOutput,

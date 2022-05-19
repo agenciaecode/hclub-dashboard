@@ -14,6 +14,7 @@ import { useSuccessEffect } from '@hooks/useSuccessEffect';
 
 import { FormContainer } from '../../../../components/form-container';
 import {
+  accountErrorCodes,
   CreateAccountValidationErrors,
   useCreateAccountMutation,
 } from '../../api/createAccount';
@@ -36,7 +37,10 @@ import {
   showToastSuccessMessage,
 } from '@/libs/toast/showToastMessage';
 import { useHttpExceptionHandler } from '@/services/http/hooks/useHttpExceptionHandler';
-import { handleClientExceptionByStatus } from '@/services/http/default-status-code-handlers';
+import {
+  handleApiCode,
+  handleClientExceptionByStatus,
+} from '@/services/http/default-status-code-handlers';
 
 type AccountFormProps = {
   backToLoginForm: () => void;
@@ -58,8 +62,10 @@ const AccountForm = ({ backToLoginForm }: AccountFormProps) => {
       )
       .setClientExceptionHandler(
         handleClientExceptionByStatus({
-          [StatusCodes.BAD_REQUEST]: () =>
-            showToastErrorMessage('Número de série inválido'),
+          [StatusCodes.NOT_FOUND]: clientException =>
+            handleApiCode(accountErrorCodes.NO_DEVICE, clientException, () =>
+              showToastErrorMessage('Número de série do produto é inválido'),
+            ),
         }),
       )
       .executeHandler(),
