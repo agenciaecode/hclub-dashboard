@@ -55,7 +55,22 @@ export class OfflineException extends HttpException {}
  * should throw if request failed because of client input error
  * throws if request returned 4xx status code - except status code 422
  */
-export class ClientHttpException extends HttpException {}
+export class ClientHttpException<
+  ExceptionDetails extends DefaultExceptionResponseBody = DefaultExceptionResponseBody,
+> extends HttpException {
+  readonly details?: ExceptionDetails;
+  readonly code?: string;
+
+  constructor({
+    statusCode,
+    message,
+    previous,
+    details,
+  }: HttpExceptionParams<ExceptionDetails>) {
+    super({ statusCode, message, previous, details });
+    this.code = details?.error?.code;
+  }
+}
 
 /**
  * ServerHttpException exception
@@ -68,12 +83,13 @@ export type ValidationObject = {
   [fieldName: string]: string[];
 };
 
-type ExceptionResponseBody<ValidationShape extends ValidationObject> = {
-  error: {
-    message: string;
-    details: ValidationShape;
+type ValidationExceptionResponseBody<ValidationShape extends ValidationObject> =
+  {
+    error: {
+      message: string;
+      details: ValidationShape;
+    };
   };
-};
 
 export type ValidationError<InputType> = {
   [field in keyof InputType]?: string[];
@@ -94,7 +110,7 @@ export class ValidationHttpException<
     message,
     previous,
     details,
-  }: HttpExceptionParams<ExceptionResponseBody<ValidationShape>> & {
+  }: HttpExceptionParams<ValidationExceptionResponseBody<ValidationShape>> & {
     details: ValidationShape;
   }) {
     super({ statusCode, message, previous });
