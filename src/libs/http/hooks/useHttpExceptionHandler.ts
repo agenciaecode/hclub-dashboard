@@ -9,7 +9,7 @@ import {
 
 export const useHttpExceptionHandler = <Error = unknown>(
   error: Error,
-  effect: (httpException: HttpExceptionHandlerBuilder) => void,
+  effect: (exceptionHandler: HttpExceptionHandlerBuilder) => void,
   factory: (
     errorOrigin: Error,
   ) => HttpExceptionHandlerBuilder = fromHttpException,

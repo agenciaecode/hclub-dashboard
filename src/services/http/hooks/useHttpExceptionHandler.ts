@@ -4,7 +4,7 @@ import { useHttpExceptionHandler } from '@libs/http/hooks/useHttpExceptionHandle
 
 const useHttpExceptionHandlerWithDefaults = <Error = unknown>(
   error: Error,
-  effect: (httpException: HttpExceptionHandlerBuilder) => void,
+  effect: (exceptionHandler: HttpExceptionHandlerBuilder) => void,
 ) => {
   useHttpExceptionHandler(error, effect, fromHttpException);
 };
