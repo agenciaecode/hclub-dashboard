@@ -1,12 +1,17 @@
 import React from 'react';
 
 import Image from 'next/image';
+import { StatusCodes } from 'http-status-codes';
 
 import { TextInput } from '@components/forms/text-input';
 import { LoadingButton } from '@components/forms/loading-button';
 
+import { useSuccessEffect } from '@hooks/useSuccessEffect';
+
 import { ForgotPasswordModal } from '../forgot-password-modal';
 import { FormContainer } from '../../components/form-container';
+
+import { LoginValidationErrors, useLoginMutation } from './api/login';
 
 import {
   StyledForgotPasswordContainer,
@@ -16,17 +21,44 @@ import { loginFormSchema } from './LoginForm.schema';
 
 import logoImage from '@assets/images/logo-hman-black.svg';
 import { WithChildren } from '@/types/with-children';
-import { useFormWithSchema } from '@libs/hook-form';
+import { setFormErrorsFromException, useFormWithSchema } from '@libs/hook-form';
+import {
+  showToastErrorMessage,
+  showToastSuccessMessage,
+} from '@libs/toast/showToastMessage';
+import { useHttpExceptionHandler } from '@/services/http/hooks/useHttpExceptionHandler';
+import { handleClientExceptionByStatus } from '@/services/http/default-status-code-handlers';
 
 const LoginForm = ({ children }: WithChildren) => {
+  const loginMutation = useLoginMutation();
   const {
     formState: { errors: loginFormErrors },
     ...loginForm
   } = useFormWithSchema(loginFormSchema);
 
-  async function handleLoginSubmit() {
-    // eslint-disable-next-line no-console
-    console.log('Login submit', loginForm.getValues());
+  useHttpExceptionHandler(loginMutation.error, exceptionHandler =>
+    exceptionHandler
+      .setValidationExceptionHandler<LoginValidationErrors>(
+        setFormErrorsFromException(loginForm.setError),
+      )
+      .setClientExceptionHandler(
+        handleClientExceptionByStatus({
+          [StatusCodes.BAD_REQUEST]: () =>
+            showToastErrorMessage(
+              'Credenciais informadas não correspondem com nossos registros.',
+            ),
+        }),
+      )
+      .executeHandler(),
+  );
+
+  useSuccessEffect(loginMutation.isSuccess, () => {
+    showToastSuccessMessage('Login realizado com sucesso!');
+  });
+
+  function handleLoginSubmit() {
+    if (loginMutation.isLoading) return;
+    loginMutation.mutate(loginForm.getValues());
   }
 
   return (
@@ -60,7 +92,10 @@ const LoginForm = ({ children }: WithChildren) => {
           <StyledForgotPasswordContainer>
             <ForgotPasswordModal />
           </StyledForgotPasswordContainer>
-          <LoadingButton isLoading={false} isSuccess={false}>
+          <LoadingButton
+            isLoading={loginMutation.isLoading}
+            isSuccess={loginMutation.isSuccess}
+          >
             Entrar
           </LoadingButton>
           {children}
