@@ -39,4 +39,19 @@ function handleClientExceptionByStatusWithDefaults<
   });
 }
 
-export { handleClientExceptionByStatusWithDefaults as handleClientExceptionByStatus };
+function handleApiCode(
+  code: string,
+  clientException: ClientHttpException,
+  handler: () => void,
+) {
+  if (code === clientException.code) {
+    handler();
+    return;
+  }
+  defaultStatusCodeHandler.default?.(clientException);
+}
+
+export {
+  handleClientExceptionByStatusWithDefaults as handleClientExceptionByStatus,
+  handleApiCode,
+};
