@@ -79,6 +79,7 @@ const AccountForm = ({ backToLoginForm }: AccountFormProps) => {
   });
 
   function handleAccountSubmit() {
+    if (createAccountMutation.isLoading) return;
     createAccountMutation.mutate(accountForm.getValues());
   }
 
