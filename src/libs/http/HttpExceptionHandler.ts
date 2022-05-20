@@ -96,7 +96,7 @@ class HttpExceptionHandler implements HttpExceptionHandlerBuilder {
   executeHandler(): void {
     this.exceptionsHandlersMap.forEach((handler, exception) => {
       if (handler && this.httpException instanceof exception) {
-        (handler as any)(this.httpException);
+        (handler as unknown)(this.httpException);
       }
     });
   }
