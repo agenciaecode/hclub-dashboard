@@ -96,6 +96,8 @@ class HttpExceptionHandler implements HttpExceptionHandlerBuilder {
   executeHandler(): void {
     this.exceptionsHandlersMap.forEach((handler, exception) => {
       if (handler && this.httpException instanceof exception) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         (handler as unknown)(this.httpException);
       }
     });
