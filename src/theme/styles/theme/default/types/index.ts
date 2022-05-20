@@ -1,4 +1,5 @@
 import { ConfigType } from '@stitches/react/types/config';
+
 import { Colors } from '../colors/types';
 import { Fonts, FontSizes, FontWeights, LineHeights } from '../fonts/types';
 

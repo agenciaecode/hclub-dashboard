@@ -2,14 +2,10 @@ import Router from 'next/router';
 
 import { mutate } from 'swr';
 
-import { fetchApi } from '../../../utils/fetch';
-
 import { SIGN_IN, SESSION } from '../../../constants/routes';
-
 import { filteredErrorData } from '../../../utils/error';
-
+import { fetchApi } from '../../../utils/fetch';
 import { signInSchema } from './schemas';
-
 import { Options, BodyData, SignInResponse } from './types';
 
 export async function signIn<T>(

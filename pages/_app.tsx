@@ -1,12 +1,12 @@
 import Head from 'next/head';
 
-import { ToastContainer, Bounce } from 'react-toastify';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ToastContainer, Bounce } from 'react-toastify';
 
-import { AppThemeProvider } from '../src/theme';
-import { AuthProvider } from '../src/libs/auth/react';
+import { AuthAppProps } from '@libs/auth/next/types';
+import { AuthProvider } from '@libs/auth/react';
 
-import { AuthAppProps } from '../src/libs/auth/next/types';
+import { AppThemeProvider } from '@/theme';
 
 import 'react-toastify/dist/ReactToastify.css';
 

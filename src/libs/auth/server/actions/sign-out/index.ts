@@ -1,9 +1,8 @@
-import { removeSession } from '../../session';
 import {
   PREFIX_BASE_AUTH,
   PREFIX_BASE_PERMISSION,
 } from '../../../constants/session';
-
+import { removeSession } from '../../session';
 import { signOut } from './types';
 
 export async function signOut(props: signOut) {

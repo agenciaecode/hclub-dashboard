@@ -1,13 +1,9 @@
+import { useRouter } from 'next/router';
 import React, { createContext, useCallback, useMemo } from 'react';
 
-import { useRouter } from 'next/router';
-
-import { useFetcherCache } from '../../hooks/useFetcherCache';
-
 import { SESSION } from '../../../constants/routes';
-
 import { AuthSessionResponse } from '../../../server/types';
-
+import { useFetcherCache } from '../../hooks/useFetcherCache';
 import { AuthContextProps, AuthProviderProps } from './types';
 
 export const AuthContext = createContext({} as AuthContextProps);

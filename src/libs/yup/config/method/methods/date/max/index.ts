@@ -1,6 +1,5 @@
-import isMatch from 'date-fns/isMatch';
 import isBefore from 'date-fns/isBefore';
-
+import isMatch from 'date-fns/isMatch';
 import { BaseSchema } from 'yup';
 
 function dateEUA(value: string): string {

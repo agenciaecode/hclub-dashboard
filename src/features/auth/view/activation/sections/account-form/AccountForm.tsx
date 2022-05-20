@@ -1,16 +1,26 @@
 import { useRouter } from 'next/router';
-import { StatusCodes } from 'http-status-codes';
+
 import { sleep } from '@antfu/utils';
+import { StatusCodes } from 'http-status-codes';
 
-import { TextInput } from '@components/forms/text-input';
-import { BackButton } from '@components/others/back-button';
 import { ControlledCheckbox } from '@components/forms/checkbox';
-import { Label } from '@components/forms/label';
 import { ErrorLabel } from '@components/forms/error-label';
-import { Navbar } from '@components/layout/navbar';
+import { Label } from '@components/forms/label';
 import { LoadingButton } from '@components/forms/loading-button';
-
+import { TextInput } from '@components/forms/text-input';
+import { Navbar } from '@components/layout/navbar';
+import { BackButton } from '@components/others/back-button';
 import { useSuccessEffect } from '@hooks/useSuccessEffect';
+import { useFormWithSchema, setFormErrorsFromException } from '@libs/hook-form';
+import {
+  showToastErrorMessage,
+  showToastSuccessMessage,
+} from '@libs/toast/showToastMessage';
+import {
+  handleApiCode,
+  handleClientExceptionByStatus,
+} from '@services/http/default-status-code-handlers';
+import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
 
 import { FormContainer } from '../../../../components/form-container';
 import {
@@ -18,29 +28,14 @@ import {
   CreateAccountValidationErrors,
   useCreateAccountMutation,
 } from '../../api/createAccount';
-
+import { accountFormSchema } from './AccountForm.schema';
 import {
   HiddenOnDesktop,
   StyledFlexRow,
   StyledFormInputsSections,
   StyledHeader,
 } from './AccountForm.styles';
-import { accountFormSchema } from './AccountForm.schema';
 import { IconUser } from './components/icon-user';
-
-import {
-  useFormWithSchema,
-  setFormErrorsFromException,
-} from '@/libs/hook-form';
-import {
-  showToastErrorMessage,
-  showToastSuccessMessage,
-} from '@/libs/toast/showToastMessage';
-import { useHttpExceptionHandler } from '@/services/http/hooks/useHttpExceptionHandler';
-import {
-  handleApiCode,
-  handleClientExceptionByStatus,
-} from '@/services/http/default-status-code-handlers';
 
 type AccountFormProps = {
   backToLoginForm: () => void;

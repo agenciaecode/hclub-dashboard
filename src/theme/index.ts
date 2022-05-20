@@ -1,8 +1,5 @@
 import { AppThemeProvider } from './contexts/app-theme';
 import { useTheme } from './hooks/useTheme';
-
-import { globalDefaultStyles } from './styles';
-
 import {
   styled,
   css,
@@ -12,6 +9,7 @@ import {
   configTheme,
   theme,
 } from './stitches';
+import { globalDefaultStyles } from './styles';
 
 export {
   configTheme,

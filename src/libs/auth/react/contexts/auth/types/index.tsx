@@ -1,12 +1,11 @@
 import { ReactNode } from 'react';
 
+import { AuthOptions } from '../../../../next/types';
 import {
   AuthSession,
   SessionPermission,
   SessionUser,
 } from '../../../../server/types';
-
-import { AuthOptions } from '../../../../next/types';
 
 export interface AuthProviderProps {
   children: ReactNode;

@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import Image from 'next/image';
 
-import { LoginForm } from '../../sections/login-form';
 import whiteWalletImage from '../../assets/images/wallet-white-revision-1-1.png';
 
+import { LoginForm } from '../../sections/login-form';
 import {
   StyledContentSection,
   StyledFooter,

@@ -2,16 +2,11 @@ import { GetServerSidePropsContext } from 'next';
 
 import { parse } from 'cookie';
 
-import { fetchApi } from '../../../utils/fetch';
-
-import { getPropertyDescriptorForReqSession } from '../../../utils/property-descriptor-session';
-
 import { SESSION } from '../../../constants/routes';
-
 import { AuthSessionResponse } from '../../../server/types';
-
+import { fetchApi } from '../../../utils/fetch';
+import { getPropertyDescriptorForReqSession } from '../../../utils/property-descriptor-session';
 import { AuthOptions } from '../../types';
-
 import { Handler, ServerSideSessionPropsResult } from './types';
 
 function redirect(url: string) {

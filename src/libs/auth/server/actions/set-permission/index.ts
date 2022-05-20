@@ -1,8 +1,7 @@
-import { setSession } from '../../session';
 import { PREFIX_BASE_PERMISSION } from '../../../constants/session';
 import { filteredErrorData } from '../../../utils/error';
+import { setSession } from '../../session';
 import { defaultMaxAge } from '../../utils/cookie';
-
 import { SetPermissionProps } from './types';
 
 export async function setPermission(props: SetPermissionProps) {

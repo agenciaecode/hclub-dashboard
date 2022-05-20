@@ -1,33 +1,31 @@
+import Image from 'next/image';
 import React from 'react';
 
-import Image from 'next/image';
 import { StatusCodes } from 'http-status-codes';
 
-import { TextInput } from '@components/forms/text-input';
 import { LoadingButton } from '@components/forms/loading-button';
-
+import { TextInput } from '@components/forms/text-input';
 import { useSuccessEffect } from '@hooks/useSuccessEffect';
-
-import { ForgotPasswordModal } from '../forgot-password-modal';
-import { FormContainer } from '../../components/form-container';
-
-import { LoginValidationErrors, useLoginMutation } from './api/login';
-
-import {
-  StyledForgotPasswordContainer,
-  StyledFormInputsSections,
-} from './LoginForm.styles';
-import { loginFormSchema } from './LoginForm.schema';
-
-import logoImage from '@assets/images/logo-hman-black.svg';
-import { WithChildren } from '@/types/with-children';
 import { setFormErrorsFromException, useFormWithSchema } from '@libs/hook-form';
 import {
   showToastErrorMessage,
   showToastSuccessMessage,
 } from '@libs/toast/showToastMessage';
-import { useHttpExceptionHandler } from '@/services/http/hooks/useHttpExceptionHandler';
-import { handleClientExceptionByStatus } from '@/services/http/default-status-code-handlers';
+import { handleClientExceptionByStatus } from '@services/http/default-status-code-handlers';
+import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
+
+import { WithChildren } from '@/types/with-children';
+
+import logoImage from '@assets/images/logo-hman-black.svg';
+
+import { FormContainer } from '../../components/form-container';
+import { ForgotPasswordModal } from '../forgot-password-modal';
+import { LoginValidationErrors, useLoginMutation } from './api/login';
+import { loginFormSchema } from './LoginForm.schema';
+import {
+  StyledForgotPasswordContainer,
+  StyledFormInputsSections,
+} from './LoginForm.styles';
 
 const LoginForm = ({ children }: WithChildren) => {
   const loginMutation = useLoginMutation();

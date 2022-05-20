@@ -3,12 +3,9 @@ import { NextApiResponse } from 'next';
 
 import Iron from '@hapi/iron';
 
-import { defaultMaxAge, setCookie } from '../../utils/cookie';
-
 import { PREFIX_BASE_SESSION } from '../../../constants/session';
-
+import { defaultMaxAge, setCookie } from '../../utils/cookie';
 import { OptionsCookie } from '../../utils/cookie/types';
-
 import { Session } from './types';
 
 const PASSWORD = process.env.AUTH_COOKIE_PASSWORD;

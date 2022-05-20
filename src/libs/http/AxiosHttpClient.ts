@@ -1,7 +1,8 @@
-import { StatusCodes } from 'http-status-codes';
 import axios from 'axios';
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { StatusCodes } from 'http-status-codes';
 
+import { HttpClient } from './HttpClient';
 import {
   ClientHttpException,
   OfflineException,
@@ -9,7 +10,6 @@ import {
   UnpredictedException,
   ValidationHttpException,
 } from './HttpException';
-import { HttpClient } from './HttpClient';
 
 // # TODO: Apply DRY principle
 

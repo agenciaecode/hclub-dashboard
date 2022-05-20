@@ -2,8 +2,8 @@ import { NextApiRequest } from 'next';
 
 import Iron from '@hapi/iron';
 
-import { getCookie } from '../../utils/cookie/index';
 import { PREFIX_BASE_SESSION } from '../../../constants/session';
+import { getCookie } from '../../utils/cookie/index';
 
 const PASSWORD = process.env.AUTH_COOKIE_PASSWORD;
 

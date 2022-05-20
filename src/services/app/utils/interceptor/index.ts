@@ -1,12 +1,12 @@
 import * as Sentry from '@sentry/browser';
-import { CookieSerializeOptions } from 'cookie';
-import { destroyCookie } from 'nookies';
 import {
   AxiosError,
   AxiosPromise,
   AxiosRequestConfig,
   AxiosResponse,
 } from 'axios';
+import { CookieSerializeOptions } from 'cookie';
+import { destroyCookie } from 'nookies';
 
 import {
   PREFIX_BASE_AUTH,

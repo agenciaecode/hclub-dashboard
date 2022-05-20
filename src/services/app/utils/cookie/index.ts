@@ -1,9 +1,9 @@
+import { CookieSerializeOptions } from 'cookie';
 import {
   destroyCookie,
   parseCookies,
   setCookie as setNookiesCookie,
 } from 'nookies';
-import { CookieSerializeOptions } from 'cookie';
 
 import { SESSION_TOKEN_REQUEST } from '../../constants';
 

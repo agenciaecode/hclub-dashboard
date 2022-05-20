@@ -1,10 +1,10 @@
 import { createStitches } from '@stitches/react';
 import mapValues from 'lodash.mapvalues';
 
-import { defaultTheme } from '../../styles/theme';
-
-import { utils } from '@/theme/styles/theme/default/utils';
 import { breakpoints } from '@/theme/styles/theme/default/breakpoints';
+import { utils } from '@/theme/styles/theme/default/utils';
+
+import { defaultTheme } from '../../styles/theme';
 
 const { mobile, ...minBreakpoints } = breakpoints;
 

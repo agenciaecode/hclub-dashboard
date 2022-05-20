@@ -1,10 +1,8 @@
-import { useState } from 'react';
-
 import Head from 'next/head';
 import Image from 'next/image';
+import { useState } from 'react';
 
 import whiteWalletImage from '../../assets/images/wallet-white-revision-1-1.png';
-
 import whiteWalletMobileImage from './assets/images/white-1.png';
 
 import {
@@ -14,8 +12,8 @@ import {
   StyledMobileSplashSection,
   StyledSplashSection,
 } from './ActivationPage.styles';
-import { AccountForm } from './sections/account-form/AccountForm';
 import { LoginForm } from './sections';
+import { AccountForm } from './sections/account-form/AccountForm';
 
 const ActivationPage = () => {
   const [isRegistering, setIsRegistering] = useState(false);

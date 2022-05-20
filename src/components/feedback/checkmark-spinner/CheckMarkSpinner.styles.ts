@@ -1,6 +1,6 @@
-import { StyledSpinner as OriginalStyledSpinner } from '../spinner/Spinner.styles';
-
 import { keyframes, styled } from '@/theme';
+
+import { StyledSpinner as OriginalStyledSpinner } from '../spinner/Spinner.styles';
 
 const growCircleAnimation = keyframes({
   '0%': {

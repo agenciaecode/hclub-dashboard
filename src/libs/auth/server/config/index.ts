@@ -2,17 +2,16 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import Cors from 'cors';
 
-import { signIn, signOut, setPermission, session } from '../actions';
 import {
   PREFIX_SESSION,
   PREFIX_SET_PERMISSION,
   PREFIX_SIGN_IN,
   PREFIX_SIGN_OUT,
 } from '../../constants/routes';
-
-import { initMiddleware } from './utils/cors';
-import { absoluteUrl } from './utils/absolute-url';
+import { signIn, signOut, setPermission, session } from '../actions';
 import { Auth, AuthConfig } from './types';
+import { absoluteUrl } from './utils/absolute-url';
+import { initMiddleware } from './utils/cors';
 
 const baseUrl = process.env.AUTH_APP_URL;
 

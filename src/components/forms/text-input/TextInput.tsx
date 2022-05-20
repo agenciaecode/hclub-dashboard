@@ -2,8 +2,8 @@ import { HTMLInputTypeAttribute } from 'react';
 
 import { FieldValue, FieldValues, UseFormRegister } from 'react-hook-form';
 
-import { Label } from '@components/forms/label';
 import { ErrorLabel } from '@components/forms/error-label';
+import { Label } from '@components/forms/label';
 
 import { StyledInputGroup } from './TextInput.styles';
 

@@ -1,11 +1,8 @@
 import Router from 'next/router';
 
-import { fetchApi } from '../../../utils/fetch';
-
 import { SIGN_OUT } from '../../../constants/routes';
-
 import { filteredErrorData } from '../../../utils/error';
-
+import { fetchApi } from '../../../utils/fetch';
 import { Options, SignOutResponse } from './types';
 
 export async function signOut(options: Options): Promise<SignOutResponse> {

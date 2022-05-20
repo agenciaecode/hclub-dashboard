@@ -8,7 +8,6 @@ import {
   StyledAlertDialogTitle,
   StyledOverlay,
 } from '../../PrimitiveAlertDialog.styles';
-
 import { FlexRow, StyledButton } from './Alert.styles';
 
 type AlertProps = {

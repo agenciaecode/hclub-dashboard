@@ -1,8 +1,7 @@
-import { setSession } from '../../session';
 import { PREFIX_BASE_AUTH } from '../../../constants/session';
 import { filteredErrorData } from '../../../utils/error';
+import { setSession } from '../../session';
 import { defaultMaxAge } from '../../utils/cookie';
-
 import { signInSchema } from './schemas';
 import { Login, SignInProps } from './types';
 

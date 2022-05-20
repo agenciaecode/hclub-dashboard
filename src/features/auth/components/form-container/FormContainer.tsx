@@ -1,5 +1,7 @@
 import { CSS } from '@stitches/react';
 
+import { configTheme } from '@/theme';
+
 import {
   StyledContentHeader,
   StyledContentSection,
@@ -7,8 +9,6 @@ import {
   StyledFormArticle,
   StyledFormHeader,
 } from './FormContainer.styles';
-
-import { configTheme } from '@/theme';
 
 type FormContainerProps = {
   title: string;

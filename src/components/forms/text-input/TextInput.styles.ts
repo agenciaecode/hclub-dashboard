@@ -1,5 +1,6 @@
-import { styled } from '@/theme';
 import { fixAutofillTransition } from '@utils/styles/fix-autofill-transition';
+
+import { styled } from '@/theme';
 
 const StyledInputGroup = styled('div', {
   display: 'flex',

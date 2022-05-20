@@ -1,16 +1,15 @@
-import { getSession } from '../../session';
-import { getPropertyDescriptorForReqSession } from '../../../utils/property-descriptor-session';
 import {
   PREFIX_BASE_AUTH,
   PREFIX_BASE_PERMISSION,
 } from '../../../constants/session';
+import { getPropertyDescriptorForReqSession } from '../../../utils/property-descriptor-session';
 import {
   AuthConfigAuthentication,
   AuthConfigPermission,
   PublicPages,
 } from '../../config/types';
+import { getSession } from '../../session';
 import { Session, SessionUser, SessionPermission } from '../../types';
-
 import { SessionProps } from './types';
 
 function isPublicPage(

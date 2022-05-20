@@ -1,21 +1,20 @@
 import { StatusCodes } from 'http-status-codes';
 
+import { LoadingButton } from '@components/forms/loading-button';
 import { TextInput } from '@components/forms/text-input';
 import { Alert } from '@components/overlay/alert-dialog';
 import { DescriptiveModal } from '@components/overlay/modal';
-import { LoadingButton } from '@components/forms/loading-button';
+import { setFormErrorsFromException, useFormWithSchema } from '@libs/hook-form';
+import { showToastErrorMessage } from '@libs/toast/showToastMessage';
+import { handleClientExceptionByStatus } from '@services/http/default-status-code-handlers';
+import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
+import { stopPropagation } from '@utils/events/stop-propagation';
 
-import { forgotPasswordFormSchema } from './ForgotPasswordForm.schema';
 import {
   RecoverPasswordValidationErrors,
   useRecoverPasswordMutation,
 } from './api/recoverPassword';
-
-import { setFormErrorsFromException, useFormWithSchema } from '@libs/hook-form';
-import { showToastErrorMessage } from '@libs/toast/showToastMessage';
-import { stopPropagation } from '@utils/events/stop-propagation';
-import { useHttpExceptionHandler } from '@/services/http/hooks/useHttpExceptionHandler';
-import { handleClientExceptionByStatus } from '@/services/http/default-status-code-handlers';
+import { forgotPasswordFormSchema } from './ForgotPasswordForm.schema';
 
 const ForgotPasswordModal = () => {
   const recoveryPasswordForm = useFormWithSchema(forgotPasswordFormSchema);
