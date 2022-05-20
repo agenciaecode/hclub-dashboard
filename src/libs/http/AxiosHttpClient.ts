@@ -149,7 +149,8 @@ abstract class HttpExceptionFactory {
         });
       }
     }
-    if (!window.navigator.onLine) {
+    if (window?.navigator?.onLine && !window.navigator.onLine) {
+      // check if property exists and is false to prevent server-side errors
       return new OfflineException({
         message: 'AxiosHttpClient request failed maybe because you are offline',
         previous: error as Error,
