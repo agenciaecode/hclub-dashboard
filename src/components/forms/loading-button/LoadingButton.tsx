@@ -1,24 +1,35 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
+
 import { CheckMarkSpinner } from '@components/feedback/checkmark-spinner';
 
 import { Button } from '../button';
 
-export type LoadingButtonProps = React.ComponentProps<typeof Button> & {
+export type LoadingButtonProps = React.ComponentPropsWithoutRef<
+  typeof Button
+> & {
   isLoading: boolean;
   isSuccess: boolean;
 };
 
-export const LoadingButton = ({
-  isLoading,
-  isSuccess,
-  children,
-  ...buttonProps
-}: LoadingButtonProps) => (
-  <Button disabled={isLoading} {...buttonProps}>
-    {isLoading || isSuccess ? (
-      <CheckMarkSpinner finished={isSuccess} />
-    ) : (
-      children
-    )}
-  </Button>
+const LoadingButton = React.forwardRef<
+  React.ComponentRef<typeof Button>,
+  LoadingButtonProps
+>(
+  (
+    { isLoading, isSuccess, children, ...buttonProps }: LoadingButtonProps,
+    ref,
+  ) => (
+    <Button disabled={isLoading} {...buttonProps} ref={ref}>
+      {isLoading || isSuccess ? (
+        <CheckMarkSpinner finished={isSuccess} />
+      ) : (
+        children
+      )}
+    </Button>
+  ),
 );
+
+LoadingButton.displayName = 'LoadingButton';
+
+export { LoadingButton };
