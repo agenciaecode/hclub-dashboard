@@ -1,13 +1,14 @@
 import { getSession } from '../../session';
-
 import { getPropertyDescriptorForReqSession } from '../../../utils/property-descriptor-session';
-
 import {
   PREFIX_BASE_AUTH,
   PREFIX_BASE_PERMISSION,
 } from '../../../constants/session';
-
-import { PublicPages } from '../../config/types';
+import {
+  AuthConfigAuthentication,
+  AuthConfigPermission,
+  PublicPages,
+} from '../../config/types';
 import { Session, SessionUser, SessionPermission } from '../../types';
 
 import { SessionProps } from './types';
@@ -26,6 +27,38 @@ function isPublicPage(
   return !!result;
 }
 
+function handleUserExpiration(
+  expiration: string,
+  authentication: AuthConfigAuthentication,
+) {
+  const { options } = authentication;
+
+  if (!options.validateExpiration) {
+    return;
+  }
+
+  const expiresAt = new Date(expiration).getTime();
+
+  if (Date.now() > expiresAt) {
+    throw new Error('Session expired');
+  }
+}
+
+function handlePermissionExpiration(
+  expiration: string,
+  permission: AuthConfigPermission,
+) {
+  const { options } = permission;
+
+  if (!options.validateExpiration) return;
+
+  const expiresAt = new Date(expiration).getTime();
+
+  if (Date.now() > expiresAt) {
+    throw new Error('Session expired');
+  }
+}
+
 export async function session(props: SessionProps) {
   const { request, response, configAuth, callback } = props;
   const { originUrl, defaultPages, publicPages } = configAuth;
@@ -40,10 +73,15 @@ export async function session(props: SessionProps) {
 
     const user = await getSession<SessionUser>(PREFIX_BASE_AUTH, request);
 
+    if (user) handleUserExpiration(user.expiresAt, configAuth.authentication);
+
     const permissions = await getSession<SessionPermission>(
       PREFIX_BASE_PERMISSION,
       request,
     );
+
+    if (permissions)
+      handlePermissionExpiration(permissions.expiresAt, configAuth.permission);
 
     const sessionData: Session = { user, permissions };
 

@@ -1,15 +1,19 @@
 import { setSession } from '../../session';
-
 import { PREFIX_BASE_AUTH } from '../../../constants/session';
-
 import { filteredErrorData } from '../../../utils/error';
+import { defaultMaxAge } from '../../utils/cookie';
 
 import { signInSchema } from './schemas';
-
 import { Login, SignInProps } from './types';
 
 export async function signIn(props: SignInProps) {
-  const { request, response, signIn: functionSignIn, callback } = props;
+  const {
+    request,
+    response,
+    options,
+    signIn: functionSignIn,
+    callback,
+  } = props;
 
   if (!functionSignIn)
     throw new Error('auth: Bad use. Required fetch function');
@@ -24,7 +28,13 @@ export async function signIn(props: SignInProps) {
 
     if (!responseFetch) throw new Error();
 
-    await setSession(PREFIX_BASE_AUTH, responseFetch, response);
+    const { validateExpiration } = options;
+
+    const sessionOptions = {
+      maxAge: validateExpiration ? defaultMaxAge : 60 * 60 * 24 * 30, // 1 month
+    };
+
+    await setSession(PREFIX_BASE_AUTH, responseFetch, response, sessionOptions);
 
     if (callback) callback(responseFetch, request, response);
 

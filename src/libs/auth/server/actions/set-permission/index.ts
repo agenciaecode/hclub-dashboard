@@ -1,21 +1,38 @@
 import { setSession } from '../../session';
-
 import { PREFIX_BASE_PERMISSION } from '../../../constants/session';
-
 import { filteredErrorData } from '../../../utils/error';
+import { defaultMaxAge } from '../../utils/cookie';
 
-import { SetPermission } from './types';
+import { SetPermissionProps } from './types';
 
-export async function setPermission(props: SetPermission) {
-  const { request, response, fetch } = props;
+export async function setPermission(props: SetPermissionProps) {
+  const {
+    request,
+    response,
+    options,
+    setPermission: functionSetPermission,
+  } = props;
 
-  if (!fetch) throw new Error('auth: Bad use. Required fetch function');
+  if (!functionSetPermission) return response.status(200).end();
 
   try {
     if (request.method !== 'POST') throw new Error();
-    const responseFetch = await fetch(request, response);
+    const responseFetch = await functionSetPermission(request, response);
+
     if (!responseFetch) throw new Error();
-    await setSession(PREFIX_BASE_PERMISSION, responseFetch, response);
+
+    const { validateExpiration } = options;
+
+    const sessionOptions = {
+      maxAge: validateExpiration ? defaultMaxAge : 60 * 60 * 24 * 30, // 1 month
+    };
+
+    await setSession(
+      PREFIX_BASE_PERMISSION,
+      responseFetch,
+      response,
+      sessionOptions,
+    );
     return response.status(201).end();
   } catch (error) {
     const { message } = filteredErrorData(error);

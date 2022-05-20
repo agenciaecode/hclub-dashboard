@@ -29,9 +29,22 @@ type AuthSessionResponse = {
   data: Record<string, string | number | boolean | undefined | null>;
 };
 
+export type AuthenticationConfig = {
+  /**
+      Validate expiration has default value: true
+    */
+  validateExpiration: boolean;
+};
+
+export type Authentication = {
+  signIn: SignIn;
+  options?: AuthenticationConfig;
+};
+
 export type SignInProps = {
   request: NextApiRequest;
   response: NextApiResponse<AuthSessionResponse | AuthSessionResponseError>;
   signIn: SignIn;
+  options: AuthenticationConfig;
   callback?: SignInCallback;
 };
