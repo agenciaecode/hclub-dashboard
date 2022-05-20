@@ -6,7 +6,7 @@
 export class Exception extends Error {
   readonly date: Date;
 
-  constructor(message: string, previous: Error, ...params: any[]) {
+  constructor(message: string, previous: Error, ...params: unknown[]) {
     // Pass remaining arguments (including vendor specific ones) to parent constructor
     super(message, { cause: previous, ...params });
 
