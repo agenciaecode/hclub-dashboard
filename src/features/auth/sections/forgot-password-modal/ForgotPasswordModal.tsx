@@ -38,6 +38,7 @@ const ForgotPasswordModal = () => {
   );
 
   function handlePasswordRecoverySubmit() {
+    if (recoveryPasswordMutation.isLoading) return;
     recoveryPasswordMutation.mutate(recoveryPasswordForm.getValues());
   }
 
