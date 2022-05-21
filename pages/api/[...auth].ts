@@ -1,13 +1,18 @@
-import { auth } from '../../src/libs/auth/server';
+/* eslint-disable no-restricted-imports */
+import { auth } from '@libs/auth/server';
+
+import { sendLoginRequest } from '@features/auth/api/server-side-login';
 
 export default auth({
-  signIn: async () => null,
+  authentication: {
+    signIn: async credentials => sendLoginRequest(credentials),
+  },
   defaultPages: {
     default: '/dashboard',
     signIn: '/login',
   },
   publicPages: {
     signIn: '/login',
-    recoverPassword: '/recuperar-senha',
+    ativar: '/ativar',
   },
 });
