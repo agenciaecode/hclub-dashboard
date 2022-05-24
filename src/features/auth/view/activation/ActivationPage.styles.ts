@@ -31,6 +31,8 @@ const StyledSplashSection = styled('section', {
   },
   '& > span': {
     left: 'calc(32% - 12.3rem)',
+    maxWidth: 'min(45rem, 100%) !important',
+    maxHeight: '70rem',
   },
 });
 
@@ -58,6 +60,10 @@ const StyledMobileSplashSection = styled('section', {
   justifyContent: 'center',
   '@desktop': {
     display: 'none',
+  },
+  '& > span': {
+    maxWidth: 'min(30rem, 100%) !important',
+    maxHeight: '25rem',
   },
 });
 
