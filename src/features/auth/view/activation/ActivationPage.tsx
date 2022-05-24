@@ -8,6 +8,8 @@ import { notNullish } from '@antfu/utils';
 // eslint-disable-next-line import/no-cycle
 import { ProductInformation } from '@features/auth';
 
+import logoImage from '@assets/images/logo-hman-black.svg';
+
 import {
   StyledContentSection,
   StyledFooter,
@@ -24,6 +26,7 @@ export type ActivationPageProps = {
 
 export const ActivationPage = ({ productInformation }: ActivationPageProps) => {
   const [isRegistering, setIsRegistering] = useState(false);
+  const router = useRouter();
 
   function toggleRegisterForm() {
     setIsRegistering(!isRegistering);
@@ -33,7 +36,25 @@ export const ActivationPage = ({ productInformation }: ActivationPageProps) => {
     <>
       <Head>
         <title>Ativar Dispositivo | HClub</title>
-        <meta name="description" content="H.club login" />
+        <meta name="description" content="H.club | Ativar dispositivo" />
+        <meta
+          property="og:title"
+          content={`H.club | Ativar dispositivo | ${productInformation.title}`}
+        />
+        <meta property="og:url" content={router.asPath} />
+        <meta
+          property="og:image"
+          content={
+            productInformation.desktop_image?.url ??
+            productInformation.mobile_image?.url ??
+            logoImage
+          }
+        />
+        <meta
+          property="og:description"
+          content={`Ativar e Vincular o dispotivo ${productInformation.title} a sua conta do HClub`}
+        />
+        <meta property="og:type" content="website" />
       </Head>
       <StyledMain>
         <StyledContentSection>
