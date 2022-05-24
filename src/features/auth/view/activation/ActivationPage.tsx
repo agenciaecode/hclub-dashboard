@@ -1,9 +1,10 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import whiteWalletImage from '../../assets/images/wallet-white-revision-1-1.png';
-import whiteWalletMobileImage from './assets/images/white-1.png';
+// eslint-disable-next-line import/no-cycle
+import { ProductInformation } from '@features/auth';
 
 import {
   StyledContentSection,
@@ -15,7 +16,11 @@ import {
 import { LoginForm } from './sections';
 import { AccountForm } from './sections/account-form/AccountForm';
 
-const ActivationPage = () => {
+export type ActivationPageProps = {
+  productInformation: ProductInformation;
+};
+
+export const ActivationPage = ({ productInformation }: ActivationPageProps) => {
   const [isRegistering, setIsRegistering] = useState(false);
 
   function toggleRegisterForm() {
@@ -37,10 +42,10 @@ const ActivationPage = () => {
               <LoginForm openRegisterForm={toggleRegisterForm} />
               <StyledMobileSplashSection>
                 <Image
-                  src={whiteWalletMobileImage}
-                  alt="Carteira Essencial Branca"
-                  width={298}
-                  height={249}
+                  src={productInformation.mobile_image.url}
+                  alt={productInformation.title}
+                  width={productInformation.mobile_image.width}
+                  height={productInformation.mobile_image.height}
                 />
               </StyledMobileSplashSection>
               <StyledFooter mobile-dark />
@@ -49,15 +54,13 @@ const ActivationPage = () => {
         </StyledContentSection>
         <StyledSplashSection>
           <Image
-            src={whiteWalletImage}
-            alt="Carteira Essencial Branca"
-            width={368}
-            height={560}
+            src={productInformation.desktop_image.url}
+            alt={productInformation.title}
+            width={productInformation.desktop_image.width}
+            height={productInformation.desktop_image.height}
           />
         </StyledSplashSection>
       </StyledMain>
     </>
   );
 };
-
-export { ActivationPage };
