@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
+import { notNullish } from '@antfu/utils';
+
 // eslint-disable-next-line import/no-cycle
 import { ProductInformation } from '@features/auth';
 
@@ -41,24 +43,28 @@ export const ActivationPage = ({ productInformation }: ActivationPageProps) => {
             <>
               <LoginForm openRegisterForm={toggleRegisterForm} />
               <StyledMobileSplashSection>
-                <Image
-                  src={productInformation.mobile_image.url}
-                  alt={productInformation.title}
-                  width={productInformation.mobile_image.width}
-                  height={productInformation.mobile_image.height}
-                />
+                {notNullish(productInformation.mobile_image) && (
+                  <Image
+                    src={productInformation.mobile_image.url}
+                    alt={productInformation.title}
+                    width={productInformation.mobile_image.width}
+                    height={productInformation.mobile_image.height}
+                  />
+                )}
               </StyledMobileSplashSection>
               <StyledFooter mobile-dark />
             </>
           )}
         </StyledContentSection>
         <StyledSplashSection>
-          <Image
-            src={productInformation.desktop_image.url}
-            alt={productInformation.title}
-            width={productInformation.desktop_image.width}
-            height={productInformation.desktop_image.height}
-          />
+          {notNullish(productInformation.desktop_image) && (
+            <Image
+              src={productInformation.desktop_image.url}
+              alt={productInformation.title}
+              width={productInformation.desktop_image.width}
+              height={productInformation.desktop_image.height}
+            />
+          )}
         </StyledSplashSection>
       </StyledMain>
     </>

@@ -8,8 +8,8 @@ type ImageInfo = {
 
 type ProductInformation = {
   title: string;
-  desktop_image: ImageInfo;
-  mobile_image: ImageInfo;
+  desktop_image?: ImageInfo;
+  mobile_image?: ImageInfo;
 };
 
 async function getDeviceInformationBySerial(serial: string) {
