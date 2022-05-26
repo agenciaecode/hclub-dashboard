@@ -14,15 +14,10 @@ type LoginInput = {
 async function sendLoginRequest(loginInput: LoginInput) {
   const loginResponse = await signIn<
     Awaited<ReturnType<typeof sendServerSideLoginRequest>>
-  >(
-    {
-      userName: loginInput.email,
-      password: loginInput.password,
-    },
-    {
-      redirect: '/dashboard',
-    },
-  );
+  >({
+    userName: loginInput.email,
+    password: loginInput.password,
+  });
   if (loginResponse.data.token)
     setCookieSessionRequest(loginResponse.data.token);
 }
