@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 
-import { sleep } from '@antfu/utils';
 import { StatusCodes } from 'http-status-codes';
 
 import { ControlledCheckbox } from '@components/forms/checkbox';
@@ -70,7 +69,7 @@ const AccountForm = ({ backToLoginForm }: AccountFormProps) => {
     showToastSuccessMessage(
       'Conta criada com sucesso! Você já pode realizar o login.',
     );
-    sleep(500, () => backToLoginForm());
+    router.push('/login');
   });
 
   function handleAccountSubmit() {
