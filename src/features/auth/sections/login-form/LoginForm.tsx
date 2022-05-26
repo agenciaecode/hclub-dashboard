@@ -13,9 +13,8 @@ import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHa
 
 import { WithChildren } from '@/types/with-children';
 
-import logoImage from '@assets/images/logo-hman-black.svg';
-
 import { FormContainer } from '../../components/form-container';
+import { HmanBlackLogo } from '../../components/hman-black-logo';
 import { ForgotPasswordModal } from '../forgot-password-modal';
 import { useLoginMutation } from './api/login';
 import { loginFormSchema } from './LoginForm.schema';
@@ -56,9 +55,7 @@ const LoginForm = ({ children }: WithChildren) => {
       title="Bem vindo"
       description="Se conecte com a sua conta"
       formSubmitHandler={loginForm.handleSubmit(handleLoginSubmit)}
-      headerSlot={
-        <Image src={logoImage} alt="H.man Logo" width={60} height={60} />
-      }
+      headerSlot={<HmanBlackLogo />}
       formSlot={
         <>
           <StyledFormInputsSections>
