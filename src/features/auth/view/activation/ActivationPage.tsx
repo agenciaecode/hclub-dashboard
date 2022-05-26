@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import { notNullish } from '@antfu/utils';
+import { useAuth } from '@libs/auth/react';
 
 import type { DeviceInformation } from '@features/auth';
 
@@ -16,8 +16,7 @@ import {
   StyledMobileSplashSection,
   StyledSplashSection,
 } from './ActivationPage.styles';
-import { LoginForm } from './sections';
-import { AccountForm } from './sections/account-form/AccountForm';
+import { LoginForm, AccountForm, ActivateDeviceForm } from './sections';
 
 export type ActivationPageProps = {
   deviceInformation: DeviceInformation;
@@ -44,6 +43,7 @@ const FooterWithMobileDeviceImage = ({
 export const ActivationPage = ({ deviceInformation }: ActivationPageProps) => {
   const [isRegistering, setIsRegistering] = useState(false);
   const router = useRouter();
+  const { isAuthenticated } = useAuth();
 
   function toggleRegisterForm() {
     setIsRegistering(!isRegistering);
@@ -75,7 +75,15 @@ export const ActivationPage = ({ deviceInformation }: ActivationPageProps) => {
       </Head>
       <StyledMain>
         <StyledContentSection>
-          {isRegistering ? (
+          {/* eslint-disable-next-line no-nested-ternary */}
+          {isAuthenticated ? (
+            <>
+              <ActivateDeviceForm deviceInformation={deviceInformation} />]
+              <FooterWithMobileDeviceImage
+                deviceInformation={deviceInformation}
+              />
+            </>
+          ) : isRegistering ? (
             <AccountForm backToLoginForm={toggleRegisterForm} />
           ) : (
             <>
