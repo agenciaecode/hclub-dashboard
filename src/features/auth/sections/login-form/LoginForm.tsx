@@ -1,9 +1,7 @@
-import Image from 'next/image';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { LoadingButton } from '@components/forms/loading-button';
 import { TextInput } from '@components/forms/text-input';
-import { useSuccessEffect } from '@hooks/useSuccessEffect';
 import { useFormWithSchema } from '@libs/hook-form';
 import {
   showToastErrorMessage,
@@ -41,9 +39,11 @@ const LoginForm = ({ children }: WithChildren) => {
       .executeHandler(),
   );
 
-  useSuccessEffect(loginMutation.isSuccess, () => {
-    showToastSuccessMessage('Login realizado com sucesso!');
-  });
+  useEffect(() => {
+    if (loginMutation.isSuccess) {
+      showToastSuccessMessage('Login realizado com sucesso!');
+    }
+  }, [loginMutation.isSuccess, loginMutation.data]);
 
   function handleLoginSubmit() {
     if (loginMutation.isLoading) return;
