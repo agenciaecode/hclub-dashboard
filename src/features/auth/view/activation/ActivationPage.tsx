@@ -84,7 +84,10 @@ export const ActivationPage = ({ deviceInformation }: ActivationPageProps) => {
               />
             </>
           ) : isRegistering ? (
-            <AccountForm backToLoginForm={toggleRegisterForm} />
+            <AccountForm
+              backToLoginForm={toggleRegisterForm}
+              deciveInformation={deviceInformation}
+            />
           ) : (
             <>
               <LoginForm openRegisterForm={toggleRegisterForm} />

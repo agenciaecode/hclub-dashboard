@@ -9,6 +9,7 @@ import { LoadingButton } from '@components/forms/loading-button';
 import { TextInput } from '@components/forms/text-input';
 import { Navbar } from '@components/layout/navbar';
 import { BackButton } from '@components/others/back-button';
+import { AlertConfirmation } from '@components/overlay/alert-dialog';
 import { useSuccessEffect } from '@hooks/useSuccessEffect';
 import { useFormWithSchema, setFormErrorsFromException } from '@libs/hook-form';
 import {
@@ -20,6 +21,8 @@ import {
   handleClientExceptionByStatus,
 } from '@services/http/default-status-code-handlers';
 import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
+
+import type { DeviceInformation } from '@features/auth';
 
 import { FormContainer } from '../../../../components/form-container';
 import {
@@ -38,9 +41,13 @@ import { IconUser } from './components/icon-user';
 
 type AccountFormProps = {
   backToLoginForm: () => void;
+  deciveInformation: DeviceInformation;
 };
 
-const AccountForm = ({ backToLoginForm }: AccountFormProps) => {
+const AccountForm = ({
+  backToLoginForm,
+  deciveInformation,
+}: AccountFormProps) => {
   const router = useRouter();
   const { serial } = router.query;
   const {
@@ -112,7 +119,7 @@ const AccountForm = ({ backToLoginForm }: AccountFormProps) => {
     <FormContainer
       title="Cadastro"
       description="Preencha os campos abaixo para criar sua conta"
-      formSubmitHandler={accountForm.handleSubmit(handleAccountSubmit)}
+      formSubmitHandler={() => undefined}
       headerSlot={Header}
       headerCss={{
         display: 'block',
@@ -192,16 +199,24 @@ const AccountForm = ({ backToLoginForm }: AccountFormProps) => {
               />
             </div>
           </StyledFormInputsSections>
-          <LoadingButton
-            type="submit"
-            css={{
-              marginTop: 'calc(2.4rem - 1.6rem) !important',
-            }}
-            isLoading={createAccountMutation.isLoading}
-            isSuccess={createAccountMutation.isSuccess}
-          >
-            Criar a minha conta
-          </LoadingButton>
+          <AlertConfirmation
+            title="Confirmar Registro"
+            description={`Você tem certeza que deseja ativar o dispositivo "${deciveInformation.title}" ao registrar sua sua conta?`}
+            confirmButtonText="Confirmar"
+            cancelButtonText="Cancelar"
+            triggerButton={
+              <LoadingButton
+                css={{
+                  marginTop: 'calc(2.4rem - 1.6rem) !important',
+                }}
+                isLoading={createAccountMutation.isLoading}
+                isSuccess={createAccountMutation.isSuccess}
+              >
+                Criar a minha conta
+              </LoadingButton>
+            }
+            onOk={() => accountForm.handleSubmit(handleAccountSubmit)()}
+          />
         </>
       }
     />
