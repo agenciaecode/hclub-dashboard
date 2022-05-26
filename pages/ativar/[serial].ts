@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps<
     return {
       props: {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        productInformation: await getDeviceInformationBySerial(params!.serial),
+        deviceInformation: await getDeviceInformationBySerial(params!.serial),
       },
     };
   } catch (error) {

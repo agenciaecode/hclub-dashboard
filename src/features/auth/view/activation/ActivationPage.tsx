@@ -5,8 +5,7 @@ import { useState } from 'react';
 
 import { notNullish } from '@antfu/utils';
 
-// eslint-disable-next-line import/no-cycle
-import { ProductInformation } from '@features/auth';
+import type { DeviceInformation } from '@features/auth';
 
 import logoImage from '@assets/images/logo-hman-black.svg';
 
@@ -21,10 +20,28 @@ import { LoginForm } from './sections';
 import { AccountForm } from './sections/account-form/AccountForm';
 
 export type ActivationPageProps = {
-  productInformation: ProductInformation;
+  deviceInformation: DeviceInformation;
 };
 
-export const ActivationPage = ({ productInformation }: ActivationPageProps) => {
+const FooterWithMobileDeviceImage = ({
+  deviceInformation,
+}: ActivationPageProps) => (
+  <>
+    <StyledMobileSplashSection>
+      {deviceInformation.mobile_image && (
+        <Image
+          src={deviceInformation.mobile_image.url}
+          alt={deviceInformation.title}
+          width={deviceInformation.mobile_image.width}
+          height={deviceInformation.mobile_image.height}
+        />
+      )}
+    </StyledMobileSplashSection>
+    <StyledFooter mobile-dark />
+  </>
+);
+
+export const ActivationPage = ({ deviceInformation }: ActivationPageProps) => {
   const [isRegistering, setIsRegistering] = useState(false);
   const router = useRouter();
 
@@ -39,20 +56,20 @@ export const ActivationPage = ({ productInformation }: ActivationPageProps) => {
         <meta name="description" content="H.club | Ativar dispositivo" />
         <meta
           property="og:title"
-          content={`H.club | Ativar dispositivo | ${productInformation.title}`}
+          content={`H.club | Ativar dispositivo | ${deviceInformation.title}`}
         />
         <meta property="og:url" content={router.asPath} />
         <meta
           property="og:image"
           content={
-            productInformation.desktop_image?.url ??
-            productInformation.mobile_image?.url ??
+            deviceInformation.desktop_image?.url ??
+            deviceInformation.mobile_image?.url ??
             logoImage
           }
         />
         <meta
           property="og:description"
-          content={`Ativar e Vincular o dispotivo ${productInformation.title} a sua conta do HClub`}
+          content={`Ativar e Vincular o dispotivo ${deviceInformation.title} a sua conta do HClub`}
         />
         <meta property="og:type" content="website" />
       </Head>
@@ -63,27 +80,19 @@ export const ActivationPage = ({ productInformation }: ActivationPageProps) => {
           ) : (
             <>
               <LoginForm openRegisterForm={toggleRegisterForm} />
-              <StyledMobileSplashSection>
-                {notNullish(productInformation.mobile_image) && (
-                  <Image
-                    src={productInformation.mobile_image.url}
-                    alt={productInformation.title}
-                    width={productInformation.mobile_image.width}
-                    height={productInformation.mobile_image.height}
-                  />
-                )}
-              </StyledMobileSplashSection>
-              <StyledFooter mobile-dark />
+              <FooterWithMobileDeviceImage
+                deviceInformation={deviceInformation}
+              />
             </>
           )}
         </StyledContentSection>
         <StyledSplashSection>
-          {notNullish(productInformation.desktop_image) && (
+          {deviceInformation.desktop_image && (
             <Image
-              src={productInformation.desktop_image.url}
-              alt={productInformation.title}
-              width={productInformation.desktop_image.width}
-              height={productInformation.desktop_image.height}
+              src={deviceInformation.desktop_image.url}
+              alt={deviceInformation.title}
+              width={deviceInformation.desktop_image.width}
+              height={deviceInformation.desktop_image.height}
             />
           )}
         </StyledSplashSection>

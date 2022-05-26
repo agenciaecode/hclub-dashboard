@@ -6,7 +6,7 @@ type ImageInfo = {
   height: number;
 };
 
-type ProductInformation = {
+type DeviceInformation = {
   title: string;
   desktop_image?: ImageInfo;
   mobile_image?: ImageInfo;
@@ -14,9 +14,9 @@ type ProductInformation = {
 
 async function getDeviceInformationBySerial(serial: string) {
   const { data: productInformation } =
-    await apiDashboard.get<ProductInformation>(`/devices/${serial}`);
+    await apiDashboard.get<DeviceInformation>(`/devices/${serial}`);
   return productInformation;
 }
 
 export { getDeviceInformationBySerial };
-export type { ProductInformation, ImageInfo };
+export type { DeviceInformation, ImageInfo };
