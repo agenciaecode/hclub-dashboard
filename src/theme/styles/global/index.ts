@@ -16,6 +16,8 @@ const globalDefaultStyles = globalCss({
     lineHeight: '$base',
     fontFamily: '$defaultRegular',
     color: '$textBlack',
+    '-webkit-font-smoothing': 'antialiased',
+    '-moz-osx-font-smoothing': 'grayscale',
   },
   'ol, ul': {
     listStyle: 'none',
