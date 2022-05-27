@@ -1,12 +1,9 @@
 import { useAuth } from '@libs/auth/react';
 
+import { AuthUser } from '@/types/AuthUser';
+
 export const useAuthUser = () => {
-  const { user, isAuthenticated } = useAuth<{
-    id: number;
-    name: string;
-    username: string;
-    email: string;
-  }>();
+  const { user, isAuthenticated } = useAuth<AuthUser>();
   if (!user) return { isAuthenticated };
   const { id, name, username, email } = user.data;
   return {
