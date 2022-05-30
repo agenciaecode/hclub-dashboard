@@ -1,5 +1,7 @@
 import type { NextPage } from 'next';
 
-const Home: NextPage = () => <span>Dashboard</span>;
+import { DashboardPage } from '@features/dashboard';
+
+const Home: NextPage = DashboardPage;
 
 export default Home;
