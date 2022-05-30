@@ -12,6 +12,7 @@ type CreateAccountInput = {
   email: string;
   password: string;
   password_confirmation: string;
+  cellphone: string;
   accept_link: boolean;
 };
 

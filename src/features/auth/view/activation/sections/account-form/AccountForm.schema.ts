@@ -26,6 +26,10 @@ export const accountFormSchema = yup
       .string()
       .oneOf([yup.ref('password'), null], 'As senhas não conferem')
       .required('A confirmação de senha é obrigatória'),
+    cellphone: yup
+      .string()
+      .matches(/^[0-9]{2} [0-9]{5}-[0-9]{4}$/, 'Telefone inválido')
+      .required('O telefone é obrigatório'),
     accept_link: yup
       .bool()
       .oneOf([true], 'Você não pode criar a conta sem vincular um produto')

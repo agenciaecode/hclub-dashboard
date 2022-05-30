@@ -6,6 +6,7 @@ import { ControlledCheckbox } from '@components/forms/checkbox';
 import { ErrorLabel } from '@components/forms/error-label';
 import { Label } from '@components/forms/label';
 import { LoadingButton } from '@components/forms/loading-button';
+import { MaskedInput } from '@components/forms/masked-input';
 import { TextInput } from '@components/forms/text-input';
 import { Navbar } from '@components/layout/navbar';
 import { BackButton } from '@components/others/back-button';
@@ -81,7 +82,10 @@ const AccountForm = ({
 
   function handleAccountSubmit() {
     if (createAccountMutation.isLoading) return;
-    createAccountMutation.mutate(accountForm.getValues());
+    createAccountMutation.mutate({
+      ...accountForm.getValues(),
+      cellphone: `+55 ${accountForm.getValues('cellphone')}`,
+    });
   }
 
   //! TODO - restructure this code
@@ -182,6 +186,16 @@ const AccountForm = ({
               type="password"
               errorMessage={accountFormErrors.password_confirmation?.message}
               register={accountForm.register}
+            />
+            <MaskedInput
+              label="Número de telefone"
+              imaskProps={{
+                mask: '00 00000-0000',
+              }}
+              name="cellphone"
+              placeholder="99 99999-9999"
+              control={accountForm.control}
+              errorMessage={accountFormErrors.cellphone?.message}
             />
             <div>
               <StyledFlexRow>
