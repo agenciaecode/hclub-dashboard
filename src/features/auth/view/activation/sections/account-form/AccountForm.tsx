@@ -41,6 +41,10 @@ type AccountFormProps = {
   deciveInformation: DeviceInformation;
 };
 
+function removePhoneMask(phone: string): string {
+  return phone.replace(/[()]/g, '');
+}
+
 const AccountForm = ({
   backToLoginForm,
   deciveInformation,
@@ -80,7 +84,7 @@ const AccountForm = ({
     if (createAccountMutation.isLoading) return;
     createAccountMutation.mutate({
       ...accountForm.getValues(),
-      cellphone: `+55 ${accountForm.getValues('cellphone')}`,
+      cellphone: `+55 ${removePhoneMask(accountForm.getValues('cellphone'))}`,
     });
   }
 
@@ -159,6 +163,16 @@ const AccountForm = ({
               errorMessage={accountFormErrors.name?.message}
               register={accountForm.register}
             />
+            <MaskedInput
+              label="Número de telefone"
+              imaskProps={{
+                mask: '(00) 00000-0000',
+              }}
+              name="cellphone"
+              placeholder="(99) 99999-9999"
+              control={accountForm.control}
+              errorMessage={accountFormErrors.cellphone?.message}
+            />
             <TextInput
               label="E-mail"
               name="email"
@@ -182,16 +196,6 @@ const AccountForm = ({
               type="password"
               errorMessage={accountFormErrors.password_confirmation?.message}
               register={accountForm.register}
-            />
-            <MaskedInput
-              label="Número de telefone"
-              imaskProps={{
-                mask: '00 00000-0000',
-              }}
-              name="cellphone"
-              placeholder="99 99999-9999"
-              control={accountForm.control}
-              errorMessage={accountFormErrors.cellphone?.message}
             />
           </StyledFormInputsSections>
           <AlertConfirmation
