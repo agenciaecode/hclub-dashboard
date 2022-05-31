@@ -215,7 +215,7 @@ const AccountForm = ({
           </StyledFormInputsSections>
           <AlertConfirmation
             title="Confirmar Registro"
-            description={`Você tem certeza que deseja ativar o dispositivo "${deciveInformation.title}" ao registrar sua sua conta?`}
+            description={`Você tem certeza que deseja ativar o dispositivo "${deciveInformation.title}" ao registrar sua conta?`}
             confirmButtonText="Confirmar"
             cancelButtonText="Cancelar"
             triggerButton={
