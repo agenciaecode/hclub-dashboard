@@ -6,13 +6,6 @@ const StyledFormInputsSections = styled('section', {
   gap: '3.2rem',
 });
 
-const StyledFlexRow = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '1rem',
-  marginBottom: '0.5rem',
-});
-
 const StyledHeader = styled('header', {
   display: 'flex',
   justifyContent: 'center',
@@ -29,9 +22,4 @@ const HiddenOnDesktop = styled('div', {
   },
 });
 
-export {
-  StyledFormInputsSections,
-  StyledFlexRow,
-  StyledHeader,
-  HiddenOnDesktop,
-};
+export { StyledFormInputsSections, StyledHeader, HiddenOnDesktop };

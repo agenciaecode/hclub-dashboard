@@ -30,9 +30,5 @@ export const accountFormSchema = yup
       .string()
       .matches(/^[0-9]{2} [0-9]{5}-[0-9]{4}$/, 'Telefone inválido')
       .required('O telefone é obrigatório'),
-    accept_link: yup
-      .bool()
-      .oneOf([true], 'Você não pode criar a conta sem vincular um produto')
-      .required('Você deve aceitar o vínculo do produto'),
   })
   .required();

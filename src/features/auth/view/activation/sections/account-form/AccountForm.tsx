@@ -2,9 +2,6 @@ import { useRouter } from 'next/router';
 
 import { StatusCodes } from 'http-status-codes';
 
-import { ControlledCheckbox } from '@components/forms/checkbox';
-import { ErrorLabel } from '@components/forms/error-label';
-import { Label } from '@components/forms/label';
 import { LoadingButton } from '@components/forms/loading-button';
 import { MaskedInput } from '@components/forms/masked-input';
 import { TextInput } from '@components/forms/text-input';
@@ -34,7 +31,6 @@ import {
 import { accountFormSchema } from './AccountForm.schema';
 import {
   HiddenOnDesktop,
-  StyledFlexRow,
   StyledFormInputsSections,
   StyledHeader,
 } from './AccountForm.styles';
@@ -197,21 +193,6 @@ const AccountForm = ({
               control={accountForm.control}
               errorMessage={accountFormErrors.cellphone?.message}
             />
-            <div>
-              <StyledFlexRow>
-                <ControlledCheckbox
-                  name="accept_link"
-                  control={accountForm.control}
-                />
-                <Label htmlFor="accept_link">
-                  Criar conta e vincular produto.
-                </Label>
-              </StyledFlexRow>
-              <ErrorLabel
-                htmlFor="accept_link"
-                errorMessage={accountFormErrors.accept_link?.message}
-              />
-            </div>
           </StyledFormInputsSections>
           <AlertConfirmation
             title="Confirmar Registro"
@@ -221,7 +202,7 @@ const AccountForm = ({
             triggerButton={
               <LoadingButton
                 css={{
-                  marginTop: 'calc(2.4rem - 1.6rem) !important',
+                  marginTop: '2rem',
                 }}
                 isLoading={createAccountMutation.isLoading}
                 isSuccess={createAccountMutation.isSuccess}

@@ -13,7 +13,6 @@ type CreateAccountInput = {
   password: string;
   password_confirmation: string;
   cellphone: string;
-  accept_link: boolean;
 };
 
 type CreateAccountOutput = {
