@@ -14,7 +14,7 @@ type DeviceInformation = {
 
 async function getDeviceInformationBySerial(serial: string) {
   const { data: productInformation } =
-    await apiDashboard.get<DeviceInformation>(`/devices/${serial}`);
+    await apiDashboard.get<DeviceInformation>(`/devices-activation/${serial}`);
   return productInformation;
 }
 
