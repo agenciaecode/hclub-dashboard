@@ -1,6 +1,7 @@
 import Head from 'next/head';
 
 import { StyledWrapper, StyledMainContent } from './DashboardPage.styles';
+import { ProfileCardsAndDevices } from './sections/cards-and-devices';
 import { DesktopHeader } from './sections/header';
 
 const DashboardPage = () => (
@@ -11,7 +12,9 @@ const DashboardPage = () => (
     </Head>
     <StyledWrapper>
       <DesktopHeader />
-      <StyledMainContent />
+      <StyledMainContent>
+        <ProfileCardsAndDevices />
+      </StyledMainContent>
     </StyledWrapper>
   </>
 );
