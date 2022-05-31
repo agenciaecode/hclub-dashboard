@@ -13,6 +13,7 @@ RC=\033[0m
 .PHONY: build
 build:
 	@docker rm hclub-dashboard 2>/dev/null || true
+	@docker rmi hclub-dashboard_image 2>/dev/null || true
 	@docker build . -t hclub-dashboard_image
 	@docker create --name hclub-dashboard -p 3000:3000 hclub-dashboard_image
 
