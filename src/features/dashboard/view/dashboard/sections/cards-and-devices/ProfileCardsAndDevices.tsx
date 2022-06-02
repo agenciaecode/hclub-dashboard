@@ -1,3 +1,4 @@
+import { Swiper, SwiperSlide } from '../../components/swiper';
 import { CardContainer } from './components/card-container';
 import { DeviceCard } from './components/device-card';
 import { ProfileCard } from './components/profile-card';
@@ -6,13 +7,30 @@ import { StyledUserProfilesAndDevicesWrapper } from './ProfileCardsAndDevices.st
 const ProfileCardsAndDevices = () => (
   <StyledUserProfilesAndDevicesWrapper>
     <CardContainer title="Seus Cartões">
-      <ProfileCard title="PRO" isDefault type="pro" />
-      <ProfileCard title="Social" type="social" />
-      <ProfileCard title="Personal" type="personal" />
+      <Swiper>
+        <SwiperSlide>
+          <ProfileCard title="PRO" isDefault type="pro" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <ProfileCard title="Social" type="social" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <ProfileCard title="Personal" type="personal" />
+        </SwiperSlide>
+      </Swiper>
     </CardContainer>
     <CardContainer title="Dispositivos">
-      <DeviceCard />
-      <DeviceCard />
+      <Swiper>
+        <SwiperSlide>
+          <DeviceCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <DeviceCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <DeviceCard />
+        </SwiperSlide>
+      </Swiper>
     </CardContainer>
   </StyledUserProfilesAndDevicesWrapper>
 );
