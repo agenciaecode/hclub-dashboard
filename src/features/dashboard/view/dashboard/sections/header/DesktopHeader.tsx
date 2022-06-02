@@ -1,3 +1,5 @@
+import { Tooltip } from '@components/overlay/tooltip';
+
 import userAvatar from '../../assets/images/griseo.jpeg';
 import {
   StyledNavigation,
@@ -51,8 +53,12 @@ export const DesktopHeader = () => (
     <StyledAccountSection>
       <StyledUserAvatar src={userAvatar} width={120} height={120} />
       <StyledUserInfo>
-        <StyledUserName>Gabriel Franco</StyledUserName>
-        <StyledUserEmail>Deverasart@gmail.com</StyledUserEmail>
+        <Tooltip content="Gabriel Franco">
+          <StyledUserName>Gabriel Franco</StyledUserName>
+        </Tooltip>
+        <Tooltip content="Deverasart@gmail.com">
+          <StyledUserEmail>Deverasart@gmail.com</StyledUserEmail>
+        </Tooltip>
       </StyledUserInfo>
       <StyledSeparator />
       <StyledAccountManageSection>
