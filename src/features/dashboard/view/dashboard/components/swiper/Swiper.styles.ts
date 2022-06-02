@@ -2,6 +2,12 @@ import { css, styled } from '@/theme';
 
 const swiperStyle = css({
   padding: '1.5rem 0',
+  marginLeft: 'unset',
+  marginRight: 'unset',
+  zIndex: 'unset',
+  '& .swiper-wrapper': {
+    zIndex: 'unset',
+  },
 });
 
 const swiperSlideStyle = css({
