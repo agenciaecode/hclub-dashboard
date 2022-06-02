@@ -20,8 +20,8 @@ const StyledSwiperArrow = styled('div', {
   position: 'absolute',
   top: 0,
   bottom: 0,
-  margin: 'auto 0',
-  height: 'fit-content',
+  display: 'flex',
+  alignItems: 'center',
   '&.swiper-button-disabled': {
     visibility: 'hidden',
   },
