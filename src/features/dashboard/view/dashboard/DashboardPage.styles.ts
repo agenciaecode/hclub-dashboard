@@ -1,9 +1,10 @@
 import { styled } from '@/theme';
 
 const StyledWrapper = styled('div', {
-  width: '100vw',
   minHeight: '100vh',
   color: '$textWhite',
+  display: 'grid',
+  gridTemplateRows: 'fit-content(100%) auto',
 });
 
 const StyledMainContent = styled('main', {
@@ -12,7 +13,6 @@ const StyledMainContent = styled('main', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  justifyContent: 'center',
   '@md': {
     padding: '5.4rem 8rem',
   },
