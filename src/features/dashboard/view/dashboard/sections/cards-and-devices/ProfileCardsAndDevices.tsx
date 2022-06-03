@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { DashboardSection } from '../../components/dashboard-section';
 import { DevicesSwiper } from './components/devices-cards/DevicesSwiper';
 import { ProfilesSwiper } from './components/profiles-cards/ProfilesSwiper';
 import {
@@ -16,7 +17,7 @@ const ProfileCardsAndDevices = () => {
   const isShowingProfilesTab = tab === 'profiles';
 
   return (
-    <div
+    <DashboardSection
       role="tablist"
       aria-orientation="horizontal"
       dir="ltr"
@@ -64,7 +65,7 @@ const ProfileCardsAndDevices = () => {
           tabIndex={0}
         />
       </StyledSwiperContainer>
-    </div>
+    </DashboardSection>
   );
 };
 
