@@ -13,6 +13,7 @@ const StyledSwiperContainer = styled('div', {
 const StyledMobileTabsContainer = styled('div', {
   display: 'flex',
   gap: '2rem',
+  marginBottom: '2.5rem',
   '@md': {
     display: 'none',
   },

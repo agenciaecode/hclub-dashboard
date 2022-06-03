@@ -19,7 +19,7 @@ const StyledCardContainerArticle = styled('article', {
 const StyledCardContainerHeader = styled('header', {
   fontSize: '$2xl',
   lineHeight: '$2xl',
-  marginBottom: '0.4rem',
+  marginBottom: '0.9rem',
   display: 'none',
   '@md': {
     display: 'block',
