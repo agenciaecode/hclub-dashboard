@@ -5,7 +5,7 @@ import { styled } from '@/theme';
 const StyledSwiperContainer = styled('div', {
   display: 'grid',
   gridAutoFlow: 'column',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(0, 1fr))',
+  gridAutoColumns: 'minmax(0, 1fr)',
   width: '100%',
   gap: '6rem',
 });
