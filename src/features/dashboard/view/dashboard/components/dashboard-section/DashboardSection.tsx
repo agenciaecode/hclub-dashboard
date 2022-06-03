@@ -9,12 +9,16 @@ const StyledSeparator = styled(Separator, {
   margin: '4rem 0',
 });
 
+const StyledSection = styled('section', {
+  width: '100%',
+});
+
 export const DashboardSection = ({
   children,
   ...sectionProps
 }: HTMLAttributes<HTMLElement>) => (
   <>
-    <section {...sectionProps}>{children}</section>
+    <StyledSection {...sectionProps}>{children}</StyledSection>
     <StyledSeparator orientation="horizontal" />
   </>
 );
