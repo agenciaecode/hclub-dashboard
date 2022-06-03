@@ -19,6 +19,7 @@ export const StyledButton = styled('button', {
       primary: {
         backgroundColor: '$backgroundBlack',
         color: '$textWhite',
+        border: 'solid 0.01rem $backgroundBlack',
         '&:hover': {
           opacity: 1,
           backgroundColor: '$blackHover',
