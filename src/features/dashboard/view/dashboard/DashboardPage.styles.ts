@@ -8,11 +8,14 @@ const StyledWrapper = styled('div', {
 
 const StyledMainContent = styled('main', {
   background: '$backgroundWhite',
-  padding: '5.4rem 8rem',
+  padding: '4rem 2rem',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
+  '@md': {
+    padding: '5.4rem 8rem',
+  },
 });
 
 export { StyledWrapper, StyledMainContent };

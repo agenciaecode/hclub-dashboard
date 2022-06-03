@@ -1,38 +1,71 @@
-import { Swiper, SwiperSlide } from '../../components/swiper';
-import { CardContainer } from './components/card-container';
-import { DeviceCard } from './components/device-card';
-import { ProfileCard } from './components/profile-card';
-import { StyledUserProfilesAndDevicesWrapper } from './ProfileCardsAndDevices.styles';
+import { useState } from 'react';
 
-const ProfileCardsAndDevices = () => (
-  <StyledUserProfilesAndDevicesWrapper>
-    <CardContainer title="Seus Cartões">
-      <Swiper>
-        <SwiperSlide>
-          <ProfileCard title="PRO" isDefault type="pro" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ProfileCard title="Social" type="social" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ProfileCard title="Personal" type="personal" />
-        </SwiperSlide>
-      </Swiper>
-    </CardContainer>
-    <CardContainer title="Dispositivos">
-      <Swiper>
-        <SwiperSlide>
-          <DeviceCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <DeviceCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <DeviceCard />
-        </SwiperSlide>
-      </Swiper>
-    </CardContainer>
-  </StyledUserProfilesAndDevicesWrapper>
-);
+import { DevicesSwiper } from './components/devices-cards/DevicesSwiper';
+import { ProfilesSwiper } from './components/profiles-cards/ProfilesSwiper';
+import {
+  StyledSwiperContainer,
+  StyledMobileTabsContainer,
+  StyledTabButton,
+} from './ProfileCardsAndDevices.styles';
+
+type SwiperMobileTab = 'devices' | 'profiles';
+
+const ProfileCardsAndDevices = () => {
+  const [tab, setTab] = useState<SwiperMobileTab>('profiles');
+  const isShowingDevicesTab = tab === 'devices';
+  const isShowingProfilesTab = tab === 'profiles';
+
+  return (
+    <div
+      role="tablist"
+      aria-orientation="horizontal"
+      dir="ltr"
+      aria-label="Cartões e Dispositivos"
+    >
+      <StyledMobileTabsContainer>
+        <StyledTabButton
+          btn={isShowingProfilesTab ? 'primary' : 'secondary'}
+          onClick={() => setTab('profiles')}
+          id="profiles-trigger-tab"
+          role="tab"
+          aria-selected={isShowingProfilesTab}
+          aria-controls="profiles-content-tab"
+          tabIndex={isShowingProfilesTab ? 0 : -1}
+        >
+          Cartões
+        </StyledTabButton>
+        <StyledTabButton
+          btn={isShowingDevicesTab ? 'primary' : 'secondary'}
+          onClick={() => setTab('devices')}
+          id="devices-trigger-tab"
+          role="tab"
+          aria-selected={isShowingDevicesTab}
+          aria-controls="devices-content-tab"
+          tabIndex={isShowingDevicesTab ? 0 : -1}
+        >
+          Dispositivos
+        </StyledTabButton>
+      </StyledMobileTabsContainer>
+      <StyledSwiperContainer>
+        <ProfilesSwiper
+          displayOnMobile={isShowingProfilesTab}
+          id="profiles-content-tab"
+          role="tabpanel"
+          aria-labelledby="profiles-trigger-tab"
+          hidden={isShowingProfilesTab}
+          tabIndex={0}
+        />
+        <DevicesSwiper
+          displayOnMobile={isShowingDevicesTab}
+          id="devices-content-tab"
+          role="tabpanel"
+          aria-labelledby="devices-trigger-tab"
+          hidden={isShowingDevicesTab}
+          tabIndex={0}
+        />
+      </StyledSwiperContainer>
+    </div>
+  );
+};
 
 export { ProfileCardsAndDevices };
