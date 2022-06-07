@@ -1,18 +1,17 @@
 import Image from 'next/image';
 
 import { Button } from '@components/forms/button';
-import { Link } from '@components/icons/navigator/link';
 
 import { styled } from '@/theme';
 
-const StyledNavigation = styled('nav', {
-  display: 'flex',
+const StyledDesktopHeaderWrapper = styled('div', {
+  width: '100%',
+  display: 'none',
   alignItems: 'center',
   justifyContent: 'space-between',
-  height: '18.4rem',
-  width: '100%',
-  padding: '0 8rem',
-  backgroundColor: '$backgroundBlack',
+  '@md': {
+    display: 'flex',
+  },
 });
 
 const StyledButtonsToolbar = styled('section', {
@@ -21,11 +20,10 @@ const StyledButtonsToolbar = styled('section', {
 });
 
 const StyledLogoutButton = styled(Button, {
-  padding: '1.45rem 5rem',
-});
-
-const StyledNotificationButton = styled(Button, {
-  padding: '1.775rem 1.587rem',
+  padding: '1rem 1rem',
+  '@desktop': {
+    padding: '1.45rem 5rem',
+  },
 });
 
 const StyledAccountSection = styled('section', {
@@ -69,55 +67,24 @@ const StyledUserEmail = styled('h2', {
 const StyledSeparator = styled('hr', {
   borderLeft: 'solid 1px $white',
   backgroundColor: '$border',
-  margin: '2rem 4rem',
+  margin: '0rem 1rem',
   alignSelf: 'stretch',
-});
-
-const StyledAccountManageSection = styled('section', {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'flex-start',
-  gap: '1.6rem',
-  marginRight: '1rem',
-});
-
-const StyledAccountManageIconWrapper = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  alignSelf: 'center',
-});
-
-const StyledAccountManageTextWrapper = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'flex-start',
-  fontSize: '$base',
-  lineHeight: '$base',
-});
-
-const StyledAccountManageLink = styled(Link, {
-  fontSize: '$lg',
-  lineHeight: '$lg',
-  fontWeight: '$defaultRegular',
-  textDecoration: 'underline',
-  textUnderlineOffset: '0.2rem',
-  textDecorationThickness: '0.1rem',
+  '@tablet': {
+    margin: '2rem 1rem',
+  },
+  '@desktop': {
+    margin: '2rem 4rem',
+  },
 });
 
 export {
-  StyledNavigation,
+  StyledDesktopHeaderWrapper,
   StyledButtonsToolbar,
   StyledLogoutButton,
-  StyledNotificationButton,
   StyledAccountSection,
   StyledUserAvatar,
   StyledUserInfo,
   StyledUserName,
   StyledUserEmail,
   StyledSeparator,
-  StyledAccountManageSection,
-  StyledAccountManageIconWrapper,
-  StyledAccountManageTextWrapper,
-  StyledAccountManageLink,
 };

@@ -1,1 +1,1 @@
-export * from './DesktopHeader';
+export * from './HeaderNavbar';

@@ -2,7 +2,7 @@ import Head from 'next/head';
 
 import { StyledWrapper, StyledMainContent } from './DashboardPage.styles';
 import { ProfileCardsAndDevices } from './sections/cards-and-devices';
-import { DesktopHeader } from './sections/header';
+import { HeaderNavbar } from './sections/header';
 
 const DashboardPage = () => (
   <>
@@ -11,7 +11,7 @@ const DashboardPage = () => (
       <meta name="description" content="H.club dashboard" />
     </Head>
     <StyledWrapper>
-      <DesktopHeader />
+      <HeaderNavbar />
       <StyledMainContent>
         <ProfileCardsAndDevices />
       </StyledMainContent>
