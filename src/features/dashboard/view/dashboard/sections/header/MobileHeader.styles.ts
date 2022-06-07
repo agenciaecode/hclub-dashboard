@@ -44,7 +44,7 @@ const StyledMobileNavigation = styled('nav', {
   alignItems: 'center',
   background: '$backgroundBlack',
   color: '$textWhite',
-  zIndex: 1,
+  zIndex: 'unset !important',
   '&[data-state="open"]': {
     animation: `${openMobileNav} 0.25s ease-in-out forwards`,
   },

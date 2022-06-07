@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import { CollapsibleTrigger } from '@radix-ui/react-collapsible';
+import { Portal } from '@radix-ui/react-portal';
 
 import { Collapsible } from '@components/data-display/collapsible';
 import { VisuallyHidden } from '@components/disclosure/visually-hidden';
@@ -104,20 +105,22 @@ export const MobileHeader = () => (
         </StyledMenuButton>
       }
     >
-      <StyledMobileNavigation>
-        <CloseMobileMenuButton />
-        <StyledAvatarWrapper>
-          <StyledUserAvatar src={userAvatar} width={160} height={160} />
-        </StyledAvatarWrapper>
-        <StyledUserName>Gabriel Franco</StyledUserName>
-        <StyledUserEmail>Deverasart@gmail.com</StyledUserEmail>
-        <StyledSeparator />
-        <AccountManage mobile />
-        <StyledButtonsToolbar>
-          <FeedbackButton />
-          <LogoutButton />
-        </StyledButtonsToolbar>
-      </StyledMobileNavigation>
+      <Portal asChild>
+        <StyledMobileNavigation>
+          <CloseMobileMenuButton />
+          <StyledAvatarWrapper>
+            <StyledUserAvatar src={userAvatar} width={160} height={160} />
+          </StyledAvatarWrapper>
+          <StyledUserName>Gabriel Franco</StyledUserName>
+          <StyledUserEmail>Deverasart@gmail.com</StyledUserEmail>
+          <StyledSeparator />
+          <AccountManage mobile />
+          <StyledButtonsToolbar>
+            <FeedbackButton />
+            <LogoutButton />
+          </StyledButtonsToolbar>
+        </StyledMobileNavigation>
+      </Portal>
     </Collapsible>
   </StyledMobileHeaderWrapper>
 );
