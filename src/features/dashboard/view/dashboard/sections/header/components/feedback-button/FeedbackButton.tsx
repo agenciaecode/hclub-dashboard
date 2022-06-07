@@ -1,12 +1,15 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { VisuallyHidden } from '@components/disclosure/visually-hidden';
 import { Button } from '@components/forms/button';
+import { ErrorLabel } from '@components/forms/error-label';
+import { LoadingButton } from '@components/forms/loading-button';
+import { TextArea } from '@components/forms/text-area';
+import { DescriptiveModal } from '@components/overlay/modal';
 import { Tooltip } from '@components/overlay/tooltip';
+import { useFormWithSchema } from '@libs/hook-form';
 
-import { styled } from '@/theme';
-
-const StyledFeedbackButton = styled(Button, {
-  padding: '1.775rem 1.587rem',
-});
+import { feedbackFormSchema } from './FeedbackButton.schema';
+import { FlexRow, StyledFeedbackButton } from './FeedbackButton.styles';
 
 const FeedbackSvgIcon = () => (
   <svg
@@ -23,11 +26,48 @@ const FeedbackSvgIcon = () => (
   </svg>
 );
 
-export const FeedbackButton = () => (
-  <Tooltip content="Enviar Feedback">
-    <StyledFeedbackButton outlined>
-      <FeedbackSvgIcon />
-      <VisuallyHidden>Enviar Feedback</VisuallyHidden>
-    </StyledFeedbackButton>
-  </Tooltip>
-);
+export const FeedbackButton = () => {
+  const feedbackForm = useFormWithSchema(feedbackFormSchema);
+
+  function handleFeedbackSubmit() {
+    console.warn('feedback submit', feedbackForm.getValues());
+  }
+
+  return (
+    <DescriptiveModal
+      title="Dar Feedback"
+      description="Envie sua opinião sobre o site."
+      triggerButton={
+        <button type="button">
+          <Tooltip content="Enviar Feedback">
+            <StyledFeedbackButton as="span" outlined>
+              <FeedbackSvgIcon />
+              <VisuallyHidden>Enviar Feedback</VisuallyHidden>
+            </StyledFeedbackButton>
+          </Tooltip>
+        </button>
+      }
+    >
+      <form onSubmit={feedbackForm.handleSubmit(handleFeedbackSubmit)}>
+        <TextArea
+          rows={5}
+          {...feedbackForm.register('feedback')}
+          placeholder="Descreva seu feedback"
+        />
+        {feedbackForm.formState.errors.feedback && (
+          <ErrorLabel
+            errorMessage={feedbackForm.formState.errors.feedback.message}
+          />
+        )}
+        <FlexRow>
+          <Button type="button" btn="secondary">
+            Adicionar Anexo
+          </Button>
+          <LoadingButton type="submit" isLoading={false} isSuccess={false}>
+            Enviar
+          </LoadingButton>
+        </FlexRow>
+      </form>
+    </DescriptiveModal>
+  );
+};
