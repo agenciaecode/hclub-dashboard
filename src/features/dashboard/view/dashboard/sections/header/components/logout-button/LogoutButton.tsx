@@ -1,5 +1,6 @@
 import { VisuallyHidden } from '@components/disclosure/visually-hidden';
 import { Button } from '@components/forms/button';
+import { LogoutConfirmation } from '@components/overlay/logout-confirmation/LogoutConfirmation';
 
 import { styled } from '@/theme';
 
@@ -23,8 +24,10 @@ const LogoutSvgIcon = () => (
 );
 
 export const LogoutButton = () => (
-  <StyledLogoutButton type="button" outlined>
-    <LogoutSvgIcon />
-    <VisuallyHidden>Sair da conta</VisuallyHidden>
-  </StyledLogoutButton>
+  <LogoutConfirmation>
+    <StyledLogoutButton type="button" outlined>
+      <LogoutSvgIcon />
+      <VisuallyHidden>Sair da conta</VisuallyHidden>
+    </StyledLogoutButton>
+  </LogoutConfirmation>
 );

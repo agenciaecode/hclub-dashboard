@@ -1,3 +1,4 @@
+import { LogoutConfirmation } from '@components/overlay/logout-confirmation';
 import { Tooltip } from '@components/overlay/tooltip';
 
 import userAvatar from '../../assets/images/griseo.jpeg';
@@ -32,7 +33,9 @@ export const DesktopHeader = () => (
     </StyledAccountSection>
     <StyledButtonsToolbar>
       <FeedbackButton />
-      <StyledLogoutButton outlined>Sair da conta</StyledLogoutButton>
+      <LogoutConfirmation>
+        <StyledLogoutButton outlined>Sair da conta</StyledLogoutButton>
+      </LogoutConfirmation>
     </StyledButtonsToolbar>
   </StyledDesktopHeaderWrapper>
 );
