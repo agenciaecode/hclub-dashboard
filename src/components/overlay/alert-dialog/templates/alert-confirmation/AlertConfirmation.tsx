@@ -45,9 +45,9 @@ const AlertConfirmation = ({
           {description}
         </StyledAlertDialogDescription>
         <FlexRow>
-          <AlertDialog.Action asChild onClick={onCancel}>
+          <AlertDialog.Cancel asChild onClick={onCancel}>
             <StyledButton btn="secondary">{cancelButtonText}</StyledButton>
-          </AlertDialog.Action>
+          </AlertDialog.Cancel>
           <AlertDialog.Action asChild onClick={onOk}>
             <StyledButton>{confirmButtonText}</StyledButton>
           </AlertDialog.Action>
