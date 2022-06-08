@@ -18,7 +18,7 @@ const StyledMobileHeaderWrapper = styled('div', {
 const StyledMenuButton = styled('button', {
   lineHeight: '0',
   transition: 'opacity 0.2s ease-in-out',
-  '&:hover': {
+  '&:hover, &:focus': {
     opacity: 0.7,
   },
 });
