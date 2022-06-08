@@ -55,19 +55,4 @@ const DeviceCard = () => (
   />
 );
 
-/**
- * #TODO
- * Botões back do device card
- *
- * desvincular dispositivo
- * marcar como perdido
- * Definir cartão padrão
- *  > Modal para selecionar cartão padrão daquele device
- *  > Abrir modal que permitirá ao usuário escolher qual cartão será o padrão
- *
- *
- * 1. Desvincular dispositivo
- * 2. Marcar como perdido
- * 3. Definir cartão padrão
- */
 export { DeviceCard };
