@@ -9,7 +9,11 @@ import { Tooltip } from '@components/overlay/tooltip';
 import { useFormWithSchema } from '@libs/hook-form';
 
 import { feedbackFormSchema } from './FeedbackButton.schema';
-import { FlexRow, StyledFeedbackButton } from './FeedbackButton.styles';
+import {
+  FlexRow,
+  StyledFeedbackButton,
+  StyledFocusableButton,
+} from './FeedbackButton.styles';
 
 const FeedbackSvgIcon = () => (
   <svg
@@ -38,14 +42,14 @@ export const FeedbackButton = () => {
       title="Dar Feedback"
       description="Envie sua opinião sobre o site."
       triggerButton={
-        <button type="button">
+        <StyledFocusableButton type="button">
           <Tooltip content="Enviar Feedback">
             <StyledFeedbackButton as="span" outlined>
               <FeedbackSvgIcon />
               <VisuallyHidden>Enviar Feedback</VisuallyHidden>
             </StyledFeedbackButton>
           </Tooltip>
-        </button>
+        </StyledFocusableButton>
       }
     >
       <form onSubmit={feedbackForm.handleSubmit(handleFeedbackSubmit)}>
