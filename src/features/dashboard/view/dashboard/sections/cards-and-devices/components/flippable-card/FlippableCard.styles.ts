@@ -35,7 +35,13 @@ const cardFaceStyle: CSS<typeof configTheme> = {
   lineHeight: '$xl',
 };
 
-const StyledFlippableCardFront = styled('div', cardFaceStyle);
+const StyledFlippableCardFront = styled(
+  'div',
+  {
+    transform: 'rotateX(0)',
+  },
+  cardFaceStyle,
+);
 
 const StyledFlippableCardBack = styled('div', cardFaceStyle, {
   transform: 'rotateY(180deg)',
