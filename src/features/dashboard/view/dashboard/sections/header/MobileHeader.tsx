@@ -5,10 +5,13 @@ import { Portal } from '@radix-ui/react-portal';
 
 import { Collapsible } from '@components/data-display/collapsible';
 import { VisuallyHidden } from '@components/disclosure/visually-hidden';
+import { Spinner } from '@components/feedback/spinner';
+
+import { useProfileQuery } from '@features/profiles';
 
 import logoImage from '@assets/images/logo-hman-white.svg';
+import defaultAvatar from '@assets/images/user-avatar.svg';
 
-import userAvatar from '../../assets/images/griseo.jpeg';
 import { AccountManage } from './components/account-manage';
 import { FeedbackButton } from './components/feedback-button';
 import { LogoutButton } from './components/logout-button/LogoutButton';
@@ -94,33 +97,49 @@ const CloseMobileMenuButton = () => (
   </CollapsibleTrigger>
 );
 
-export const MobileHeader = () => (
-  <StyledMobileHeaderWrapper>
-    <HmanLogoWhite />
-    <Collapsible
-      trigger={
-        <StyledMenuButton type="button">
-          <HamburgerMenuSvgIcon />
-          <VisuallyHidden>Abrir menu de navegação</VisuallyHidden>
-        </StyledMenuButton>
-      }
-    >
-      <Portal asChild>
-        <StyledMobileNavigation>
-          <CloseMobileMenuButton />
-          <StyledAvatarWrapper>
-            <StyledUserAvatar src={userAvatar} width={160} height={160} />
-          </StyledAvatarWrapper>
-          <StyledUserName>Gabriel Franco</StyledUserName>
-          <StyledUserEmail>Deverasart@gmail.com</StyledUserEmail>
-          <StyledSeparator />
-          <AccountManage mobile />
-          <StyledButtonsToolbar>
-            <FeedbackButton />
-            <LogoutButton />
-          </StyledButtonsToolbar>
-        </StyledMobileNavigation>
-      </Portal>
-    </Collapsible>
-  </StyledMobileHeaderWrapper>
-);
+export const MobileHeader = () => {
+  const { data: userProfile, isSuccess } = useProfileQuery();
+
+  return (
+    <StyledMobileHeaderWrapper>
+      <HmanLogoWhite />
+      <Collapsible
+        trigger={
+          <StyledMenuButton type="button">
+            <HamburgerMenuSvgIcon />
+            <VisuallyHidden>Abrir menu de navegação</VisuallyHidden>
+          </StyledMenuButton>
+        }
+      >
+        <Portal asChild>
+          <StyledMobileNavigation>
+            <CloseMobileMenuButton />
+            <StyledAvatarWrapper>
+              {isSuccess ? (
+                <StyledUserAvatar
+                  src={userProfile?.avatar?.url ?? defaultAvatar}
+                  width={userProfile?.avatar?.url ? 120 : 100}
+                  height={userProfile?.avatar?.url ? 120 : 100}
+                />
+              ) : (
+                <Spinner css={{ margin: '5rem 5rem' }} />
+              )}
+            </StyledAvatarWrapper>
+            <StyledUserName>
+              {userProfile?.name ?? 'carregando...'}
+            </StyledUserName>
+            <StyledUserEmail>
+              {userProfile?.email ?? 'carregando...'}
+            </StyledUserEmail>
+            <StyledSeparator />
+            <AccountManage mobile />
+            <StyledButtonsToolbar>
+              <FeedbackButton />
+              <LogoutButton />
+            </StyledButtonsToolbar>
+          </StyledMobileNavigation>
+        </Portal>
+      </Collapsible>
+    </StyledMobileHeaderWrapper>
+  );
+};

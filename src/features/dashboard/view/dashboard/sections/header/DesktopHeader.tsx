@@ -1,7 +1,11 @@
+import { Spinner } from '@components/feedback/spinner';
 import { LogoutConfirmation } from '@components/overlay/logout-confirmation';
 import { Tooltip } from '@components/overlay/tooltip';
 
-import userAvatar from '../../assets/images/griseo.jpeg';
+import { useProfileQuery } from '@features/profiles';
+
+import defaultAvatar from '@assets/images/user-avatar.svg';
+
 import { AccountManage } from './components/account-manage';
 import { FeedbackButton } from './components/feedback-button';
 import {
@@ -16,26 +20,42 @@ import {
   StyledSeparator,
 } from './DesktopHeader.styles';
 
-export const DesktopHeader = () => (
-  <StyledDesktopHeaderWrapper>
-    <StyledAccountSection>
-      <StyledUserAvatar src={userAvatar} width={120} height={120} />
-      <StyledUserInfo>
-        <Tooltip content="Gabriel Franco">
-          <StyledUserName>Gabriel Franco</StyledUserName>
-        </Tooltip>
-        <Tooltip content="Deverasart@gmail.com">
-          <StyledUserEmail>Deverasart@gmail.com</StyledUserEmail>
-        </Tooltip>
-      </StyledUserInfo>
-      <StyledSeparator />
-      <AccountManage />
-    </StyledAccountSection>
-    <StyledButtonsToolbar>
-      <FeedbackButton />
-      <LogoutConfirmation>
-        <StyledLogoutButton outlined>Sair da conta</StyledLogoutButton>
-      </LogoutConfirmation>
-    </StyledButtonsToolbar>
-  </StyledDesktopHeaderWrapper>
-);
+export const DesktopHeader = () => {
+  const { data: userProfile, isSuccess } = useProfileQuery();
+
+  return (
+    <StyledDesktopHeaderWrapper>
+      <StyledAccountSection>
+        {isSuccess ? (
+          <StyledUserAvatar
+            src={userProfile?.avatar?.url ?? defaultAvatar}
+            width={userProfile?.avatar?.url ? 120 : 60}
+            height={userProfile?.avatar?.url ? 120 : 60}
+          />
+        ) : (
+          <Spinner css={{ margin: '5rem 5rem' }} />
+        )}
+        <StyledUserInfo>
+          <Tooltip content={userProfile?.name ?? 'carregando...'}>
+            <StyledUserName>
+              {userProfile?.name ?? 'carregando...'}
+            </StyledUserName>
+          </Tooltip>
+          <Tooltip content={userProfile?.email ?? 'carregando...'}>
+            <StyledUserEmail>
+              {userProfile?.email ?? 'carregando...'}
+            </StyledUserEmail>
+          </Tooltip>
+        </StyledUserInfo>
+        <StyledSeparator />
+        <AccountManage />
+      </StyledAccountSection>
+      <StyledButtonsToolbar>
+        <FeedbackButton />
+        <LogoutConfirmation>
+          <StyledLogoutButton outlined>Sair da conta</StyledLogoutButton>
+        </LogoutConfirmation>
+      </StyledButtonsToolbar>
+    </StyledDesktopHeaderWrapper>
+  );
+};
