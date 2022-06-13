@@ -30,6 +30,7 @@ const StyledCardListContainer = styled('section', {
   display: 'flex',
   gap: '2rem',
   position: 'relative',
+  minHeight: '29.7rem',
 });
 
 export {
