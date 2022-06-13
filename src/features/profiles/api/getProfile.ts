@@ -20,7 +20,7 @@ type GetProfileOutput = {
   };
 };
 
-type UserProfile = Readonly<GetProfileOutput>;
+type UserProfile = Readonly<GetProfileOutput['data']>;
 
 async function getProfile() {
   const { data } = await http.get<GetProfileOutput>('/profile');
