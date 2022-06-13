@@ -15,8 +15,9 @@ import { FlexRow, StyledButton } from './AlertConfirmation.styles';
 
 type AlertConfirmationProps = {
   title: string;
-  description: string;
-  confirmButtonText: ReactNode;
+  description: string | ReactElement;
+  confirmButton?: ReactElement;
+  confirmButtonText?: ReactNode;
   cancelButtonText: ReactNode;
   onOk: () => void;
   onCancel?: () => void;
@@ -27,6 +28,7 @@ type AlertConfirmationProps = {
 const AlertConfirmation = ({
   title,
   description,
+  confirmButton,
   confirmButtonText,
   cancelButtonText,
   triggerButton,
@@ -49,7 +51,7 @@ const AlertConfirmation = ({
             <StyledButton btn="secondary">{cancelButtonText}</StyledButton>
           </AlertDialog.Cancel>
           <AlertDialog.Action asChild onClick={onOk}>
-            <StyledButton>{confirmButtonText}</StyledButton>
+            {confirmButton || <StyledButton>{confirmButtonText}</StyledButton>}
           </AlertDialog.Action>
         </FlexRow>
       </StyledAlertDialogContent>
@@ -60,6 +62,8 @@ const AlertConfirmation = ({
 AlertConfirmation.defaultProps = {
   isOpen: undefined,
   onCancel: undefined,
+  confirmButton: undefined,
+  confirmButtonText: 'Confirmar',
 };
 
 export { AlertConfirmation };
