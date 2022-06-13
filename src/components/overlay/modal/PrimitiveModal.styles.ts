@@ -32,7 +32,7 @@ const StyledContent = styled(DialogPrimitive.Content, {
   transform: 'translate(-50%, -50%)',
   width: '90vw',
   maxWidth: 'min(90vw, 742px)',
-  maxHeight: '85vh',
+  // maxHeight: '85vh',
   padding: '3.2rem',
   '@media (prefers-reduced-motion: no-preference)': {
     animation: `${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
