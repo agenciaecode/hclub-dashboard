@@ -7,7 +7,7 @@ type ActivateDeviceInput = {
 };
 
 function activateDevice({ serial_number }: ActivateDeviceInput) {
-  return http.post(`/devices/${serial_number}`, {});
+  return http.post(`/devices-activation/${serial_number}`, {});
 }
 
 const useActivateDeviceMutation = () => useMutation(activateDevice);
