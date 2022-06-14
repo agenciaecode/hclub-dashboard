@@ -40,7 +40,7 @@ export const FeedbackButton = () => {
   return (
     <DescriptiveModal
       title="Dar Feedback"
-      description="Envie sua opinião sobre o site."
+      description="Nos ajude a saber se estamos no caminho certo! Seu feedback é muito importante para nós."
       triggerButton={
         <StyledFocusableButton type="button">
           <Tooltip content="Enviar Feedback">
