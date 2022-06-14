@@ -15,7 +15,7 @@ import {
 const colorsPalette: ColorsPalette = {
   blacks: ['#000000', '#00000099', '#00000066', '#00000033', '#353535'],
   whites: ['#FFFFFF', '#FAFAFA'],
-  grays: ['#C4C4C4', '#E0E0E0'],
+  grays: ['#C4C4C4', '#E0E0E0', '#c4c4c44d'],
   reds: ['#FE3F61'],
   greens: ['#1DC9A0'],
 };
@@ -36,6 +36,7 @@ const white: White = {
 const gray: Gray = {
   base: colorsPalette.grays[0], // used in separators and progressbar
   light: colorsPalette.grays[1], // used as background of disabled inputs
+  lighter: colorsPalette.grays[2], // used on select hover
 };
 
 const red: Red = {
@@ -78,6 +79,7 @@ const colors: Colors = {
 
   gray: gray.base,
   grayLight: gray.light,
+  grayLighter: gray.lighter,
 
   red: red.base,
 
