@@ -23,6 +23,7 @@ type AlertConfirmationProps = {
   onCancel?: () => void;
   triggerButton: ReactElement<typeof Button>;
   isOpen?: boolean;
+  onOpenChange?: (isOpen: boolean) => void;
 };
 
 const AlertConfirmation = ({
@@ -35,9 +36,13 @@ const AlertConfirmation = ({
   onOk,
   onCancel,
   isOpen,
+  onOpenChange,
 }: AlertConfirmationProps) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  <AlertDialog.Root {...(notNullish(isOpen) && { open: isOpen })}>
+  <AlertDialog.Root
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    {...(notNullish(isOpen) && { open: isOpen })}
+    onOpenChange={onOpenChange}
+  >
     <AlertDialog.Trigger asChild>{triggerButton}</AlertDialog.Trigger>
     <AlertDialog.Portal>
       <StyledOverlay />
@@ -64,6 +69,7 @@ AlertConfirmation.defaultProps = {
   onCancel: undefined,
   confirmButton: undefined,
   confirmButtonText: 'Confirmar',
+  onOpenChange: undefined,
 };
 
 export { AlertConfirmation };
