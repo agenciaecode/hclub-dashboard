@@ -1,8 +1,9 @@
 import Image from 'next/image';
+import React from 'react';
 
-import { AlertConfirmation } from '@components/overlay/alert-dialog';
+import { Tooltip } from '@components/overlay/tooltip';
 
-import deviceImage from '../../assets/device.png';
+import { Device } from '@features/devices';
 
 import {
   StyledDeviceInfo,
@@ -11,46 +12,63 @@ import {
   StyledDeviceSerial,
   StyledFlippableCard,
   StyledFrontCardBody,
+  StyledImageWrapper,
   StyledLoadingButton,
+  WrappableText,
 } from './DeviceCard.styles';
+import { LostDeviceButton } from './LostDeviceButton';
+import { UnlinkDeviceButton } from './UnlinkDeviceButton';
 
-const DeviceCard = () => (
+export type DeviceCardProps = {
+  device: Device;
+  isLastDevice: boolean;
+};
+
+const DeviceCard = ({ device, isLastDevice }: DeviceCardProps) => (
   <StyledFlippableCard
     frontContent={
       <StyledFrontCardBody>
-        <Image src={deviceImage} width={117} height={117} alt="Device title" />
+        <StyledImageWrapper>
+          {(device.illustration?.mobile_image && (
+            <Image
+              src={device.illustration?.mobile_image.url}
+              layout="fill"
+              objectFit="contain"
+              alt={device.product_name}
+            />
+          )) ||
+            (device.illustration?.desktop_image && (
+              <Image
+                src={device.illustration?.desktop_image.url}
+                layout="fill"
+                objectFit="contain"
+                alt={device.product_name}
+              />
+            ))}
+        </StyledImageWrapper>
         <StyledDeviceInfo>
-          <StyledDeviceName>Essencial 2</StyledDeviceName>
-          <StyledDeviceSerial>
-            Serie 8a72921c-1e29-405b-bc86-75ba8f112bba
-          </StyledDeviceSerial>
+          <StyledDeviceName>{device.product_name}</StyledDeviceName>
+          <StyledDeviceSerial>Serie {device.serial_number}</StyledDeviceSerial>
         </StyledDeviceInfo>
       </StyledFrontCardBody>
     }
     backContent={
-      <StyledDeviceOptions>
-        <AlertConfirmation
-          title="Confirmar Remoção"
-          description="Deseja realmente desvincular o dispositivo da sua conta?"
-          confirmButtonText="Confirmar"
-          cancelButtonText="Cancelar"
-          triggerButton={
-            <StyledLoadingButton>Desvincular dispositivo</StyledLoadingButton>
-          }
-          onOk={() => undefined}
-        />
-        <AlertConfirmation
-          title="Confirmar Ação"
-          description="Deseja realmente marcar o dispositivo como perdido?"
-          confirmButtonText="Confirmar"
-          cancelButtonText="Cancelar"
-          triggerButton={
-            <StyledLoadingButton>Marcar como perdido</StyledLoadingButton>
-          }
-          onOk={() => undefined}
-        />
-        <StyledLoadingButton>Definir cartão padrão</StyledLoadingButton>
-      </StyledDeviceOptions>
+      <Tooltip
+        // open
+        content={
+          <WrappableText>
+            Dispositivo: {device.product_name}
+            <br />
+            Nº de Serie: {device.serial_number}
+          </WrappableText>
+        }
+      >
+        <StyledDeviceOptions>
+          <UnlinkDeviceButton device={device} isLastDevice={isLastDevice} />
+          <LostDeviceButton device={device} />
+          <StyledLoadingButton>Definir cartão padrão</StyledLoadingButton>
+        </StyledDeviceOptions>
+      </Tooltip>
     }
   />
 );

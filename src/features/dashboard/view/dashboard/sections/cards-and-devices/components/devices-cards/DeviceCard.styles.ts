@@ -14,10 +14,16 @@ const StyledFrontCardBody = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  paddingTop: '4rem',
+  justifyContent: 'center',
   height: '100%',
   width: '100%',
   color: '$textBlack',
+});
+
+const StyledImageWrapper = styled('div', {
+  position: 'relative',
+  width: '11.7rem',
+  height: '11.7rem',
 });
 
 const StyledDeviceInfo = styled('p', {
@@ -62,12 +68,22 @@ const StyledLoadingButton = styled(Button, {
   lineHeight: '$sm',
 });
 
+const WrappableText = styled('span', {
+  display: 'block',
+  maxWidth: '30vw',
+  '@md': {
+    maxWidth: '80vw',
+  },
+});
+
 export {
   StyledFlippableCard,
+  StyledImageWrapper,
   StyledFrontCardBody,
   StyledDeviceInfo,
   StyledDeviceName,
   StyledDeviceSerial,
   StyledDeviceOptions,
   StyledLoadingButton,
+  WrappableText,
 };
