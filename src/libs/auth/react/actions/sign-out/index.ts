@@ -1,6 +1,8 @@
 import Router from 'next/router';
 
-import { SIGN_OUT } from '../../../constants/routes';
+import { mutate } from 'swr';
+
+import { SESSION, SIGN_OUT } from '../../../constants/routes';
 import { filteredErrorData } from '../../../utils/error';
 import { fetchApi } from '../../../utils/fetch';
 import { Options, SignOutResponse } from './types';

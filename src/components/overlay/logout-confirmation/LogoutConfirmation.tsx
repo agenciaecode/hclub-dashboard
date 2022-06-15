@@ -2,9 +2,8 @@ import {
   AlertConfirmation,
   AlertConfirmationProps,
 } from '@components/overlay/alert-dialog';
+import { signOut } from '@libs/auth/react';
 import { showToastErrorMessage } from '@libs/toast/showToastMessage';
-
-import { logout } from '@features/auth';
 
 type LogoutConfirmationProps = {
   children: AlertConfirmationProps['triggerButton'];
@@ -12,7 +11,9 @@ type LogoutConfirmationProps = {
 
 export const LogoutConfirmation = ({ children }: LogoutConfirmationProps) => {
   function handleLogoutSubmit() {
-    logout().catch(() => showToastErrorMessage('Falha ao efetuar o logout.'));
+    signOut({
+      redirect: '/login',
+    }).catch(() => showToastErrorMessage('Falha ao efetuar logout'));
   }
 
   return (
