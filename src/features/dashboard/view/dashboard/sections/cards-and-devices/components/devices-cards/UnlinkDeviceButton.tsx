@@ -11,7 +11,7 @@ import { useUnlinkDeviceMutation } from '@features/devices';
 import { styled } from '@/theme';
 
 import type { DeviceCardProps } from './DeviceCard';
-import { StyledLoadingButton } from './DeviceCard.styles';
+import { StyledButton } from './DeviceCard.styles';
 
 const StyledWarnLabel = styled('span', {
   color: '$auxiliaryNegative',
@@ -71,15 +71,13 @@ export const UnlinkDeviceButton = ({
         <LoadingButton
           isLoading={unlinkDeviceMutation.isLoading}
           isSuccess={unlinkDeviceMutation.isSuccess}
-          css={{ flexGrow: 1 }}
+          css={{ flexGrow: 1, '@sm': { flexGrow: 'unset' } }}
         >
           Confirmar
         </LoadingButton>
       }
       cancelButtonText="Cancelar"
-      triggerButton={
-        <StyledLoadingButton>Desvincular dispositivo</StyledLoadingButton>
-      }
+      triggerButton={<StyledButton>Desvincular dispositivo</StyledButton>}
       onOk={handleUnlinkDeviceConfirmation}
     />
   );

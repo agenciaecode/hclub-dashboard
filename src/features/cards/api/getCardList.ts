@@ -4,9 +4,11 @@ import { http } from '@services/http/api-client';
 
 import { CardKeys } from './CardKeyFactory';
 
+type CardType = 'pro' | 'social' | 'personal';
+
 type CardData = Readonly<{
   id: number;
-  type: 'pro' | 'social' | 'personal';
+  type: CardType;
   type_label: 'Pro' | 'Social' | 'Personal';
   default: boolean;
 }>;
@@ -23,4 +25,4 @@ async function getCardList() {
 const useCardListQuery = () => useQuery(CardKeys.list(), getCardList);
 
 export { useCardListQuery };
-export type { CardData };
+export type { CardData, CardType };

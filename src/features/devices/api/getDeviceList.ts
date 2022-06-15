@@ -2,6 +2,8 @@ import { useQuery } from 'react-query';
 
 import { http } from '@services/http/api-client';
 
+import { CardType } from '@features/cards';
+
 import { DeviceKeys } from './DeviceKeyFactory';
 
 type Image = {
@@ -13,7 +15,7 @@ type Image = {
 type Device = Readonly<{
   serial_number: string;
   status: 'active' | 'inactive' | 'lost';
-  default_card?: boolean;
+  default_card?: CardType;
   product_name: string;
   illustration?: {
     desktop_image: Image;

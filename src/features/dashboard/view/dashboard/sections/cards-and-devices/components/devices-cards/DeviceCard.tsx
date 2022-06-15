@@ -13,10 +13,10 @@ import {
   StyledFlippableCard,
   StyledFrontCardBody,
   StyledImageWrapper,
-  StyledLoadingButton,
   WrappableText,
 } from './DeviceCard.styles';
 import { LostDeviceButton } from './LostDeviceButton';
+import { SelectDefaultCardButton } from './SelectDefaultCardButton';
 import { UnlinkDeviceButton } from './UnlinkDeviceButton';
 
 export type DeviceCardProps = {
@@ -66,7 +66,7 @@ const DeviceCard = ({ device, isLastDevice }: DeviceCardProps) => (
         <StyledDeviceOptions>
           <UnlinkDeviceButton device={device} isLastDevice={isLastDevice} />
           <LostDeviceButton device={device} />
-          <StyledLoadingButton>Definir cartão padrão</StyledLoadingButton>
+          <SelectDefaultCardButton device={device} />
         </StyledDeviceOptions>
       </Tooltip>
     }

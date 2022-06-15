@@ -9,7 +9,7 @@ import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHa
 import { useToggleLostDeviceMutation } from '@features/devices';
 
 import type { DeviceCardProps } from './DeviceCard';
-import { StyledLoadingButton } from './DeviceCard.styles';
+import { StyledButton } from './DeviceCard.styles';
 
 export const LostDeviceButton = ({
   device,
@@ -67,16 +67,16 @@ export const LostDeviceButton = ({
         <LoadingButton
           isLoading={toggleLostDeviceMutation.isLoading}
           isSuccess={toggleLostDeviceMutation.isSuccess}
-          css={{ flexGrow: 1 }}
+          css={{ flexGrow: 1, '@sm': { flexGrow: 'unset' } }}
         >
           Confirmar
         </LoadingButton>
       }
       cancelButtonText="Cancelar"
       triggerButton={
-        <StyledLoadingButton>
+        <StyledButton>
           {isLostDevice ? 'Dispositivo encontrado' : 'Marcar como perdido'}
-        </StyledLoadingButton>
+        </StyledButton>
       }
       onOk={handleToggleLostDevice}
       isOpen={isOpen}

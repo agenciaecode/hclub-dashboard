@@ -60,7 +60,7 @@ const StyledDeviceOptions = styled('div', {
   height: '100%',
 });
 
-const StyledLoadingButton = styled(Button, {
+const StyledButton = styled(Button, {
   width: '100%',
   whiteSpace: 'pre-wrap',
   padding: '1rem 1.5rem',
@@ -76,6 +76,16 @@ const WrappableText = styled('span', {
   },
 });
 
+const FlexRow = styled('div', {
+  marginTop: '3rem',
+  display: 'flex',
+  gap: '2rem',
+  flexDirection: 'column-reverse',
+  '@sm': {
+    flexDirection: 'row',
+  },
+});
+
 export {
   StyledFlippableCard,
   StyledImageWrapper,
@@ -84,6 +94,7 @@ export {
   StyledDeviceName,
   StyledDeviceSerial,
   StyledDeviceOptions,
-  StyledLoadingButton,
+  StyledButton,
   WrappableText,
+  FlexRow,
 };
