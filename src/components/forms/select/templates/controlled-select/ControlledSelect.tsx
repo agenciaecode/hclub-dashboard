@@ -6,15 +6,19 @@ import {
   UseControllerProps,
 } from 'react-hook-form';
 
+import { WithChildren } from '@/types/with-children';
+
 import { Select, SelectProps } from '../../Select';
 
-type ControlledSelectProps<T extends FieldValues> = UseControllerProps<T> & {
-  defaultValue?: string;
-  selectProps: SelectProps;
-};
+type ControlledSelectProps<T extends FieldValues> = UseControllerProps<T> &
+  WithChildren<{
+    defaultValue?: string;
+    selectProps: SelectProps;
+  }>;
 
 const ControlledSelect = <T extends FieldValues>({
-  selectProps: { children, ...selectProps },
+  children,
+  selectProps,
   ...useControllerProps
 }: ControlledSelectProps<T>) => {
   const {
