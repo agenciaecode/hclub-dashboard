@@ -32,7 +32,9 @@ export const SelectDefaultCardButton = ({
   const cardListQuery = useCardListQuery();
   const setDeviceDefaultCardMutation = useSetDeviceDefaultCardMutation();
   const onSuccessfulSubmit = useDebounce(1, async () => {
-    showToastSuccessMessage('Default card updated');
+    showToastSuccessMessage(
+      'Cartão padrão do dispositivo atualizado com sucesso!',
+    );
     await sleep(750);
     if (!setDeviceDefaultCardMutation.isLoading)
       setDeviceDefaultCardMutation.reset();
