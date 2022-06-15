@@ -43,7 +43,7 @@ const StyledItem = styled(SelectPrimitive.Item, {
   userSelect: 'none',
   padding: '1.5rem 1.6rem',
   '&[data-disabled]': {
-    color: '$auxiliaryNegative',
+    color: '$gray',
     pointerEvents: 'none',
   },
   '&[data-state="active"]': {

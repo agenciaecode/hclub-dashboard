@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types,prefer-arrow-callback */
+/* eslint-disable react/prop-types,prefer-arrow-callback,react/jsx-props-no-spreading */
 import React, { ElementRef, forwardRef } from 'react';
 
 import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
@@ -37,12 +37,25 @@ export const SelectOption = ({
 
 export const Select = forwardRef<ElementRef<typeof SelectTrigger>, SelectProps>(
   function Select(
-    { defaultValue, value, name, label, children },
+    {
+      defaultValue,
+      value,
+      name,
+      label,
+      onValueChange,
+      children,
+      ...selectProps
+    },
     forwardedRef,
   ) {
     return (
-      <SelectPrimitive defaultValue={defaultValue} value={value} name={name}>
-        <SelectTrigger aria-label={label} ref={forwardedRef}>
+      <SelectPrimitive
+        defaultValue={defaultValue}
+        value={value}
+        name={name}
+        onValueChange={onValueChange}
+      >
+        <SelectTrigger aria-label={label} ref={forwardedRef} {...selectProps}>
           <SelectValue />
           <SelectIcon>
             <ChevronDownIcon />
