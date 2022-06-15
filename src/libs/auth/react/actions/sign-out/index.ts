@@ -14,6 +14,7 @@ export async function signOut(options: Options): Promise<SignOutResponse> {
 
   try {
     await fetchApi.post(SIGN_OUT);
+    await mutate(SESSION);
 
     if (redirect) Router.replace(redirect);
 
