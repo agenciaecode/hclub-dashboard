@@ -13,6 +13,7 @@ type GetProfileOutput = {
     bio: string;
     birthdate: string;
     birthday_privacy: string;
+    status: 'active' | 'inactive' | 'block';
     avatar?: {
       id: string;
       url: string;

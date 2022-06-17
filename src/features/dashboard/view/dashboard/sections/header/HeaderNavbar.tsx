@@ -1,3 +1,5 @@
+import { useProfileQuery } from '@features/profiles';
+
 import { styled } from '@/theme';
 
 import { DesktopHeader } from './DesktopHeader';
@@ -15,9 +17,32 @@ const StyledNavigation = styled('nav', {
   },
 });
 
-export const HeaderNavbar = () => (
-  <StyledNavigation>
-    <DesktopHeader />
-    <MobileHeader />
-  </StyledNavigation>
-);
+const StyledAccountBlockedWarning = styled('div', {
+  position: 'absolute',
+  top: '0',
+  left: '0',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  padding: '0.5rem 0',
+  background: '#e74c3c',
+  zIndex: 1,
+  fontSize: '1.4rem',
+});
+
+export const HeaderNavbar = () => {
+  const userProfileQuery = useProfileQuery();
+
+  return (
+    <StyledNavigation>
+      {userProfileQuery.data?.status === 'block' && (
+        <StyledAccountBlockedWarning>
+          Conta bloqueada!
+        </StyledAccountBlockedWarning>
+      )}
+      <DesktopHeader />
+      <MobileHeader />
+    </StyledNavigation>
+  );
+};
