@@ -34,6 +34,11 @@ export const DevicesSwiper = forwardRef<
             <DeviceCard device={device} isLastDevice={hasOnlyOneDevice} />
           </SwiperSlide>
         ))}
+        {deviceList?.length === 0 && (
+          <SwiperSlide key={0}>
+            <div>Nenhum dispositivo encontrado</div>
+          </SwiperSlide>
+        )}
       </Swiper>
     </CardContainer>
   );
