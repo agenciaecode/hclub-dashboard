@@ -31,7 +31,7 @@ export const AccountManage = ({
     </StyledAccountManageIconWrapper>
     <StyledAccountManageTextWrapper mobile={mobile}>
       <span>Meus dados</span>
-      <StyledAccountManageLink href="/login" mobile={mobile}>
+      <StyledAccountManageLink href="/meus-dados" mobile={mobile}>
         Gerenciar
       </StyledAccountManageLink>
     </StyledAccountManageTextWrapper>
