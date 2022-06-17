@@ -1,4 +1,6 @@
-/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/jsx-props-no-spreading,@typescript-eslint/no-non-null-assertion */
+import React, { useRef, useState } from 'react';
+
 import { VisuallyHidden } from '@components/disclosure/visually-hidden';
 import { Button } from '@components/forms/button';
 import { ErrorLabel } from '@components/forms/error-label';
@@ -6,8 +8,15 @@ import { LoadingButton } from '@components/forms/loading-button';
 import { TextArea } from '@components/forms/text-area';
 import { DescriptiveModal } from '@components/overlay/modal';
 import { Tooltip } from '@components/overlay/tooltip';
-import { useFormWithSchema } from '@libs/hook-form';
+import { useSuccessEffect } from '@hooks/useSuccessEffect';
+import { setFormErrorsFromException, useFormWithSchema } from '@libs/hook-form';
+import { showToastSuccessMessage } from '@libs/toast/showToastMessage';
+import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
 
+import {
+  SendFeedbackValidationError,
+  useSendFeedbackMutation,
+} from './api/sendFeedback';
 import { feedbackFormSchema } from './FeedbackButton.schema';
 import {
   FlexRow,
@@ -31,10 +40,43 @@ const FeedbackSvgIcon = () => (
 );
 
 export const FeedbackButton = () => {
+  const [fileName, setFileName] = useState<string | undefined>();
+  const feedbackFormRef = useRef<HTMLFormElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const feedbackForm = useFormWithSchema(feedbackFormSchema);
+  const sendFeedbackMutation = useSendFeedbackMutation();
+
+  useHttpExceptionHandler(sendFeedbackMutation.error, exceptionHandler =>
+    exceptionHandler
+      .setValidationExceptionHandler<SendFeedbackValidationError>(
+        setFormErrorsFromException(feedbackForm.setError),
+      )
+      .executeHandler(),
+  );
+
+  useSuccessEffect(sendFeedbackMutation.isSuccess, () => {
+    showToastSuccessMessage('Feedback registrado com succeso!');
+    sendFeedbackMutation.reset();
+    feedbackForm.reset();
+    setFileName(undefined);
+  });
 
   function handleFeedbackSubmit() {
-    console.warn('feedback submit', feedbackForm.getValues());
+    if (sendFeedbackMutation.isLoading) return;
+    sendFeedbackMutation.mutate(new FormData(feedbackFormRef.current!));
+  }
+
+  function handleFileInputKeyboardEvent(
+    keyboardEvent: React.KeyboardEvent<HTMLSpanElement>,
+  ) {
+    if (['Enter', ' ' /* Space */].includes(keyboardEvent.key))
+      fileInputRef.current?.click();
+  }
+
+  function handleFileInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const currentFormData = new FormData(feedbackFormRef.current!);
+    const selectedFile = currentFormData.get('attachment') as File;
+    setFileName(selectedFile?.name);
   }
 
   return (
@@ -52,7 +94,10 @@ export const FeedbackButton = () => {
         </StyledFocusableButton>
       }
     >
-      <form onSubmit={feedbackForm.handleSubmit(handleFeedbackSubmit)}>
+      <form
+        ref={feedbackFormRef}
+        onSubmit={feedbackForm.handleSubmit(handleFeedbackSubmit)}
+      >
         <TextArea
           rows={5}
           {...feedbackForm.register('feedback')}
@@ -64,13 +109,40 @@ export const FeedbackButton = () => {
           />
         )}
         <FlexRow>
-          <Button type="button" btn="secondary">
-            Adicionar Anexo
-          </Button>
-          <LoadingButton type="submit" isLoading={false} isSuccess={false}>
+          <label htmlFor="attachment">
+            <Button
+              btn="secondary"
+              tabIndex={0}
+              onKeyDown={handleFileInputKeyboardEvent}
+              as="span"
+            >
+              {fileName || 'Adicionar Anexo'}
+            </Button>
+            <VisuallyHidden>
+              <input
+                type="file"
+                name="attachment"
+                id="attachment"
+                tabIndex={-1}
+                onChange={handleFileInputChange}
+                ref={fileInputRef}
+              />
+            </VisuallyHidden>
+          </label>
+          <LoadingButton
+            type="submit"
+            isLoading={sendFeedbackMutation.isLoading}
+            isSuccess={sendFeedbackMutation.isSuccess}
+          >
             Enviar
           </LoadingButton>
         </FlexRow>
+        {feedbackForm.formState.errors.attachment && (
+          <ErrorLabel
+            css={{ marginTop: '1.5rem' }}
+            errorMessage={feedbackForm.formState.errors.attachment.message}
+          />
+        )}
       </form>
     </DescriptiveModal>
   );

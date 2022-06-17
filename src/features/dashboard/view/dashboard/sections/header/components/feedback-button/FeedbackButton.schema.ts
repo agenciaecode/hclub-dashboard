@@ -5,5 +5,6 @@ export const feedbackFormSchema = yup
     feedback: yup
       .string()
       .required('Você precisa adicionar uma descrição ao feedback'),
+    attachment: yup.mixed().optional(),
   })
   .required();
