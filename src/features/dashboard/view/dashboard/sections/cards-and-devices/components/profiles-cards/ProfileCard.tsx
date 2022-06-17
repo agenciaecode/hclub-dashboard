@@ -1,6 +1,6 @@
 import type { VariantProps } from '@stitches/react';
 
-import { Link } from '@components/icons/navigator/link';
+import { Link } from '@components/navigator/link';
 
 import {
   cardBackStyle,

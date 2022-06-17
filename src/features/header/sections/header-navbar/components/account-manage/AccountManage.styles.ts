@@ -1,4 +1,4 @@
-import { Link } from '@components/icons/navigator/link';
+import { Link } from '@components/navigator/link';
 
 import { styled } from '@/theme';
 
