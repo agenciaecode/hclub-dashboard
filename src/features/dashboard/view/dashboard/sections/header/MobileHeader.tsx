@@ -7,7 +7,7 @@ import { Collapsible } from '@components/data-display/collapsible';
 import { VisuallyHidden } from '@components/disclosure/visually-hidden';
 import { Spinner } from '@components/feedback/spinner';
 
-import { useProfileQuery } from '@features/profiles';
+import { useUserProfileQuery } from '@features/user';
 
 import logoImage from '@assets/images/logo-hman-white.svg';
 import defaultAvatar from '@assets/images/user-avatar.svg';
@@ -98,7 +98,7 @@ const CloseMobileMenuButton = () => (
 );
 
 export const MobileHeader = () => {
-  const { data: userProfile, isSuccess } = useProfileQuery();
+  const { data: userProfile, isSuccess } = useUserProfileQuery();
 
   return (
     <StyledMobileHeaderWrapper>

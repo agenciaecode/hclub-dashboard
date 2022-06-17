@@ -2,7 +2,7 @@ import { Spinner } from '@components/feedback/spinner';
 import { LogoutConfirmation } from '@components/overlay/logout-confirmation';
 import { Tooltip } from '@components/overlay/tooltip';
 
-import { useProfileQuery } from '@features/profiles';
+import { useUserProfileQuery } from '@features/user';
 
 import defaultAvatar from '@assets/images/user-avatar.svg';
 
@@ -21,7 +21,7 @@ import {
 } from './DesktopHeader.styles';
 
 export const DesktopHeader = () => {
-  const { data: userProfile, isSuccess } = useProfileQuery();
+  const { data: userProfile, isSuccess } = useUserProfileQuery();
 
   return (
     <StyledDesktopHeaderWrapper>

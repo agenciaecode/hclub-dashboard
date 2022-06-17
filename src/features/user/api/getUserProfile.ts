@@ -2,9 +2,9 @@ import { useQuery } from 'react-query';
 
 import { http } from '@services/http/api-client';
 
-import { ProfileKeys } from './ProfileKeyFactory';
+import { UserKeys } from './UserKeyFactory';
 
-type GetProfileOutput = {
+type GetUserProfileOutput = {
   data: {
     username: string;
     name: string;
@@ -21,14 +21,14 @@ type GetProfileOutput = {
   };
 };
 
-type UserProfile = Readonly<GetProfileOutput['data']>;
+type UserProfile = Readonly<GetUserProfileOutput['data']>;
 
-async function getProfile() {
-  const { data } = await http.get<GetProfileOutput>('/profile');
+async function getUserProfile() {
+  const { data } = await http.get<GetUserProfileOutput>('/profile');
   return data;
 }
 
-const useProfileQuery = () => useQuery(ProfileKeys.show(), getProfile);
+const useUserProfileQuery = () => useQuery(UserKeys.show(), getUserProfile);
 
-export { useProfileQuery };
+export { useUserProfileQuery };
 export type { UserProfile };

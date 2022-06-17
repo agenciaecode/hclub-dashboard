@@ -1,4 +1,4 @@
-import { useProfileQuery } from '@features/profiles';
+import { useUserProfileQuery } from '@features/user';
 
 import { styled } from '@/theme';
 
@@ -32,7 +32,7 @@ const StyledAccountBlockedWarning = styled('div', {
 });
 
 export const HeaderNavbar = () => {
-  const userProfileQuery = useProfileQuery();
+  const userProfileQuery = useUserProfileQuery();
 
   return (
     <StyledNavigation>
