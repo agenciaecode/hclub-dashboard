@@ -8,6 +8,8 @@ import {
 import { CookieSerializeOptions } from 'cookie';
 import { destroyCookie } from 'nookies';
 
+import { signOut } from '@libs/auth/react';
+
 import {
   PREFIX_BASE_AUTH,
   PREFIX_BASE_PERMISSION,
@@ -45,6 +47,10 @@ export function interceptorResponseError(
       maxAge: -1,
       path: '/',
     };
+
+    signOut({
+      redirect: '/login',
+    });
 
     destroyCookie(
       undefined,
