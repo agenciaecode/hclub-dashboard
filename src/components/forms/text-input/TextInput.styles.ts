@@ -33,6 +33,9 @@ const StyledInputGroup = styled('div', {
       borderColor: '$gray',
       color: '$blackLighter',
     },
+    '&:disabled': {
+      cursor: 'not-allowed',
+    },
     '&::placeholder': {
       fontFamily: '$defaultItalic',
       color: '$blackLighter',
