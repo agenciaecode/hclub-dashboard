@@ -17,6 +17,7 @@ type TextInputProps = {
   errorMessage?: string;
   value?: string | number;
   readOnly?: boolean;
+  disabled?: boolean;
   /**
    * React Hook Form
    * Register object is from registering useForm.
@@ -39,6 +40,7 @@ const TextInput = ({
   type,
   errorMessage,
   readOnly,
+  disabled,
   register,
 }: TextInputProps) => {
   const inputId = id ?? name;
@@ -52,6 +54,7 @@ const TextInput = ({
         defaultValue={defaultValue}
         value={value}
         readOnly={readOnly}
+        disabled={disabled}
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...register(name)}
       />
@@ -67,6 +70,7 @@ TextInput.defaultProps = {
   type: undefined,
   value: undefined,
   readOnly: false,
+  disabled: false,
 };
 
 export { TextInput };

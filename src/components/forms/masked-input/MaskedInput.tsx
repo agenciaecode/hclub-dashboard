@@ -20,6 +20,7 @@ type MaskedInputProps<T extends FieldValues> = UseControllerProps<T> & {
   defaultValue?: string;
   errorMessage?: string;
   readOnly?: boolean;
+  disabled?: boolean;
   imaskProps: ComponentProps<typeof IMaskInput>;
 };
 
@@ -30,6 +31,7 @@ const MaskedInput = <T extends FieldValues>({
   defaultValue,
   errorMessage,
   readOnly,
+  disabled,
   imaskProps,
   ...useControllerProps
 }: MaskedInputProps<T>) => {
@@ -47,6 +49,7 @@ const MaskedInput = <T extends FieldValues>({
         defaultValue={defaultValue}
         value={controllerValue}
         readOnly={readOnly}
+        disabled={disabled}
         onAccept={onChange}
         name={useControllerProps.name}
         ref={ref}
@@ -62,6 +65,7 @@ MaskedInput.defaultProps = {
   defaultValue: undefined,
   id: undefined,
   readOnly: false,
+  disabled: false,
 };
 
 export { MaskedInput };
