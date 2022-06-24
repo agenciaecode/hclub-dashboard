@@ -43,7 +43,10 @@ export const FeedbackButton = () => {
   const [fileName, setFileName] = useState<string | undefined>();
   const feedbackFormRef = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const feedbackForm = useFormWithSchema(feedbackFormSchema);
+  const {
+    formState: { errors: feedbackFormErrors },
+    ...feedbackForm
+  } = useFormWithSchema(feedbackFormSchema);
   const sendFeedbackMutation = useSendFeedbackMutation();
 
   useHttpExceptionHandler(sendFeedbackMutation.error, exceptionHandler =>
@@ -103,10 +106,8 @@ export const FeedbackButton = () => {
           {...feedbackForm.register('feedback')}
           placeholder="Descreva seu feedback"
         />
-        {feedbackForm.formState.errors.feedback && (
-          <ErrorLabel
-            errorMessage={feedbackForm.formState.errors.feedback.message}
-          />
+        {feedbackFormErrors.feedback && (
+          <ErrorLabel errorMessage={feedbackFormErrors.feedback.message} />
         )}
         <FlexRow>
           <label htmlFor="attachment">
@@ -137,10 +138,10 @@ export const FeedbackButton = () => {
             Enviar
           </LoadingButton>
         </FlexRow>
-        {feedbackForm.formState.errors.attachment && (
+        {feedbackFormErrors.attachment && (
           <ErrorLabel
             css={{ marginTop: '1.5rem' }}
-            errorMessage={feedbackForm.formState.errors.attachment.message}
+            errorMessage={String(feedbackFormErrors.attachment.message)}
           />
         )}
       </form>
