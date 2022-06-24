@@ -1,7 +1,6 @@
 import React, { createContext, useMemo, useState } from 'react';
 
 import { globalDefaultStyles, defaultTheme } from '../../styles';
-
 import { AppThemeDataContext, AppThemeProps } from './types';
 
 export const AppThemeContext = createContext({} as AppThemeDataContext);

@@ -1,5 +1,5 @@
-import { Modal, ModalProps } from '../modal';
 import { StyledDescription, StyledTitle } from '../../PrimitiveModal.styles';
+import { Modal, ModalProps } from '../modal';
 
 type DescriptiveModalProps = ModalProps & {
   title: string;

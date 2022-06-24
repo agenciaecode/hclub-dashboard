@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { NextPage } from 'next';
-
 import { AppProps } from 'next/app';
 
 export type AuthOptions = {

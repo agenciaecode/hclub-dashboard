@@ -1,50 +1,91 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { InferType } from 'yup';
 import { useRouter } from 'next/router';
 
-import { Button } from '@components/forms/button';
+import { StatusCodes } from 'http-status-codes';
+
+import { LoadingButton } from '@components/forms/loading-button';
+import { MaskedInput } from '@components/forms/masked-input';
 import { TextInput } from '@components/forms/text-input';
-import { BackButton } from '@components/others/back-button';
-import { ControlledCheckbox } from '@components/forms/checkbox';
-import { Label } from '@components/forms/label';
-import { ErrorLabel } from '@components/forms/error-label';
 import { Navbar } from '@components/layout/navbar';
+import { BackButton } from '@components/others/back-button';
+import { AlertConfirmation } from '@components/overlay/alert-dialog';
+import { useSuccessEffect } from '@hooks/useSuccessEffect';
+import { useFormWithSchema, setFormErrorsFromException } from '@libs/hook-form';
+import {
+  showToastErrorMessage,
+  showToastSuccessMessage,
+} from '@libs/toast/showToastMessage';
+import {
+  handleApiCode,
+  handleClientExceptionByStatus,
+} from '@services/http/default-status-code-handlers';
+import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
 
-import { FormContainer } from '../../components/form-container';
+import type { DeviceInformation } from '@features/auth';
 
+import { FormContainer } from '../../../../components/form-container';
+import {
+  accountErrorCodes,
+  CreateAccountValidationErrors,
+  useCreateAccountMutation,
+} from '../../api/createAccount';
+import { accountFormSchema } from './AccountForm.schema';
 import {
   HiddenOnDesktop,
-  StyledFlexRow,
   StyledFormInputsSections,
   StyledHeader,
 } from './AccountForm.styles';
-import { accountFormSchema } from './AccountForm.schema';
 import { IconUser } from './components/icon-user';
 
 type AccountFormProps = {
   backToLoginForm: () => void;
+  deciveInformation: DeviceInformation;
 };
 
-type AccountForm = InferType<typeof accountFormSchema>;
+function removePhoneMask(phone: string): string {
+  return phone.replace(/[()]/g, '');
+}
 
-const AccountForm = ({ backToLoginForm }: AccountFormProps) => {
+const AccountForm = ({
+  backToLoginForm,
+  deciveInformation,
+}: AccountFormProps) => {
   const router = useRouter();
   const { serial } = router.query;
   const {
-    register,
-    handleSubmit,
-    getValues: getFormValues,
-    formState: { errors },
-    control,
-  } = useForm<AccountForm>({
-    resolver: yupResolver(accountFormSchema),
+    formState: { errors: accountFormErrors },
+    ...accountForm
+  } = useFormWithSchema(accountFormSchema);
+  const createAccountMutation = useCreateAccountMutation();
+
+  useHttpExceptionHandler(createAccountMutation.error, exceptionHandler =>
+    exceptionHandler
+      .setValidationExceptionHandler<CreateAccountValidationErrors>(
+        setFormErrorsFromException(accountForm.setError),
+      )
+      .setClientExceptionHandler(
+        handleClientExceptionByStatus({
+          [StatusCodes.NOT_FOUND]: clientException =>
+            handleApiCode(accountErrorCodes.NO_DEVICE, clientException, () =>
+              showToastErrorMessage('Número de série do produto é inválido'),
+            ),
+        }),
+      )
+      .executeHandler(),
+  );
+
+  useSuccessEffect(createAccountMutation.isSuccess, () => {
+    showToastSuccessMessage(
+      'Conta criada com sucesso! Você já pode realizar o login.',
+    );
+    router.push('/login');
   });
 
   function handleAccountSubmit() {
-    // eslint-disable-next-line no-console
-    console.log('account form values', getFormValues());
+    if (createAccountMutation.isLoading) return;
+    createAccountMutation.mutate({
+      ...accountForm.getValues(),
+      cellphone: `+55 ${removePhoneMask(accountForm.getValues('cellphone'))}`,
+    });
   }
 
   //! TODO - restructure this code
@@ -82,7 +123,7 @@ const AccountForm = ({ backToLoginForm }: AccountFormProps) => {
     <FormContainer
       title="Cadastro"
       description="Preencha os campos abaixo para criar sua conta"
-      formSubmitHandler={handleSubmit(handleAccountSubmit)}
+      formSubmitHandler={() => undefined}
       headerSlot={Header}
       headerCss={{
         display: 'block',
@@ -98,75 +139,83 @@ const AccountForm = ({ backToLoginForm }: AccountFormProps) => {
           <StyledFormInputsSections>
             <TextInput
               label="Série do Produto"
-              name="serial"
+              name="serial_number"
               placeholder="Insira o número de série do produto"
               type="text"
-              errorMessage={errors.serial?.message}
+              errorMessage={accountFormErrors.serial_number?.message}
               defaultValue={serial as string}
               readOnly
-              register={register}
+              register={accountForm.register}
             />
             <TextInput
               label="Usuário"
               name="username"
               placeholder="Insira o nome de usuário"
               type="text"
-              errorMessage={errors.username?.message}
-              register={register}
+              errorMessage={accountFormErrors.username?.message}
+              register={accountForm.register}
             />
             <TextInput
               label="Seu Nome"
               name="name"
               placeholder="Insira o seu nome"
               type="text"
-              errorMessage={errors.name?.message}
-              register={register}
+              errorMessage={accountFormErrors.name?.message}
+              register={accountForm.register}
+            />
+            <MaskedInput
+              label="Número de telefone"
+              imaskProps={{
+                mask: '(00) 00000-0000',
+              }}
+              name="cellphone"
+              placeholder="(99) 99999-9999"
+              control={accountForm.control}
+              errorMessage={accountFormErrors.cellphone?.message}
             />
             <TextInput
               label="E-mail"
               name="email"
               placeholder="Insira o seu email"
               type="text"
-              errorMessage={errors.email?.message}
-              register={register}
+              errorMessage={accountFormErrors.email?.message}
+              register={accountForm.register}
             />
             <TextInput
               label="Senha"
               name="password"
               placeholder="Crie sua senha"
               type="password"
-              errorMessage={errors.password?.message}
-              register={register}
+              errorMessage={accountFormErrors.password?.message}
+              register={accountForm.register}
             />
             <TextInput
               label="Confirmar Senha"
               name="password_confirmation"
               placeholder="Confirme sua senha"
               type="password"
-              errorMessage={errors.password_confirmation?.message}
-              register={register}
+              errorMessage={accountFormErrors.password_confirmation?.message}
+              register={accountForm.register}
             />
-            <div>
-              <StyledFlexRow>
-                <ControlledCheckbox name="accept_link" control={control} />
-                <Label htmlFor="accept_link">
-                  Criar conta e vincular produto.
-                </Label>
-              </StyledFlexRow>
-              <ErrorLabel
-                htmlFor="accept_link"
-                errorMessage={errors.accept_link?.message}
-              />
-            </div>
           </StyledFormInputsSections>
-          <Button
-            type="submit"
-            css={{
-              marginTop: 'calc(2.4rem - 1.6rem) !important',
-            }}
-          >
-            <span>Criar a minha conta</span>
-          </Button>
+          <AlertConfirmation
+            title="Confirmar Registro"
+            description={`Você tem certeza que deseja ativar o dispositivo "${deciveInformation.title}" ao registrar sua conta?`}
+            confirmButtonText="Confirmar"
+            cancelButtonText="Cancelar"
+            triggerButton={
+              <LoadingButton
+                css={{
+                  marginTop: '2rem',
+                }}
+                isLoading={createAccountMutation.isLoading}
+                isSuccess={createAccountMutation.isSuccess}
+              >
+                Criar a minha conta
+              </LoadingButton>
+            }
+            onOk={() => accountForm.handleSubmit(handleAccountSubmit)()}
+          />
         </>
       }
     />

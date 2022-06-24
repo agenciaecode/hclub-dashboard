@@ -1,6 +1,6 @@
-import { StyledSpinner as OriginalStyledSpinner } from '../spinner/Spinner.styles';
-
 import { keyframes, styled } from '@/theme';
+
+import { StyledSpinner as OriginalStyledSpinner } from '../spinner/Spinner.styles';
 
 const growCircleAnimation = keyframes({
   '0%': {
@@ -16,7 +16,7 @@ const growCircleAnimation = keyframes({
   },
 });
 
-const growAnimation = keyframes({
+export const growArrowAnimation = keyframes({
   '0%': {
     opacity: 0,
     transform: 'scale(0)',
@@ -44,7 +44,7 @@ export const StyledCheckMarkSpinner = styled(
           transitionDuration: '125ms',
           '& > svg': {
             visibility: 'visible',
-            animation: `${growAnimation} 250ms forwards cubic-bezier(1.000, 0.008, 0.565, 1.650)`,
+            animation: `${growArrowAnimation} 250ms forwards cubic-bezier(1.000, 0.008, 0.565, 1.650)`,
           },
         },
       },

@@ -1,8 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { SetPermissionResponse } from '../../actions/set-permission/types';
-
-import { SignIn, SignInCallback } from '../../actions/sign-in/types';
+import {
+  Permission,
+  PermissionConfig,
+} from '../../actions/set-permission/types';
+import {
+  Authentication,
+  AuthenticationConfig,
+  SignInCallback,
+} from '../../actions/sign-in/types';
 
 type FunctionCallback = (
   req: NextApiRequest,
@@ -20,6 +26,8 @@ export type PublicPages = {
 };
 
 export type Auth = {
+  authentication: Authentication;
+  permission?: Permission;
   callback?: {
     signIn?: SignInCallback;
     signOut?: FunctionCallback;
@@ -29,15 +37,23 @@ export type Auth = {
   publicPages: {
     [key: string]: string | undefined;
   };
-  signIn: SignIn;
-  setPermission?: SetPermissionResponse;
 };
 
-export type ConfigAuth = {
+export type AuthConfigAuthentication = {
+  options: AuthenticationConfig;
+};
+
+export type AuthConfigPermission = {
+  options: PermissionConfig;
+};
+
+export type AuthConfig = {
   method: string | undefined;
   originUrl: string | undefined;
   defaultPages: DefaultPages;
   publicPages: PublicPages;
+  authentication: AuthConfigAuthentication;
+  permission: AuthConfigPermission;
   originHost: {
     protocol: string;
     host: string;

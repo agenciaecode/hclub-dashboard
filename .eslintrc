@@ -87,46 +87,65 @@
     "import/order": [
       "error",
       {
+        "groups": [
+          [
+            "builtin",
+            "external"
+          ],
+          "internal",
+          [
+            "parent",
+            "sibling",
+            "index"
+          ]
+        ],
         "pathGroups": [
           {
-            "pattern": "react",
+            "pattern": "{react,next/**}",
             "group": "builtin",
+            "patternOptions": { "partial": true },
             "position": "before"
           },
           {
-            "pattern": "next",
-            "group": "builtin",
-            "position": "before"
-          },
-          {
-            "pattern": "@components/**",
-            "group": "external",
-            "position": "after"
+            "pattern": "{@components/**,@libs/**,@utils/**,@hooks/**}",
+            "group": "internal"
           },
           {
             "pattern": "@features/**",
-            "group": "external",
+            "group": "internal",
             "position": "after"
           },
           {
-            "pattern": "@/features/**",
-            "group": "external",
+            "pattern": "@/**",
+            "group": "internal",
             "position": "after"
           },
           {
-            "pattern": "@hooks/**",
-            "group": "external",
+            "pattern": "**.{png,svg}",
+            "group": "internal",
+            "patternOptions": { "matchBase": true },
             "position": "after"
           }
         ],
-        "pathGroupsExcludedImportTypes": [
-          "react",
-          "next",
-          "@components",
-          "@hooks"
-        ],
-        "newlines-between": "always-and-inside-groups"
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "pathGroupsExcludedImportTypes": [],
+        "newlines-between": "always"
       }
-    ]
+    ],
+    "no-useless-constructor": "off",
+    "@typescript-eslint/no-useless-constructor": [
+      "error"
+    ],
+    "lines-between-class-members": [
+      "error",
+      "always",
+      {
+        "exceptAfterSingleLine": true
+      }
+    ],
+    "max-classes-per-file": "off"
   }
 }

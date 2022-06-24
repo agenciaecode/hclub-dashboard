@@ -2,9 +2,8 @@ import { NextApiRequest } from 'next';
 
 import Iron from '@hapi/iron';
 
-import { getCookie } from '../../utils/cookie/index';
-
 import { PREFIX_BASE_SESSION } from '../../../constants/session';
+import { getCookie } from '../../utils/cookie/index';
 
 const PASSWORD = process.env.AUTH_COOKIE_PASSWORD;
 
@@ -29,11 +28,6 @@ export async function getSession<T>(
   if (!token) return undefined;
 
   const session = await Iron.unseal(token, PASSWORD, Iron.defaults);
-  const expiresAt = new Date(session.expiresAt).getTime();
-
-  if (Date.now() > expiresAt) {
-    throw new Error('Session expired');
-  }
 
   return session;
 }

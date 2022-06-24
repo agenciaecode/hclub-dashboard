@@ -1,8 +1,7 @@
 import { NextApiResponse } from 'next';
 
-import { removeCookie } from '../../utils/cookie';
-
 import { PREFIX_BASE_SESSION } from '../../../constants/session';
+import { removeCookie } from '../../utils/cookie';
 
 export function removeSession(
   nameSession: string | string[],

@@ -1,12 +1,14 @@
 import * as Sentry from '@sentry/browser';
-import { CookieSerializeOptions } from 'cookie';
-import { destroyCookie } from 'nookies';
 import {
   AxiosError,
   AxiosPromise,
   AxiosRequestConfig,
   AxiosResponse,
 } from 'axios';
+import { CookieSerializeOptions } from 'cookie';
+import { destroyCookie } from 'nookies';
+
+import { signOut } from '@libs/auth/react';
 
 import {
   PREFIX_BASE_AUTH,
@@ -45,6 +47,10 @@ export function interceptorResponseError(
       maxAge: -1,
       path: '/',
     };
+
+    signOut({
+      redirect: '/login',
+    });
 
     destroyCookie(
       undefined,

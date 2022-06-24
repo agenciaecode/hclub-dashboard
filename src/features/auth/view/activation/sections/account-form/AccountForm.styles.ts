@@ -1,25 +1,9 @@
-import { Checkbox } from '@components/forms/checkbox';
-
-import { StyledFormInputsSections as OriginalStyledFormInputsSections } from '../login-form/LoginForm.styles';
-
 import { styled } from '@/theme';
 
-const StyledFormInputsSections = styled(OriginalStyledFormInputsSections, {
-  gap: '3.2rem',
-});
-
-const StyledFlexRow = styled('div', {
+const StyledFormInputsSections = styled('section', {
   display: 'flex',
-  alignItems: 'center',
-  gap: '1rem',
-  marginBottom: '0.5rem',
-});
-
-const StyledCheckbox = styled(Checkbox, {
-  border: '1px solid $gray',
-  '&:focus': {
-    boxShadow: '0 0 0.1rem $gray',
-  },
+  flexDirection: 'column',
+  gap: '3.2rem',
 });
 
 const StyledHeader = styled('header', {
@@ -38,10 +22,4 @@ const HiddenOnDesktop = styled('div', {
   },
 });
 
-export {
-  StyledFormInputsSections,
-  StyledFlexRow,
-  StyledCheckbox,
-  StyledHeader,
-  HiddenOnDesktop,
-};
+export { StyledFormInputsSections, StyledHeader, HiddenOnDesktop };

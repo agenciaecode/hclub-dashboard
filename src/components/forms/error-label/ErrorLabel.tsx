@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { LabelProps } from '@components/forms/label';
+import { ComponentProps } from 'react';
+
 import { ErrorInfoIcon } from '@components/icons/error-info';
 
-import { StyledLabel } from './ErrorLabel.styles';
+import { StyledLabel, TextWithWrapSpace } from './ErrorLabel.styles';
 
-export type ErrorLabelProps = LabelProps & {
+export type ErrorLabelProps = ComponentProps<typeof StyledLabel> & {
   errorMessage?: string;
 };
 
@@ -16,7 +17,7 @@ export const ErrorLabel = ({
     return (
       <StyledLabel {...labelProps}>
         <ErrorInfoIcon />
-        <span>{errorMessage}</span>
+        <TextWithWrapSpace>{errorMessage}</TextWithWrapSpace>
       </StyledLabel>
     );
   }

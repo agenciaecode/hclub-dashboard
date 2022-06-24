@@ -1,11 +1,10 @@
 import Router from 'next/router';
 
-import { fetchApi } from '../../../utils/fetch';
+import { mutate } from 'swr';
 
-import { SIGN_OUT } from '../../../constants/routes';
-
+import { SESSION, SIGN_OUT } from '../../../constants/routes';
 import { filteredErrorData } from '../../../utils/error';
-
+import { fetchApi } from '../../../utils/fetch';
 import { Options, SignOutResponse } from './types';
 
 export async function signOut(options: Options): Promise<SignOutResponse> {
@@ -15,6 +14,7 @@ export async function signOut(options: Options): Promise<SignOutResponse> {
 
   try {
     await fetchApi.post(SIGN_OUT);
+    await mutate(SESSION);
 
     if (redirect) Router.replace(redirect);
 

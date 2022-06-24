@@ -49,6 +49,7 @@ export type Gray = {
    * @string `#E0E0E0` - used as background of disabled inputs
    */
   light: string;
+  lighter: string;
 };
 
 export type Red = {
@@ -119,6 +120,7 @@ export type Colors = {
   whiteDark: string;
   gray: string;
   grayLight: string;
+  grayLighter: string;
   red: string;
   green: string;
   primaryWhite: string;

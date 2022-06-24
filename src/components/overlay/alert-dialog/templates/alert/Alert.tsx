@@ -8,22 +8,28 @@ import {
   StyledAlertDialogTitle,
   StyledOverlay,
 } from '../../PrimitiveAlertDialog.styles';
-
 import { FlexRow, StyledButton } from './Alert.styles';
 
 type AlertProps = {
   title: string;
   description: string;
   confirmButtonText: string;
+  confirmButtonAction?: () => void;
   triggerButton: React.ReactElement<typeof Button>;
   isOpen?: boolean;
 };
 
 const Alert = (alertDialogProps: AlertProps) => {
-  const { title, description, confirmButtonText, triggerButton, isOpen } =
-    alertDialogProps;
+  const {
+    title,
+    description,
+    confirmButtonText,
+    triggerButton,
+    confirmButtonAction,
+    isOpen,
+  } = alertDialogProps;
   return (
-    <AlertDialog.Root>
+    <AlertDialog.Root open={isOpen}>
       <AlertDialog.Trigger asChild>{triggerButton}</AlertDialog.Trigger>
       <AlertDialog.Portal>
         <StyledOverlay />
@@ -33,9 +39,9 @@ const Alert = (alertDialogProps: AlertProps) => {
             {description}
           </StyledAlertDialogDescription>
           <FlexRow>
-            <AlertDialog.Cancel asChild>
+            <AlertDialog.Action asChild onClick={confirmButtonAction}>
               <StyledButton>{confirmButtonText}</StyledButton>
-            </AlertDialog.Cancel>
+            </AlertDialog.Action>
           </FlexRow>
         </StyledAlertDialogContent>
       </AlertDialog.Portal>

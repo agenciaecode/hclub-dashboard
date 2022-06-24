@@ -31,13 +31,15 @@ const StyledSplashSection = styled('section', {
   },
   '& > span': {
     left: 'calc(32% - 12.3rem)',
+    maxWidth: 'min(45rem, 100%) !important',
+    maxHeight: '70rem',
   },
 });
 
 const StyledFooter = styled(Footer, {
   padding: '4rem',
   '@desktop': {
-    padding: '4rem 0 4rem 12rem',
+    padding: '4rem 0 4rem 0rem',
   },
   variants: {
     'mobile-dark': {
@@ -58,6 +60,10 @@ const StyledMobileSplashSection = styled('section', {
   justifyContent: 'center',
   '@desktop': {
     display: 'none',
+  },
+  '& > span': {
+    maxWidth: 'min(30rem, 100%) !important',
+    maxHeight: '25rem',
   },
 });
 

@@ -1,11 +1,9 @@
 // eslint-disable-next-line @next/next/no-server-import-in-page
 import { NextRequest, NextResponse } from 'next/server';
 
-import { fetchApi } from '../../../utils/fetch';
-
 import { SESSION } from '../../../constants/routes';
-
 import { AuthSessionResponse } from '../../../server/types';
+import { fetchApi } from '../../../utils/fetch';
 import { AuthOptions } from '../../types';
 
 export function validationSession(options?: AuthOptions) {

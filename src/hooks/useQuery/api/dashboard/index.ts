@@ -1,7 +1,6 @@
 import { useQuery as useReactQuery, UseQueryResult } from 'react-query';
 
 import { apiDashboard } from '../../../../services/app';
-
 import { QueryOptions } from '../types';
 
 export function useQuery<Data, Error = unknown>(

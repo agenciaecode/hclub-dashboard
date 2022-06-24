@@ -2,19 +2,16 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import Cors from 'cors';
 
-import { signIn, signOut, setPermission, session } from '../actions';
-
 import {
   PREFIX_SESSION,
   PREFIX_SET_PERMISSION,
   PREFIX_SIGN_IN,
   PREFIX_SIGN_OUT,
 } from '../../constants/routes';
-
-import { initMiddleware } from './utils/cors';
+import { signIn, signOut, setPermission, session } from '../actions';
+import { Auth, AuthConfig } from './types';
 import { absoluteUrl } from './utils/absolute-url';
-
-import { Auth } from './types';
+import { initMiddleware } from './utils/cors';
 
 const baseUrl = process.env.AUTH_APP_URL;
 
@@ -26,9 +23,30 @@ const middlewareCors = initMiddleware(
   }),
 );
 
-function handlerSetConfig(request: NextApiRequest, options: Auth) {
+function handleSetValuesDefaultConfig(options: Auth) {
+  return {
+    ...options,
+    authentication: {
+      ...options.authentication,
+      options: {
+        validateExpiration: true,
+        ...options.authentication.options,
+      },
+    },
+    permission: {
+      ...options.permission,
+      options: {
+        validateExpiration: true,
+        ...(options?.permission?.options || null),
+      },
+    },
+  };
+}
+
+function handleSetConfig(request: NextApiRequest, options: Auth): AuthConfig {
+  const config = handleSetValuesDefaultConfig(options);
   const { url, headers } = request;
-  const { defaultPages, publicPages } = options;
+  const { defaultPages, publicPages, authentication, permission } = config;
   const prefixUrl = url?.replace('api/auth/', '');
   const { referer } = headers;
 
@@ -41,6 +59,8 @@ function handlerSetConfig(request: NextApiRequest, options: Auth) {
     originHost,
     defaultPages,
     publicPages,
+    authentication,
+    permission,
   };
 }
 
@@ -52,13 +72,15 @@ export function auth(options: Auth) {
     await middlewareCors(request, response);
     const { url } = request;
     const prefixUrl = url?.replace('api/auth/', '');
-    const configAuth = handlerSetConfig(request, options);
+    const configAuth = handleSetConfig(request, options);
+
     switch (prefixUrl) {
       case PREFIX_SIGN_IN:
         return signIn({
           request,
           response,
-          signIn: options.signIn,
+          signIn: options.authentication.signIn,
+          options: configAuth.authentication.options,
           callback: options?.callback?.signIn,
         });
       case PREFIX_SIGN_OUT:
@@ -71,7 +93,8 @@ export function auth(options: Auth) {
         return setPermission({
           request,
           response,
-          fetch: options.setPermission,
+          setPermission: options.permission?.setPermission,
+          options: configAuth.permission.options,
         });
       case PREFIX_SESSION:
         return session({

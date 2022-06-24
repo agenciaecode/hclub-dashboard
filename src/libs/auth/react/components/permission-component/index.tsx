@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { useAuth } from '../../hooks/useAuth';
-
 import { PermissionComponentProps } from './types';
 
 export const PermissionComponent = (props: PermissionComponentProps) => {

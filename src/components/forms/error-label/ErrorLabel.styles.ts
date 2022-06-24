@@ -11,3 +11,7 @@ export const StyledLabel = styled(Label, {
     fill: '$auxiliaryNegative',
   },
 });
+
+export const TextWithWrapSpace = styled('span', {
+  whiteSpace: 'pre-wrap',
+});

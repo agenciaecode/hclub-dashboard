@@ -1,13 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { ConfigAuth } from '../../../config/types';
-
+import { AuthConfig } from '../../../config/types';
 import { AuthSessionResponse, AuthSessionResponseError } from '../../../types';
 
 export type SessionProps = {
   request: NextApiRequest;
   response: NextApiResponse<AuthSessionResponse | AuthSessionResponseError>;
-  configAuth: ConfigAuth;
+  configAuth: AuthConfig;
   callback?: (
     req: NextApiRequest,
     res: NextApiResponse,

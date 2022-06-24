@@ -1,11 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import Image from 'next/image';
 import { ComponentProps } from 'react';
 
-import Image from 'next/image';
+import logoWhite from '@assets/images/logo-hman-white.svg';
 
 import { StyledNav } from './Navbar.styles';
-
-import logoWhite from '@assets/images/logo-hman-white.svg';
 
 const Navbar = ({
   children,

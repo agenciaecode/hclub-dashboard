@@ -1,12 +1,13 @@
 import Head from 'next/head';
 
-import { ToastContainer, Bounce } from 'react-toastify';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ToastContainer, Bounce } from 'react-toastify';
 
-import { AppThemeProvider } from '../src/theme';
-import { AuthProvider } from '../src/libs/auth/react';
+import { AuthAppProps } from '@libs/auth/next/types';
+import { AuthProvider } from '@libs/auth/react';
+import { SentryProvider } from '@libs/sentry';
 
-import { AuthAppProps } from '../src/libs/auth/next/types';
+import { AppThemeProvider } from '@/theme';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -18,22 +19,24 @@ const App = (props: AuthAppProps) => {
   return (
     <>
       <Head>
-        <title>Next.js</title>
+        <title>HClub</title>
       </Head>
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider auth={Component.auth}>
-          <AppThemeProvider>
-            <ToastContainer
-              limit={3}
-              autoClose={5000}
-              transition={Bounce}
-              icon
-            />
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            <Component {...pageProps} />
-          </AppThemeProvider>
-        </AuthProvider>
-      </QueryClientProvider>
+      <SentryProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider auth={Component.auth}>
+            <AppThemeProvider>
+              <ToastContainer
+                limit={3}
+                autoClose={5000}
+                transition={Bounce}
+                icon
+              />
+              {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+              <Component {...pageProps} />
+            </AppThemeProvider>
+          </AuthProvider>
+        </QueryClientProvider>
+      </SentryProvider>
     </>
   );
 };

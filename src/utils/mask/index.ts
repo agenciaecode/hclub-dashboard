@@ -1,8 +1,8 @@
+import { cell } from './cell';
+import { cep } from './cep';
 import { cnpj } from './cnpj';
 import { cpf } from './cpf';
 import { cpfAndCnpj } from './cpf-and-cnpj';
-import { cell } from './cell';
-import { cep } from './cep';
 import { date } from './date';
 import { phone } from './phone';
 

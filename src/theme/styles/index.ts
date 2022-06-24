@@ -1,4 +1,4 @@
-import { defaultTheme } from './theme';
 import { globalDefaultStyles } from './global';
+import { defaultTheme } from './theme';
 
 export { defaultTheme, globalDefaultStyles };

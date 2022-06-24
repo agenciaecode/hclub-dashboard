@@ -1,13 +1,11 @@
-import { removeSession } from '../../session';
-
 import {
   PREFIX_BASE_AUTH,
   PREFIX_BASE_PERMISSION,
 } from '../../../constants/session';
+import { removeSession } from '../../session';
+import { signOut } from './types';
 
-import { signOut as signOutProps } from './types';
-
-export async function signOut(props: signOutProps) {
+export async function signOut(props: signOut) {
   const { request, response, callback } = props;
   if (callback) callback(request, response);
   removeSession([PREFIX_BASE_AUTH, PREFIX_BASE_PERMISSION], response);

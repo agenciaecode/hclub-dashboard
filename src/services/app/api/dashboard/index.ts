@@ -1,9 +1,7 @@
+import * as Sentry from '@sentry/browser';
 import axios, { AxiosRequestConfig } from 'axios';
 
-import * as Sentry from '@sentry/browser';
-
 import { getCookieSessionRequest } from '../../utils/cookie';
-
 import {
   interceptorRequestError,
   interceptorResponse,

@@ -2,12 +2,9 @@ import Router from 'next/router';
 
 import { mutate } from 'swr';
 
-import { fetchApi } from '../../../utils/fetch';
-
 import { SET_PERMISSION, SESSION } from '../../../constants/routes';
-
 import { filteredErrorData } from '../../../utils/error';
-
+import { fetchApi } from '../../../utils/fetch';
 import { SetPermissionResponse, Options } from './types';
 
 export async function setPermission(

@@ -1,14 +1,13 @@
 import 'yup';
 import * as Yup from 'yup';
-
 import { Message } from 'yup/lib/types';
 
-import { cpfAndCnpj } from './methods/cpf-and-cnpj';
-import { phone } from './methods/phone';
-import { maxLength } from './methods/max-length';
 import { cnpj } from './methods/cnpj';
 import { cpf } from './methods/cpf';
+import { cpfAndCnpj } from './methods/cpf-and-cnpj';
 import { dateMatch, dateMax, dateMin } from './methods/date';
+import { maxLength } from './methods/max-length';
+import { phone } from './methods/phone';
 
 declare module 'yup' {
   export interface StringSchema {
