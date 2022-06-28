@@ -19,6 +19,7 @@ import {
   handleClientExceptionByStatus,
 } from '@services/http/default-status-code-handlers';
 import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
+import { removePhoneMask } from '@utils/mask/phone';
 
 import type { DeviceInformation } from '@features/auth';
 
@@ -40,10 +41,6 @@ type AccountFormProps = {
   backToLoginForm: () => void;
   deciveInformation: DeviceInformation;
 };
-
-function removePhoneMask(phone: string): string {
-  return phone.replace(/[()]/g, '');
-}
 
 const AccountForm = ({
   backToLoginForm,

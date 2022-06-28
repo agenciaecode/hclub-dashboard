@@ -12,3 +12,11 @@ export function phone(value: string, ddd = true): string {
   if (!ddd) return mask(value, '0000-0000');
   return mask(value, '(00) 0000-0000');
 }
+
+export function removePhoneMask(maskedPhone: string): string {
+  return maskedPhone.replace(/[()]/g, '');
+}
+
+export function removePhoneRegionNumber(phoneNumber?: string) {
+  return phoneNumber?.replace('+55', '').trim();
+}
