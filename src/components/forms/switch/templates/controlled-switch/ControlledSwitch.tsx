@@ -27,6 +27,7 @@ export const ControlledSwitch = <T extends FieldValues>({
       onCheckedChange={controlledField.onChange}
       ref={controlledField.ref}
       value={controlledField.value}
+      checked={controlledField.value}
       {...switchProps}
     >
       <SwitchThumb />
