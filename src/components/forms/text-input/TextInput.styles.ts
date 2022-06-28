@@ -21,9 +21,10 @@ const StyledInputGroup = styled('div', {
     lineHeight: '$base',
     borderRadius: '$base',
     boxShadow: '0 0 0 0.0rem $shadowBlack',
-    transition: 'box-shadow ease-in-out 0.15s',
+    transition: 'box-shadow ease-in-out 150ms, background ease-in-out 150ms',
+    willChange: 'box-shadow background',
     '&:-webkit-autofill': {
-      transition: fixAutofillTransition('box-shadow ease-in-out 0.15s'),
+      transition: fixAutofillTransition('box-shadow ease-in-out 150ms'),
     },
     '&:focus': {
       boxShadow: '0 0 0 0.2rem $shadowGray',
