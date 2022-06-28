@@ -36,9 +36,10 @@ const MaskedInput = <T extends FieldValues>({
   ...useControllerProps
 }: MaskedInputProps<T>) => {
   const inputId = id ?? useControllerProps.name;
-  const {
-    field: { onChange, value: controllerValue, ref },
-  } = useController<T>({ ...useControllerProps });
+  const { field: controlledField } = useController<T>({
+    ...useControllerProps,
+  });
+
   return (
     <StyledInputGroup hasError={Boolean(errorMessage)}>
       <Label htmlFor={inputId}>{label}</Label>
@@ -47,12 +48,13 @@ const MaskedInput = <T extends FieldValues>({
         placeholder={placeholder}
         id={inputId}
         defaultValue={defaultValue}
-        value={controllerValue}
+        value={controlledField.value}
         readOnly={readOnly}
         disabled={disabled}
-        onAccept={onChange}
-        name={useControllerProps.name}
-        ref={ref}
+        name={controlledField.name}
+        ref={controlledField.ref}
+        onAccept={controlledField.onChange}
+        onBlur={controlledField.onBlur}
         {...imaskProps}
       />
       <ErrorLabel htmlFor={inputId} errorMessage={errorMessage} />
