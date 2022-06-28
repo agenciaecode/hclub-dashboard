@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types,prefer-arrow-callback,react/jsx-props-no-spreading */
-import React, { ElementRef, forwardRef } from 'react';
+import React, { ComponentProps, ElementRef, forwardRef } from 'react';
 
 import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
 import { SelectItemProps } from '@radix-ui/react-select';
@@ -18,9 +18,10 @@ import {
   SelectViewport,
 } from './PrimitiveSelect';
 
-export type SelectProps = SelectPrimitiveProps & {
-  label: string;
-};
+export type SelectProps = SelectPrimitiveProps &
+  ComponentProps<typeof SelectTrigger> & {
+    label: string;
+  };
 
 export type SelectOptionProps = SelectItemProps & { text: string };
 
