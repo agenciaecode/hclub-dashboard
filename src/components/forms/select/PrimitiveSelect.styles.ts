@@ -18,6 +18,7 @@ const StyledTrigger = styled(SelectPrimitive.SelectTrigger, {
   border: 'solid 1px $black',
   boxShadow: `0 0 0 $black`,
   minWidth: '15rem',
+  transition: 'background ease-in-out 150ms',
   '&:hover': { backgroundColor: '$grayLighter' },
   '&:focus': { boxShadow: '0 0 0 0.2rem $shadowGray' },
   '&:disabled': {
