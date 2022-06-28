@@ -11,12 +11,17 @@ type GetUserProfileOutput = {
     email: string;
     cellphone: string;
     bio: string;
-    birthdate: string;
+    birthday: string;
     birthday_privacy: string;
     status: 'active' | 'inactive' | 'block';
     avatar?: {
       id: string;
       url: string;
+    };
+    city?: {
+      id: number;
+      uf: string;
+      name: string;
     };
   };
 };
