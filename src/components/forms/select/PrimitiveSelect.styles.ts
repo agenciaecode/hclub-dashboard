@@ -13,13 +13,19 @@ const StyledTrigger = styled(SelectPrimitive.SelectTrigger, {
   lineHeight: '$base',
   minHeight: '5rem',
   gap: 5,
-  backgroundColor: 'white',
-  color: 'black',
+  backgroundColor: '$backgroundWhite',
+  color: '$textBlack',
   border: 'solid 1px $black',
-  boxShadow: `0 0 0 black`,
+  boxShadow: `0 0 0 $black`,
   minWidth: '15rem',
   '&:hover': { backgroundColor: '$grayLighter' },
   '&:focus': { boxShadow: '0 0 0 0.2rem $shadowGray' },
+  '&:disabled': {
+    cursor: 'not-allowed',
+    backgroundColor: '$grayLight',
+    borderColor: '$gray',
+    color: '$blackLighter',
+  },
 });
 
 const StyledContent = styled(SelectPrimitive.Content, {
