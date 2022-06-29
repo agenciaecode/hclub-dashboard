@@ -31,9 +31,6 @@ const LabelledTextArea = forwardRef<
       className={className}
     >
       <TextArea {...textAreaProps} ref={forwardedRef} />
-      {errorMessage && (
-        <ErrorLabel htmlFor={textAreaProps.id}>{errorMessage}</ErrorLabel>
-      )}
     </InputWrapper>
   );
 });
