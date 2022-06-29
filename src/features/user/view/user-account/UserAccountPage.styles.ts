@@ -38,10 +38,10 @@ const StyledTitle = styled('h1', {
 
 const StyledSectionForm = styled('form', {
   display: 'grid',
-  gridTemplateColumns: '1fr',
+  gridTemplateColumns: 'minmax(0, 1fr)',
   gap: '3.2rem',
   '@md': {
-    gridTemplateColumns: '1fr 1fr',
+    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
   },
 });
 
