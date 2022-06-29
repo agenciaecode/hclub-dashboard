@@ -1,5 +1,4 @@
-/* eslint-disable prefer-arrow-callback */
-/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/jsx-props-no-spreading, prefer-arrow-callback */
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react';
 
 import { StyledTextArea } from './TextArea.styles';
