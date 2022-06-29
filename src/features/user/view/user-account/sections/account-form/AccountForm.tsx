@@ -18,7 +18,11 @@ import { TextInput } from '@components/forms/text-input';
 import { setFormErrorsFromException, useFormWithSchema } from '@libs/hook-form';
 import { showToastSuccessMessage } from '@libs/toast/showToastMessage';
 import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
-import { removePhoneMask, removePhoneRegionNumber } from '@utils/mask/phone';
+import {
+  reaplyPhoneMask,
+  removePhoneMask,
+  removePhoneRegionNumber,
+} from '@utils/mask/phone';
 
 import {
   useUserProfileQuery,
@@ -38,16 +42,6 @@ import { useStatesListQuery } from './api/getStatesList';
 
 const INITIAL_SELECTED_STATE = '';
 const EMPTY_CITY_OPTION = '';
-
-/**
- * Workarround solution for hook-form and imask form reset conflict
- * @param phoneNumber
- */
-function reaplyPhoneMask(phoneNumber?: string) {
-  if (!phoneNumber || phoneNumber.includes('(')) return phoneNumber;
-  const [ddd, number] = phoneNumber.split(' ');
-  return `(${ddd}) ${number}`;
-}
 
 export const AccountForm = () => {
   const [isEditing, setIsEditing] = useState(false);

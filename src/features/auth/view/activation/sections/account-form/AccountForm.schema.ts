@@ -1,4 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
+import { PHONE_MASK_REGEX } from '@utils/mask/phone';
+
 import { yup } from '@/libs/yup';
 
 export const accountFormSchema = yup
@@ -28,7 +30,7 @@ export const accountFormSchema = yup
       .required('A confirmação de senha é obrigatória'),
     cellphone: yup
       .string()
-      .matches(/^\([0-9]{2}\) [0-9]{5}-[0-9]{4}$/, 'Telefone inválido')
+      .matches(PHONE_MASK_REGEX, 'Telefone inválido')
       .required('O telefone é obrigatório'),
   })
   .required();

@@ -20,3 +20,15 @@ export function removePhoneMask(maskedPhone: string): string {
 export function removePhoneRegionNumber(phoneNumber?: string) {
   return phoneNumber?.replace('+55', '').trim();
 }
+
+/**
+ * Workarround solution for hook-form and imask form reset conflict
+ * @param phoneNumber
+ */
+export function reaplyPhoneMask(phoneNumber?: string) {
+  if (!phoneNumber || phoneNumber.includes('(')) return phoneNumber;
+  const [ddd, number] = phoneNumber.split(' ');
+  return `(${ddd}) ${number}`;
+}
+
+export const PHONE_MASK_REGEX = /^\([0-9]{2}\) [0-9]{5}-[0-9]{4}$/;
