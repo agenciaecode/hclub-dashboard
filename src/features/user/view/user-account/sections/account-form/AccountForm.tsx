@@ -63,6 +63,7 @@ export const AccountForm = () => {
     citiesListQuery.isLoading;
 
   useEffect(() => {
+    if (isEditing) return;
     accountForm.reset({
       name: userProfileQuery.data?.name,
       username: userProfileQuery.data?.username,
@@ -78,7 +79,7 @@ export const AccountForm = () => {
       city_id: userProfileQuery.data?.city?.id,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userProfileQuery.data]);
+  }, [userProfileQuery.data, isEditing]);
 
   useEffect(() => {
     if (
@@ -146,9 +147,7 @@ export const AccountForm = () => {
               updateProfileMutation.reset();
               setIsEditing(false);
             }}
-            onClick={() => {
-              accountForm.handleSubmit(handleAccountFormSubmit)();
-            }}
+            onClick={accountForm.handleSubmit(handleAccountFormSubmit)}
           >
             Salvar
           </LoadingButton>
