@@ -6,6 +6,7 @@ import { Portal } from '@radix-ui/react-portal';
 import { Collapsible } from '@components/data-display/collapsible';
 import { VisuallyHidden } from '@components/disclosure/visually-hidden';
 import { Spinner } from '@components/feedback/spinner';
+import { Link } from '@components/navigator/link';
 
 import { useUserProfileQuery } from '@features/user';
 
@@ -102,7 +103,9 @@ export const MobileHeader = () => {
 
   return (
     <StyledMobileHeaderWrapper>
-      <HmanLogoWhite />
+      <Link href="/dashboard">
+        <HmanLogoWhite />
+      </Link>
       <Collapsible
         trigger={
           <StyledMenuButton type="button">
@@ -115,15 +118,17 @@ export const MobileHeader = () => {
           <StyledMobileNavigation>
             <CloseMobileMenuButton />
             <StyledAvatarWrapper>
-              {isSuccess ? (
-                <StyledUserAvatar
-                  src={userProfile?.avatar?.url ?? defaultAvatar}
-                  width={userProfile?.avatar?.url ? 120 : 100}
-                  height={userProfile?.avatar?.url ? 120 : 100}
-                />
-              ) : (
-                <Spinner css={{ margin: '5rem 5rem' }} />
-              )}
+              <Link href="/dashboard">
+                {isSuccess ? (
+                  <StyledUserAvatar
+                    src={userProfile?.avatar?.url ?? defaultAvatar}
+                    width={userProfile?.avatar?.url ? 120 : 100}
+                    height={userProfile?.avatar?.url ? 120 : 100}
+                  />
+                ) : (
+                  <Spinner css={{ margin: '5rem 5rem' }} />
+                )}
+              </Link>
             </StyledAvatarWrapper>
             <StyledUserName>
               {userProfile?.name ?? 'carregando...'}

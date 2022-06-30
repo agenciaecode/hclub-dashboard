@@ -1,4 +1,5 @@
 import { Spinner } from '@components/feedback/spinner';
+import { Link } from '@components/navigator/link';
 import { LogoutConfirmation } from '@components/overlay/logout-confirmation';
 import { Tooltip } from '@components/overlay/tooltip';
 
@@ -26,15 +27,17 @@ export const DesktopHeader = () => {
   return (
     <StyledDesktopHeaderWrapper>
       <StyledAccountSection>
-        {isSuccess ? (
-          <StyledUserAvatar
-            src={userProfile?.avatar?.url ?? defaultAvatar}
-            width={userProfile?.avatar?.url ? 120 : 60}
-            height={userProfile?.avatar?.url ? 120 : 60}
-          />
-        ) : (
-          <Spinner css={{ margin: '5rem 5rem' }} />
-        )}
+        <Link href="/dashboard">
+          {isSuccess ? (
+            <StyledUserAvatar
+              src={userProfile?.avatar?.url ?? defaultAvatar}
+              width={userProfile?.avatar?.url ? 120 : 60}
+              height={userProfile?.avatar?.url ? 120 : 60}
+            />
+          ) : (
+            <Spinner css={{ margin: '5rem 5rem' }} />
+          )}
+        </Link>
         <StyledUserInfo>
           <Tooltip content={userProfile?.name ?? 'carregando...'}>
             <StyledUserName>
