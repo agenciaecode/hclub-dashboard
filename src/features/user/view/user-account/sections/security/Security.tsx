@@ -1,10 +1,12 @@
 import { sleep } from '@antfu/utils';
+import { StatusCodes } from 'http-status-codes';
 
 import { LoadingButton } from '@components/forms/loading-button';
 import { TextInput } from '@components/forms/text-input';
 import { DescriptiveModal } from '@components/overlay/modal';
 import { setFormErrorsFromException, useFormWithSchema } from '@libs/hook-form';
 import { showToastSuccessMessage } from '@libs/toast/showToastMessage';
+import { handleClientExceptionByStatus } from '@services/http/default-status-code-handlers';
 import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
 
 import {
@@ -32,6 +34,15 @@ export const Security = () => {
     exceptionHandler
       .setValidationExceptionHandler<UpdatePasswordValidationErrors>(
         setFormErrorsFromException(updatePasswordForm.setError),
+      )
+      .setClientExceptionHandler(
+        handleClientExceptionByStatus({
+          [StatusCodes.BAD_REQUEST]: () => {
+            updatePasswordForm.setError('password', {
+              message: 'Senha incorreta',
+            });
+          },
+        }),
       )
       .executeHandler(),
   );
