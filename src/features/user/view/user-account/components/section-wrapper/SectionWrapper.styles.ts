@@ -18,13 +18,14 @@ const StyledSectionHeader = styled('header', {
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'start',
-  gap: '3.2rem',
+  gap: '1.6rem',
   fontSize: '$xl',
   lineHeight: '$xl',
   color: '$textBlack',
   '@md': {
     fontSize: '$2xl',
     lineHeight: '$2xl',
+    gap: '3.2rem',
   },
 });
 
