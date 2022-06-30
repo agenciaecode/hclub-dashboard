@@ -34,7 +34,7 @@ const closeMobileNav = keyframes({
 });
 
 const StyledMobileNavigation = styled('nav', {
-  position: 'fixed',
+  position: 'fixed !important',
   top: '0',
   width: 'max(100vw, 100%)',
   height: 'max(100vh, 100%)',
