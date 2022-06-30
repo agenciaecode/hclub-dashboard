@@ -4,6 +4,7 @@ import { Separator } from '@components/data-display/separator';
 import { PageContent } from '@components/layout/page-content';
 
 import { AccountForm } from './sections/account-form';
+import { MedicalProfileForm } from './sections/medical-profile-form';
 import {
   StyledBackButton,
   StyledMainHeader,
@@ -20,6 +21,8 @@ export const UserAccountPage = () => {
         <StyledTitle>Meus dados</StyledTitle>
       </StyledMainHeader>
       <AccountForm />
+      <Separator />
+      <MedicalProfileForm />
       <Separator />
     </PageContent>
   );
