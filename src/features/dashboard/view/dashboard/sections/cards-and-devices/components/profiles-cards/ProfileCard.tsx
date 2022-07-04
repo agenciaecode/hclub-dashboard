@@ -41,7 +41,7 @@ const ProfileCard = ({ title, isDefault, type }: ProfileCardProps) => (
         <span>{title}</span>
       </>
     }
-    backContent={<Link href="#TODO">Mais Detalhes</Link>}
+    backContent={<Link href={`/cartao/${type}`}>Mais Detalhes</Link>}
     backContentProps={{ css: cardBackStyle }}
   />
 );
