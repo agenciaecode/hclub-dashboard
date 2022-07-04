@@ -23,7 +23,7 @@ import { useShowCardQuery } from '../../api/showCard';
 import { SectionWrapper } from '../../components/section-wrapper';
 import {
   SetCardAvatarValidationError,
-  useSetCardAvatarMutation,
+  useCardAvatarMutation,
 } from './api/setCardAvatar';
 import { setCardAvatarSchema } from './CardAvatar.schema';
 import {
@@ -33,21 +33,23 @@ import {
   StyledFlexRow,
 } from './CardAvatar.styles';
 
+type CardAvatarProps = {
+  cardSlug: CardType;
+};
+
 function getFirstFileFromFileList(fileList: FileList) {
   const [avatarFile] = Array.from(fileList);
   return avatarFile;
 }
 
-export const CardAvatar = () => {
-  const router = useRouter();
-  const cardSlug = router.query.card as CardType;
+export const CardAvatar = ({ cardSlug }: CardAvatarProps) => {
   const [previewUrl, setPreviewUrl] = React.useState<string | null>(null);
   const avatarFileInputRef = useRef<HTMLInputElement | null>(null);
   const userProfileQuery = useUserProfileQuery();
   const showCardQuery = useShowCardQuery({
     card: cardSlug,
   });
-  const setCardAvatarMutation = useSetCardAvatarMutation();
+  const cardAvatarMutation = useCardAvatarMutation();
   const {
     formState: { errors: setCardAvatarFormErrors },
     ...setCardAvatarForm
@@ -56,7 +58,7 @@ export const CardAvatar = () => {
     setCardAvatarForm.register('avatar');
   const avatarFormValue = setCardAvatarForm.watch('avatar');
 
-  useHttpExceptionHandler(setCardAvatarMutation.error, exceptionHandler =>
+  useHttpExceptionHandler(cardAvatarMutation.error, exceptionHandler =>
     exceptionHandler
       .setValidationExceptionHandler<SetCardAvatarValidationError>(
         setFormErrorsFromException(setCardAvatarForm.setError),
@@ -79,15 +81,15 @@ export const CardAvatar = () => {
 
   const handleSetAvatarFormSubmit = setCardAvatarForm.handleSubmit(
     submittedFormValues => {
-      if (setCardAvatarMutation.isLoading) return;
-      setCardAvatarMutation.mutate(
+      if (cardAvatarMutation.isLoading) return;
+      cardAvatarMutation.mutate(
         {
           avatar: getFirstFileFromFileList(submittedFormValues.avatar),
           card: cardSlug,
         },
         {
           onSuccess: () => {
-            showToastSuccessMessage('Avatar alterado com sucesso!');
+            showToastSuccessMessage('Avatar atualizado com sucesso!');
           },
         },
       );
@@ -181,12 +183,12 @@ export const CardAvatar = () => {
                 </Button>
               </DialogClose>
               <LoadingButton
-                isLoading={setCardAvatarMutation.isLoading}
-                isSuccess={setCardAvatarMutation.isSuccess}
+                isLoading={cardAvatarMutation.isLoading}
+                isSuccess={cardAvatarMutation.isSuccess}
                 onAnimationFinished={async () => {
                   await animationDelay();
                   setCardAvatarForm.reset();
-                  setCardAvatarMutation.reset();
+                  cardAvatarMutation.reset();
                   setPreviewUrl(null);
                 }}
               >
