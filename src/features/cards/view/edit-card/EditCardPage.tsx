@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
@@ -6,6 +7,8 @@ import { Button } from '@components/forms/button';
 import { PageContent } from '@components/layout/page-content';
 import { Link } from '@components/navigator/link';
 import { ResponsiveBackButton } from '@components/others/back-button';
+
+import type { CardType } from '@features/cards';
 
 import previewImage from './unknown.png';
 
@@ -19,12 +22,12 @@ import {
   StyledTitle,
   StyledToolbar,
 } from './EditCardPage.styles';
-// eslint-disable-next-line import/no-cycle
 import { CardAvatar } from './sections/card-avatar';
+import { CardBiography } from './sections/card-bio';
 
 export const EditCardPage = () => {
   const router = useRouter();
-  const cardSlug = router.query.card;
+  const cardSlug = router.query.card as CardType;
 
   return (
     <PageContent
@@ -47,7 +50,9 @@ export const EditCardPage = () => {
       </StyledHeader>
       <StyledContentWrapper>
         <StyledFormsContainer>
-          <CardAvatar />
+          <CardAvatar cardSlug={cardSlug} />
+          <Separator />
+          <CardBiography cardSlug={cardSlug} />
           <Separator />
         </StyledFormsContainer>
         <section>
