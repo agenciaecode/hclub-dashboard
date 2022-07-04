@@ -22,7 +22,7 @@ export const SectionWrapper = ({
   toolbar,
   children,
 }: SectionWrapperProps) => (
-  <StyledSectionWrapper className="section-wrapper">
+  <StyledSectionWrapper>
     <StyledFlexRow>
       {description ? (
         <StyledFlexColumn>

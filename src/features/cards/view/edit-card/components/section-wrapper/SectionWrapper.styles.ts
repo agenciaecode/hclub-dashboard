@@ -2,15 +2,16 @@ import { styled } from '@/theme';
 
 const StyledSectionWrapper = styled('section', {
   padding: '3.2rem 0',
-  paddingTop: '0',
-  '& + .section-wrapper': {
-    paddingTop: '3.2rem',
+  '&:first-child': {
+    paddingTop: '0',
   },
 });
 
 const StyledFlexRow = styled('div', {
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
+  flexWrap: 'wrap',
   gap: '2rem',
 });
 
@@ -18,6 +19,7 @@ const StyledFlexColumn = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '3.2rem',
+  flex: 1,
 });
 
 const StyledSectionTitle = styled('h2', {
