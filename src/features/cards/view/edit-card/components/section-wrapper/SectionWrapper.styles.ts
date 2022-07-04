@@ -1,7 +1,7 @@
 import { styled } from '@/theme';
 
 const StyledSectionWrapper = styled('section', {
-  padding: '3.2rem',
+  padding: '3.2rem 0',
   paddingTop: '0',
   '& + .section-wrapper': {
     paddingTop: '3.2rem',
