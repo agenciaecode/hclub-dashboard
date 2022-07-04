@@ -12,7 +12,7 @@ type ShowCardInput = {
 type ShowCardOutput = {
   id: number;
   type: CardType;
-  'bio?': string;
+  bio?: string;
   theme: 'dark' | 'light';
   newsletter: boolean;
   pix: boolean;
