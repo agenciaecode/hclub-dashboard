@@ -4,4 +4,4 @@ import { EditCardPage } from '@features/cards';
 
 const EditCard: NextPage = EditCardPage;
 
-export default EditCardPage;
+export default EditCard;

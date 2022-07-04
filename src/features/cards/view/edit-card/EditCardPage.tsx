@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
+import { Separator } from '@components/data-display/separator';
 import { Button } from '@components/forms/button';
 import { PageContent } from '@components/layout/page-content';
 import { Link } from '@components/navigator/link';
@@ -8,7 +9,6 @@ import { ResponsiveBackButton } from '@components/others/back-button';
 
 import previewImage from './unknown.png';
 
-import { SectionWrapper } from './components/section-wrapper';
 import {
   FlexWrapper,
   HiddenOnMobile,
@@ -19,6 +19,8 @@ import {
   StyledTitle,
   StyledToolbar,
 } from './EditCardPage.styles';
+// eslint-disable-next-line import/no-cycle
+import { CardAvatar } from './sections/card-avatar';
 
 export const EditCardPage = () => {
   const router = useRouter();
@@ -44,7 +46,10 @@ export const EditCardPage = () => {
         </StyledToolbar>
       </StyledHeader>
       <StyledContentWrapper>
-        <StyledFormsContainer>{/* TODO */}</StyledFormsContainer>
+        <StyledFormsContainer>
+          <CardAvatar />
+          <Separator />
+        </StyledFormsContainer>
         <section>
           <StyledStickyPreviewWrapper>
             {/* TODO add component preview */}
