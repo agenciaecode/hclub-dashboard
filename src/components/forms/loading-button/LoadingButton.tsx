@@ -23,6 +23,7 @@ const LoadingButton = forwardRef<ElementRef<typeof Button>, LoadingButtonProps>(
         <CheckMarkSpinner
           finished={isSuccess}
           onAnimationFinish={onAnimationFinished}
+          color={buttonProps.btn}
         />
       ) : (
         children
