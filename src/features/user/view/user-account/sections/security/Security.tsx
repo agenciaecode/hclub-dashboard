@@ -1,4 +1,3 @@
-import { sleep } from '@antfu/utils';
 import { StatusCodes } from 'http-status-codes';
 
 import { LoadingButton } from '@components/forms/loading-button';
@@ -8,6 +7,7 @@ import { setFormErrorsFromException, useFormWithSchema } from '@libs/hook-form';
 import { showToastSuccessMessage } from '@libs/toast/showToastMessage';
 import { handleClientExceptionByStatus } from '@services/http/default-status-code-handlers';
 import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
+import { animationDelay } from '@utils/animation/animation-delay';
 
 import {
   ForgotPasswordModal,
@@ -104,7 +104,7 @@ export const Security = () => {
                 isLoading={updatePasswordMutation.isLoading}
                 isSuccess={updatePasswordMutation.isSuccess}
                 onAnimationFinished={async () => {
-                  await sleep(500);
+                  await animationDelay();
                   updatePasswordMutation.reset();
                   updatePasswordForm.reset();
                 }}

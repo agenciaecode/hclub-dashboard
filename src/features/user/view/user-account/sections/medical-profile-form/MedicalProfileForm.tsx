@@ -16,6 +16,7 @@ import { TextInput } from '@components/forms/text-input';
 import { setFormErrorsFromException, useFormWithSchema } from '@libs/hook-form';
 import { showToastSuccessMessage } from '@libs/toast/showToastMessage';
 import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
+import { animationDelay } from '@utils/animation/animation-delay';
 import {
   reaplyPhoneMask,
   removePhoneMask,
@@ -107,7 +108,8 @@ export const MedicalProfileForm = () => {
           <LoadingButton
             isLoading={updateUserMedicalProfileMutation.isLoading}
             isSuccess={updateUserMedicalProfileMutation.isSuccess}
-            onAnimationFinished={() => {
+            onAnimationFinished={async () => {
+              await animationDelay();
               updateUserMedicalProfileMutation.reset();
               setIsEditing(false);
             }}
