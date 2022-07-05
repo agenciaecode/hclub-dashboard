@@ -9,19 +9,14 @@ import { yup } from '@libs/yup';
 import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
 import { animationDelay } from '@utils/animation/animation-delay';
 
-import type { CardType } from '@features/cards';
-
 import { useShowCardQuery } from '../../api/showCard';
 import { SectionWrapper } from '../../components/section-wrapper';
+import { useCardSlug } from '../../hooks/useCardSlug';
 import {
   SetCardBiographyValidationError,
   useCardBiographyMutation,
 } from './api/setCardBiography';
 import { StyledTextArea } from './CardBiography.styles';
-
-type CardBiographyProps = {
-  cardSlug: CardType;
-};
 
 export const cardBiographySchema = yup
   .object({
@@ -29,8 +24,9 @@ export const cardBiographySchema = yup
   })
   .required();
 
-export const CardBiography = ({ cardSlug }: CardBiographyProps) => {
+export const CardBiography = () => {
   const [isEditing, setIsEditing] = useState(false);
+  const cardSlug = useCardSlug();
   const showCardQuery = useShowCardQuery({ card: cardSlug });
   const cardBiographyMutation = useCardBiographyMutation();
   const cardBiographyForm = useFormWithSchema(cardBiographySchema);

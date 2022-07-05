@@ -1,14 +1,11 @@
 /* eslint-disable import/no-cycle */
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 
 import { Separator } from '@components/data-display/separator';
 import { Button } from '@components/forms/button';
 import { PageContent } from '@components/layout/page-content';
 import { Link } from '@components/navigator/link';
 import { ResponsiveBackButton } from '@components/others/back-button';
-
-import type { CardType } from '@features/cards';
 
 import previewImage from './unknown.png';
 
@@ -22,13 +19,12 @@ import {
   StyledTitle,
   StyledToolbar,
 } from './EditCardPage.styles';
+import { useCardSlug } from './hooks/useCardSlug';
 import { CardAvatar } from './sections/card-avatar';
 import { CardBiography } from './sections/card-bio';
 
 export const EditCardPage = () => {
-  const router = useRouter();
-  const cardSlug = router.query.card as CardType;
-
+  const cardSlug = useCardSlug();
   return (
     <PageContent
       title={`Editar cartão ${cardSlug}`}
@@ -50,9 +46,9 @@ export const EditCardPage = () => {
       </StyledHeader>
       <StyledContentWrapper>
         <StyledFormsContainer>
-          <CardAvatar cardSlug={cardSlug} />
+          <CardAvatar />
           <Separator />
-          <CardBiography cardSlug={cardSlug} />
+          <CardBiography />
           <Separator />
         </StyledFormsContainer>
         <section>
