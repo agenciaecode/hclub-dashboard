@@ -1,3 +1,4 @@
+import { notNullish } from '@antfu/utils';
 import { useQuery } from 'react-query';
 
 import { http } from '@services/http/api-client';
@@ -29,7 +30,9 @@ async function showCard({ card }: ShowCardInput) {
 }
 
 const useShowCardQuery = (cardQuery: ShowCardInput) =>
-  useQuery(CardKeys.show(cardQuery.card), () => showCard(cardQuery));
+  useQuery(CardKeys.show(cardQuery.card), () => showCard(cardQuery), {
+    enabled: notNullish(cardQuery.card),
+  });
 
 export { useShowCardQuery };
 export type { ShowCardInput, ShowCardOutput };
