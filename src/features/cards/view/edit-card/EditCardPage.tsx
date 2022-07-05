@@ -22,6 +22,7 @@ import {
 import { useCardSlug } from './hooks/useCardSlug';
 import { CardAvatar } from './sections/card-avatar';
 import { CardBiography } from './sections/card-bio';
+import { CardSocialMedias } from './sections/social-medias';
 
 export const EditCardPage = () => {
   const cardSlug = useCardSlug();
@@ -50,6 +51,7 @@ export const EditCardPage = () => {
           <Separator />
           <CardBiography />
           <Separator />
+          <CardSocialMedias />
         </StyledFormsContainer>
         <section>
           <StyledStickyPreviewWrapper>
