@@ -19,7 +19,7 @@ const StyledFlexColumn = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '3.2rem',
-  flex: 1,
+  flex: '1 1 auto',
 });
 
 const StyledSectionTitle = styled('h2', {
