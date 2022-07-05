@@ -1,4 +1,4 @@
-import { HTMLInputTypeAttribute } from 'react';
+import { ComponentProps, HTMLInputTypeAttribute } from 'react';
 
 import { FieldValue, FieldValues, UseFormRegister } from 'react-hook-form';
 
@@ -28,7 +28,7 @@ type TextInputProps = {
    *  @see https://react-hook-form.com/get-started#Registerfields
    */
   register: UseFormRegister<FieldValue<FieldValues>>;
-};
+} & Pick<ComponentProps<typeof StyledInputGroup>, 'css'>;
 
 const TextInput = ({
   label,
@@ -42,10 +42,11 @@ const TextInput = ({
   readOnly,
   disabled,
   register,
+  css,
 }: TextInputProps) => {
   const inputId = id ?? name;
   return (
-    <StyledInputGroup hasError={Boolean(errorMessage)}>
+    <StyledInputGroup hasError={Boolean(errorMessage)} css={css}>
       <Label htmlFor={inputId}>{label}</Label>
       <input
         type={type}
