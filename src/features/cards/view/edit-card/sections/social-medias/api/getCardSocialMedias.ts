@@ -8,25 +8,22 @@ import { CardKeys, CardType } from '@features/cards';
 
 import { ApiResponse } from '@/types/api-response';
 
+import type { SocialMedia } from './listSocialMedias';
+
 type GetCardSocialMediasInput = {
   card: CardType;
 };
 
-type GetCardSocialMediasOutput = {
-  id: number;
+type GetCardSocialMediasOutput = Omit<
+  SocialMedia,
+  'pattern' | 'label' | 'placeholder' | 'instructions'
+> & {
   value: string;
   order: number;
   active: boolean;
-  name: string;
-  icon_xml_svg: string;
-  icon: {
-    url: string;
-    width: number;
-    height: number;
-  };
 };
 
-type SocialMedia = GetCardSocialMediasOutput;
+type SocialMediaItem = GetCardSocialMediasOutput;
 
 async function getCardSocialMedias({ card }: GetCardSocialMediasInput) {
   const { data } = await http.get<ApiResponse<GetCardSocialMediasOutput[]>>(
@@ -48,5 +45,5 @@ export { useCardSocialMediasQuery };
 export type {
   GetCardSocialMediasInput,
   GetCardSocialMediasOutput,
-  SocialMedia,
+  SocialMediaItem,
 };
