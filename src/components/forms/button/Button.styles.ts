@@ -14,9 +14,6 @@ export const StyledButton = styled('button', {
   '&:focus, &:active': {
     opacity: 0.65,
   },
-  '& label': {
-    marginLeft: '1rem',
-  },
   variants: {
     btn: {
       primary: {
