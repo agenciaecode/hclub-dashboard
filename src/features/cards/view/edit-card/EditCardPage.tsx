@@ -15,6 +15,7 @@ import {
   StyledContentWrapper,
   StyledFormsContainer,
   StyledHeader,
+  StyledPreviewContainer,
   StyledStickyPreviewWrapper,
   StyledTitle,
   StyledToolbar,
@@ -53,12 +54,12 @@ export const EditCardPage = () => {
           <Separator />
           <CardSocialMedias />
         </StyledFormsContainer>
-        <section>
+        <StyledPreviewContainer>
           <StyledStickyPreviewWrapper>
             {/* TODO add component preview */}
             <Image src={previewImage} width={305} height={616} alt="preview" />
           </StyledStickyPreviewWrapper>
-        </section>
+        </StyledPreviewContainer>
       </StyledContentWrapper>
     </PageContent>
   );

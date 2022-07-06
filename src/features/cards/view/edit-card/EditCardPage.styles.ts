@@ -40,6 +40,13 @@ const StyledFormsContainer = styled('section', {
   flex: 1,
 });
 
+const StyledPreviewContainer = styled('section', {
+  display: 'none',
+  '@lg': {
+    display: 'block',
+  },
+});
+
 const StyledStickyPreviewWrapper = styled('div', {
   position: 'sticky',
   top: 'calc(62rem - 50%)',
@@ -59,6 +66,7 @@ export {
   StyledToolbar,
   StyledContentWrapper,
   StyledFormsContainer,
+  StyledPreviewContainer,
   StyledStickyPreviewWrapper,
   FlexWrapper,
   HiddenOnMobile,
