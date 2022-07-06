@@ -1,6 +1,6 @@
 import { yup } from '@libs/yup';
 
-export const setCardAvatarSchema = yup
+export const setCardAvatarFormSchema = yup
   .object({
     avatar: yup
       .mixed<FileList>()

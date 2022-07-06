@@ -1,3 +1,7 @@
+import Image from 'next/image';
+
+import { Spinner } from '@components/feedback/spinner';
+
 import { styled } from '@/theme';
 
 const StyledContentWrapper = styled('div', {
@@ -12,7 +16,6 @@ const StyledContentWrapper = styled('div', {
 
 const StyledFigureContainer = styled('figure', {
   position: 'relative',
-  borderRadius: '50%',
   overflow: 'hidden',
   $$sizing: '12rem',
   width: '$$sizing',
@@ -22,6 +25,24 @@ const StyledFigureContainer = styled('figure', {
     width: '$$desktopSizing',
     height: '$$desktopSizing',
   },
+});
+
+const StyledRemoveAvatarButton = styled('button', {
+  position: 'absolute',
+  right: 0,
+  $$buttonSize: '3rem',
+  width: '$$buttonSize',
+  height: '$$buttonSize',
+  borderRadius: '50%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  background: '$backgroundWhite',
+  border: 'solid 1px $black',
+});
+
+const RoundedImage = styled(Image, {
+  borderRadius: '50%',
 });
 
 const StyledFlexRow = styled('div', {
@@ -44,9 +65,19 @@ const StyledButtonsWrapper = styled('div', {
   },
 });
 
+const SmallerSpinner = styled(Spinner, {
+  $$size: '1rem',
+  width: '$$size',
+  height: '$$size',
+  borderWidth: '1px !important',
+});
+
 export {
   StyledContentWrapper,
   StyledFigureContainer,
+  RoundedImage,
+  StyledRemoveAvatarButton,
+  SmallerSpinner,
   StyledFlexRow,
   StyledButtonsWrapper,
 };

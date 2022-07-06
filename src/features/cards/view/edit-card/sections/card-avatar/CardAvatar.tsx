@@ -1,19 +1,16 @@
 /* eslint-disable react/jsx-props-no-spreading,import/no-cycle */
-import Image from 'next/image';
-import React, { memo, useEffect, useRef } from 'react';
+import React from 'react';
 
-import { VisuallyHidden } from '@components/disclosure/visually-hidden';
+import { Cross1Icon } from '@radix-ui/react-icons';
+
 import { Spinner } from '@components/feedback/spinner';
 import { Button } from '@components/forms/button';
-import { ErrorLabel } from '@components/forms/error-label';
-import { LoadingButton } from '@components/forms/loading-button';
-import { DescriptiveModal, DialogClose } from '@components/overlay/modal';
-import { setFormErrorsFromException, useFormWithSchema } from '@libs/hook-form';
+import { AlertConfirmation } from '@components/overlay/alert-dialog';
+import { DescriptiveModal } from '@components/overlay/modal';
 import { showToastSuccessMessage } from '@libs/toast/showToastMessage';
 import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
-import { animationDelay } from '@utils/animation/animation-delay';
 
-import { CardType } from '@features/cards';
+import type { CardType } from '@features/cards';
 import { useUserProfileQuery } from '@features/user';
 
 import defaultAvatar from '@assets/images/user-avatar.svg';
@@ -21,22 +18,15 @@ import defaultAvatar from '@assets/images/user-avatar.svg';
 import { useShowCardQuery } from '../../api/showCard';
 import { SectionWrapper } from '../../components/section-wrapper';
 import { useCardSlug } from '../../hooks/useCardSlug';
+import { useDeleteCardAvatarMutation } from './api/deleteCardAvatar';
 import {
-  SetCardAvatarValidationError,
-  useCardAvatarMutation,
-} from './api/setCardAvatar';
-import { setCardAvatarSchema } from './CardAvatar.schema';
-import {
-  StyledButtonsWrapper,
+  RoundedImage,
+  SmallerSpinner,
   StyledContentWrapper,
   StyledFigureContainer,
-  StyledFlexRow,
+  StyledRemoveAvatarButton,
 } from './CardAvatar.styles';
-
-function getFirstFileFromFileList(fileList: FileList) {
-  const [avatarFile] = Array.from(fileList);
-  return avatarFile;
-}
+import { CardAvatarForm } from './CardAvatarForm';
 
 export const CardAvatar = () => {
   const cardSlug = useCardSlug();
@@ -48,17 +38,23 @@ export const CardAvatar = () => {
   return (
     <SectionWrapper title="Foto de Perfil">
       <StyledContentWrapper>
-        <StyledFigureContainer>
+        <StyledFigureContainer css={{ borderRadius: 'unset' }}>
           {showCardQuery.isSuccess ? (
-            <Image
-              src={
-                showCardQuery.data.avatar?.url ??
-                userProfileQuery.data?.avatar?.url ??
-                defaultAvatar
-              }
-              layout="fill"
-              alt="avatar"
-            />
+            <>
+              <RoundedImage
+                className="avatar"
+                src={
+                  showCardQuery.data?.avatar?.url ??
+                  userProfileQuery.data?.avatar?.url ??
+                  defaultAvatar
+                }
+                layout="fill"
+                alt="avatar"
+              />
+              {showCardQuery.data.avatar?.url && (
+                <DeleteCardAvatarButton card={cardSlug} />
+              )}
+            </>
           ) : (
             <Spinner color="secondary" css={{ margin: '5rem 5rem' }} />
           )}
@@ -79,146 +75,43 @@ export const CardAvatar = () => {
   );
 };
 
-type CardAvatarFormProps = {
-  showCardQuery: ReturnType<typeof useShowCardQuery>;
-  userProfileQuery: ReturnType<typeof useUserProfileQuery>;
-  cardSlug: CardType;
-};
+const DeleteCardAvatarButton = ({ card }: { card: CardType }) => {
+  const deleteCardAvatarMutation = useDeleteCardAvatarMutation();
 
-/**
- * Decouple modal form stateful logic from the component.
- */
-const CardAvatarForm = memo(
-  ({ showCardQuery, userProfileQuery, cardSlug }: CardAvatarFormProps) => {
-    const [previewUrl, setPreviewUrl] = React.useState<string | null>(null);
-    const avatarFileInputRef = useRef<HTMLInputElement | null>(null);
-    const cardAvatarMutation = useCardAvatarMutation();
-    const {
-      formState: { errors: setCardAvatarFormErrors },
-      ...setCardAvatarForm
-    } = useFormWithSchema(setCardAvatarSchema);
-    const { ref: avatarFormRef, ...avatarFormRegister } =
-      setCardAvatarForm.register('avatar');
-    const avatarFormValue = setCardAvatarForm.watch('avatar');
+  useHttpExceptionHandler(deleteCardAvatarMutation.error, exceptionHandler =>
+    exceptionHandler.executeHandler(),
+  );
 
-    useHttpExceptionHandler(cardAvatarMutation.error, exceptionHandler =>
-      exceptionHandler
-        .setValidationExceptionHandler<SetCardAvatarValidationError>(
-          setFormErrorsFromException(setCardAvatarForm.setError),
-        )
-        .executeHandler(),
-    );
-
-    useEffect(() => {
-      if (!avatarFormValue) return undefined;
-      const selectedFile = getFirstFileFromFileList(avatarFormValue);
-      if (!selectedFile) {
-        setPreviewUrl(null);
-        return undefined;
-      }
-      const selectedFileGlobUrl = URL.createObjectURL(selectedFile);
-      setPreviewUrl(selectedFileGlobUrl);
-
-      return () => URL.revokeObjectURL(selectedFileGlobUrl);
-    }, [avatarFormValue]);
-
-    const handleSetAvatarFormSubmit = setCardAvatarForm.handleSubmit(
-      submittedFormValues => {
-        if (cardAvatarMutation.isLoading) return;
-        cardAvatarMutation.mutate(
-          {
-            avatar: getFirstFileFromFileList(submittedFormValues.avatar),
-            card: cardSlug,
-          },
-          {
-            onSuccess: () => {
-              showToastSuccessMessage('Avatar atualizado com sucesso!');
-            },
-          },
-        );
+  function handleDeleteCardAvatarConfirmation() {
+    if (deleteCardAvatarMutation.isLoading) return;
+    deleteCardAvatarMutation.mutate(
+      {
+        card,
+      },
+      {
+        onSuccess: () => {
+          showToastSuccessMessage('Foto do cartão removida com sucesso!');
+        },
       },
     );
+  }
 
-    return (
-      <form onSubmit={handleSetAvatarFormSubmit}>
-        <StyledFlexRow>
-          <StyledFigureContainer>
-            {previewUrl && (
-              <Image src={previewUrl} layout="fill" alt="avatar" />
-            )}
-            {!previewUrl &&
-              (showCardQuery.isSuccess ? (
-                <Image
-                  src={
-                    showCardQuery.data.avatar?.url ??
-                    userProfileQuery.data?.avatar?.url ??
-                    defaultAvatar
-                  }
-                  layout="fill"
-                  alt="avatar"
-                />
-              ) : (
-                <Spinner color="secondary" css={{ margin: '5rem 5rem' }} />
-              ))}
-          </StyledFigureContainer>
-          <Button
-            btn="secondary"
-            type="button"
-            css={{
-              marginRight: 'none',
-              '@sm': {
-                marginRight: 'auto',
-              },
-            }}
-            onClick={() => avatarFileInputRef.current?.click()}
-          >
-            Procurar imagem
-          </Button>
-          <VisuallyHidden>
-            <input
-              type="file"
-              tabIndex={-1}
-              {...avatarFormRegister}
-              ref={ref => {
-                avatarFormRef(ref);
-                avatarFileInputRef.current = ref;
-              }}
-            />
-          </VisuallyHidden>
-        </StyledFlexRow>
-        <ErrorLabel
-          errorMessage={setCardAvatarFormErrors.avatar?.message as string}
-          css={{ marginTop: '1rem' }}
-        />
-        <StyledButtonsWrapper>
-          <DialogClose asChild>
-            <Button
-              btn="secondary"
-              type="reset"
-              onClick={() => {
-                setCardAvatarForm.reset();
-                setPreviewUrl(null);
-              }}
-            >
-              Cancelar
-            </Button>
-          </DialogClose>
-          <LoadingButton
-            isLoading={cardAvatarMutation.isLoading}
-            isSuccess={cardAvatarMutation.isSuccess}
-            onAnimationFinished={async () => {
-              await animationDelay();
-              setCardAvatarForm.reset();
-              cardAvatarMutation.reset();
-              setPreviewUrl(null);
-            }}
-          >
-            Salvar
-          </LoadingButton>
-        </StyledButtonsWrapper>
-      </form>
-    );
-  },
-);
-
-CardAvatarForm.displayName = 'CardAvatarForm';
+  return (
+    <AlertConfirmation
+      title="Remover foto do cartão"
+      description={`Você tem certeza que deseja remover a foto do cartão ${card}?`}
+      triggerButton={
+        <StyledRemoveAvatarButton>
+          {deleteCardAvatarMutation.isLoading ||
+          deleteCardAvatarMutation.isSuccess ? (
+            <SmallerSpinner color="secondary" />
+          ) : (
+            <Cross1Icon />
+          )}
+        </StyledRemoveAvatarButton>
+      }
+      cancelButtonText="Cancelar"
+      onOk={handleDeleteCardAvatarConfirmation}
+    />
+  );
+};
