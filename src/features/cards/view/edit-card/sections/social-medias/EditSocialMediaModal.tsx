@@ -1,5 +1,6 @@
 /* eslint-disable import/no-cycle,react/jsx-props-no-spreading */
 import Image from 'next/image';
+import React from 'react';
 
 import { Button } from '@components/forms/button';
 import { LoadingButton } from '@components/forms/loading-button';
@@ -29,7 +30,7 @@ const updateSocialMediaSchema = yup
 
 type EditSocialMediaModalProps = {
   socialMedia: SocialMediaItem;
-  handleSuccesfulSubmit: () => void;
+  handleSuccessfulSubmit: () => void;
 } & ModalProps;
 
 /**
@@ -41,25 +42,25 @@ type EditSocialMediaModalProps = {
  */
 export const EditSocialMediaModal = ({
   socialMedia,
-  handleSuccesfulSubmit,
+  handleSuccessfulSubmit,
   ...modalProps
 }: EditSocialMediaModalProps) => (
   <Modal {...modalProps}>
     <EditSocialMediaForm
       socialMedia={socialMedia}
-      handleSuccesfulSubmit={handleSuccesfulSubmit}
+      handleSuccessfulSubmit={handleSuccessfulSubmit}
     />
   </Modal>
 );
 
 type EditSocialMediaFormProps = Pick<
   EditSocialMediaModalProps,
-  'socialMedia' | 'handleSuccesfulSubmit'
+  'socialMedia' | 'handleSuccessfulSubmit'
 >;
 
 const EditSocialMediaForm = ({
   socialMedia,
-  handleSuccesfulSubmit,
+  handleSuccessfulSubmit,
 }: EditSocialMediaFormProps) => {
   const cardSlug = useCardSlug();
   const updateSocialMediaMutation = useUpdateSocialMediaMutation(cardSlug);
@@ -97,19 +98,28 @@ const EditSocialMediaForm = ({
     <form onSubmit={handleUpdateSocialMediaSubmit}>
       <Flex alignItems="center" gap="2rem">
         <StyledFigure>
-          <Image
-            src={socialMedia.icon.url}
-            layout="fill"
-            alt={socialMedia.name}
-          />
+          {socialMedia.icon.url && (
+            <Image
+              src={socialMedia.icon.url}
+              layout="fill"
+              alt={socialMedia.name}
+            />
+          )}
         </StyledFigure>
         <Text size="xl">{socialMedia.name}</Text>
       </Flex>
 
+      {socialMedia.config.instructions && (
+        <Text size="sm">{socialMedia.config.instructions}</Text>
+      )}
+
       <TextInput
         name="value"
-        label="Usuário"
-        placeholder="Digite o seu usuário da rede social"
+        label={socialMedia.config.label || 'Usuário'}
+        placeholder={
+          socialMedia.config.placeholder ||
+          'Digite o seu usuário da rede social'
+        }
         register={updateSocialMediaForm.register}
         errorMessage={updateSocialMediaForm.formState.errors.value?.message}
         css={{ marginTop: '3.2rem', marginBottom: '6rem' }}
@@ -127,7 +137,7 @@ const EditSocialMediaForm = ({
           onAnimationFinished={async () => {
             await animationDelay();
             updateSocialMediaMutation.reset();
-            handleSuccesfulSubmit();
+            handleSuccessfulSubmit();
           }}
         >
           Salvar

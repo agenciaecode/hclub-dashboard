@@ -166,7 +166,7 @@ export const CardSocialMedias = () => {
           onOpenChange={openState => {
             if (!openState) setEditingSocialMedia(undefined);
           }}
-          handleSuccesfulSubmit={() => setEditingSocialMedia(undefined)}
+          handleSuccessfulSubmit={() => setEditingSocialMedia(undefined)}
         />
       )}
     </SectionWrapper>
