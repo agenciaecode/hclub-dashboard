@@ -8,19 +8,16 @@ import { CardKeys, CardType } from '@features/cards';
 
 import { ApiResponse } from '@/types/api-response';
 
-import type { SocialMedia } from './listSocialMedias';
+import type { SocialMedia, SocialMediaConfig } from './listSocialMedias';
 
 type GetCardSocialMediasInput = {
   card: CardType;
 };
 
-type GetCardSocialMediasOutput = Omit<
-  SocialMedia,
-  'pattern' | 'label' | 'placeholder' | 'instructions'
-> & {
+type GetCardSocialMediasOutput = Omit<SocialMedia, SocialMediaConfig> & {
   value: string;
-  order: number;
   active: boolean;
+  config: Pick<SocialMedia, SocialMediaConfig>;
 };
 
 type SocialMediaItem = GetCardSocialMediasOutput;

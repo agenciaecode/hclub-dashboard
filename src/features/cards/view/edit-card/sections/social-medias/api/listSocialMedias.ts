@@ -7,19 +7,19 @@ import { CardKeys } from '@features/cards';
 
 import { ApiResponse } from '@/types/api-response';
 
+type SocialMediaConfig = 'pattern' | 'label' | 'placeholder' | 'instructions';
+
 type ListSocialMediasOutput = {
   id: number;
   name: string;
   icon_xml_svg: string;
-  pattern: string;
-  label: string;
-  placeholder: string;
-  instructions: string;
   icon: {
     url: string;
     width: number;
     height: number;
   };
+} & {
+  [configKey in SocialMediaConfig]: string;
 };
 
 type SocialMedia = ListSocialMediasOutput;
@@ -35,4 +35,4 @@ const useListSocialMediasQuery = () =>
   useQuery(CardKeys.listSocialMedias(), listSocialMedias);
 
 export { useListSocialMediasQuery };
-export type { ListSocialMediasOutput, SocialMedia };
+export type { ListSocialMediasOutput, SocialMedia, SocialMediaConfig };

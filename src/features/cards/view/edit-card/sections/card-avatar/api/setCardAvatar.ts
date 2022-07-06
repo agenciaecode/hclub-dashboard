@@ -20,7 +20,7 @@ function setCardAvatar({ card, avatar }: SetCardAvatarInput) {
   return http.post(`/cards/${card}/avatar`, formData);
 }
 
-const useCardAvatarMutation = () => {
+const useSetCardAvatarMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(setCardAvatar, {
     onSuccess(_, setCardAvatarInput) {
@@ -29,5 +29,5 @@ const useCardAvatarMutation = () => {
   });
 };
 
-export { useCardAvatarMutation };
+export { useSetCardAvatarMutation };
 export type { SetCardAvatarInput, SetCardAvatarValidationError };
