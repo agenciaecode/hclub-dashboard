@@ -1,8 +1,9 @@
 /* eslint-disable import/no-cycle, react/jsx-props-no-spreading */
 import Image from 'next/image';
-import { forwardRef, SVGProps, useState } from 'react';
+import { forwardRef, SVGProps, useEffect, useState } from 'react';
 
 import { notNullish } from '@antfu/utils';
+import { arrayMove, List } from 'react-movable';
 
 import { Spinner } from '@components/feedback/spinner';
 import { Button } from '@components/forms/button';
@@ -10,6 +11,7 @@ import { Flex } from '@components/layout/flex';
 import { Dropdown, DropdownMenuItem } from '@components/overlay/dropdown';
 import { Tooltip } from '@components/overlay/tooltip';
 import { Text } from '@components/typography/text';
+import { showToastErrorMessage } from '@libs/toast/showToastMessage';
 
 import { SectionWrapper } from '../../components/section-wrapper';
 import { useCardSlug } from '../../hooks/useCardSlug';
@@ -18,6 +20,7 @@ import {
   SocialMediaItem,
   useCardSocialMediasQuery,
 } from './api/getCardSocialMedias';
+import { useReorderSocialMediasMutation } from './api/reorderSocialMedias';
 import {
   StyledControlsWrapper,
   StyledDragIconContainer,
@@ -36,61 +39,125 @@ export const CardSocialMedias = () => {
     useState<SocialMediaItem>();
   const card = useCardSlug();
   const cardSocialMediasQuery = useCardSocialMediasQuery({ card });
+  const reorderSocialMediasMutation = useReorderSocialMediasMutation();
+  const [socialMediaItems, setSocialMediaItems] = useState(
+    cardSocialMediasQuery.data,
+  );
+
+  useEffect(() => {
+    setSocialMediaItems(cardSocialMediasQuery.data);
+  }, [cardSocialMediasQuery.data]);
+
+  function handleSocialMediaReorder(
+    reorderedSocialMediaItems: NonNullable<typeof cardSocialMediasQuery.data>,
+  ) {
+    reorderSocialMediasMutation.mutate(
+      {
+        card,
+        orderSchema: reorderedSocialMediaItems.map(
+          (socialMediaItem, order) => ({
+            id: socialMediaItem.id,
+            order: order + 1,
+          }),
+        ),
+      },
+      {
+        onError: () => {
+          showToastErrorMessage('Erro ao reordenar redes sociais');
+          setSocialMediaItems(cardSocialMediasQuery.data);
+          // mutation failed, returning state to previous order
+        },
+        onSettled: () => reorderSocialMediasMutation.reset(),
+      },
+    );
+  }
 
   return (
     <SectionWrapper title="Redes sociais">
-      <div className="social-medias-wrapper">
-        {cardSocialMediasQuery.isLoading && <Spinner color="secondary" />}
-        {cardSocialMediasQuery.isSuccess &&
-          cardSocialMediasQuery.data.map(socialMedia => (
-            <StyledSocialMediaItem key={socialMedia.id}>
-              <Tooltip content="Reordenar">
-                <StyledDragIconContainer>
-                  <DragSvgIcon />
-                </StyledDragIconContainer>
-              </Tooltip>
-              <StyledSocialMediaIcon alignItems="center">
-                <Image
-                  src={socialMedia.icon.url}
-                  layout="fill"
-                  alt={socialMedia.name}
-                />
-              </StyledSocialMediaIcon>
-              <Flex
-                direction="column"
-                gap="0.8rem"
-                css={{ marginRight: 'auto' }}
+      {cardSocialMediasQuery.isLoading && <Spinner color="secondary" />}
+      {socialMediaItems && (
+        <List
+          onChange={({ oldIndex, newIndex }) => {
+            if (reorderSocialMediasMutation.isLoading) return;
+            const reorderedSocialMediaItems = arrayMove(
+              socialMediaItems,
+              oldIndex,
+              newIndex,
+            );
+            setSocialMediaItems(reorderedSocialMediaItems);
+            handleSocialMediaReorder(reorderedSocialMediaItems);
+          }}
+          values={socialMediaItems}
+          renderList={({ children, props }) => (
+            <div className="social-medias-wrapper" {...props}>
+              {children}
+            </div>
+          )}
+          renderItem={({ value: socialMedia, isDragged, props }) => (
+            <div
+              {...props}
+              key={socialMedia.id}
+              {...(reorderSocialMediasMutation.isLoading && {
+                style: {
+                  pointerEvents: 'none',
+                },
+              })}
+            >
+              <StyledSocialMediaItem
+                grabbing={isDragged}
+                isUpdating={reorderSocialMediasMutation.isLoading}
               >
-                <Text size="xl">{socialMedia.name}</Text>
-                <Text>@{socialMedia.value}</Text>
-              </Flex>
-              <StyledControlsWrapper>
-                <Button
-                  btn="secondary"
-                  type="button"
-                  onClick={() => setEditingSocialMedia(socialMedia)}
+                <Tooltip content="Reordenar">
+                  <StyledDragIconContainer>
+                    <DragSvgIcon />
+                  </StyledDragIconContainer>
+                </Tooltip>
+                <StyledSocialMediaIcon alignItems="center">
+                  {socialMedia.icon.url && (
+                    <Image
+                      src={socialMedia.icon.url}
+                      layout="fill"
+                      alt={socialMedia.name}
+                    />
+                  )}
+                </StyledSocialMediaIcon>
+                <Flex
+                  direction="column"
+                  gap="0.8rem"
+                  css={{ marginRight: 'auto' }}
                 >
-                  Editar
-                </Button>
-                <ToggleSocialMediaSwitch socialMedia={socialMedia} />
-                <Dropdown
-                  trigger={
-                    <StyledMobileDropdownButton btn="secondary" type="button">
-                      <EllipsisSvgIcon />
-                    </StyledMobileDropdownButton>
-                  }
-                >
-                  <DropdownMenuItem
-                    onSelect={() => setEditingSocialMedia(socialMedia)}
+                  <Text size="xl">{socialMedia.name}</Text>
+                  <Text>@{socialMedia.value}</Text>
+                </Flex>
+                <StyledControlsWrapper>
+                  <Button
+                    btn="secondary"
+                    type="button"
+                    onClick={() => setEditingSocialMedia(socialMedia)}
                   >
                     Editar
-                  </DropdownMenuItem>
-                  <ToggleSocialMediaDropdownItem socialMedia={socialMedia} />
-                </Dropdown>
-              </StyledControlsWrapper>
-            </StyledSocialMediaItem>
-          ))}
-      </div>
+                  </Button>
+                  <ToggleSocialMediaSwitch socialMedia={socialMedia} />
+                  <Dropdown
+                    trigger={
+                      <StyledMobileDropdownButton btn="secondary" type="button">
+                        <EllipsisSvgIcon />
+                      </StyledMobileDropdownButton>
+                    }
+                  >
+                    <DropdownMenuItem
+                      onSelect={() => setEditingSocialMedia(socialMedia)}
+                    >
+                      Editar
+                    </DropdownMenuItem>
+                    <ToggleSocialMediaDropdownItem socialMedia={socialMedia} />
+                  </Dropdown>
+                </StyledControlsWrapper>
+              </StyledSocialMediaItem>
+            </div>
+          )}
+        />
+      )}
       <AddSocialMediaSelect />
       {editingSocialMedia && (
         <EditSocialMediaModal

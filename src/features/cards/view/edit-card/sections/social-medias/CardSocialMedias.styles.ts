@@ -4,10 +4,23 @@ import { Flex } from '@components/layout/flex';
 import { styled } from '@/theme';
 
 const StyledSocialMediaItem = styled(Flex, {
+  display: 'flex',
   padding: '3.2rem 0',
   borderBottom: 'solid 1px $gray',
   gap: '2.4rem',
   alignItems: 'center',
+  variants: {
+    grabbing: {
+      true: {
+        cursor: 'grabbing',
+      },
+    },
+    isUpdating: {
+      true: {
+        opacity: 0.5,
+      },
+    },
+  },
 });
 
 const StyledDragIconContainer = styled('div', {
