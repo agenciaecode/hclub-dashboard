@@ -14,6 +14,9 @@ export const StyledButton = styled('button', {
   '&:focus, &:active': {
     opacity: 0.65,
   },
+  '& label': {
+    marginLeft: '1rem',
+  },
   variants: {
     btn: {
       primary: {
@@ -72,6 +75,10 @@ export const StyledButton = styled('button', {
         '&:hover': {
           color: '$white',
         },
+      },
+      false: {
+        backgroundColor: 'transparent',
+        borderWidth: 0,
       },
     },
     block: {

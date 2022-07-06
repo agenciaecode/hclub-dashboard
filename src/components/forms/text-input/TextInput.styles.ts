@@ -8,6 +8,7 @@ const StyledInputGroup = styled('div', {
   color: '$textBlack',
   gap: '0.8rem',
   padding: '0 0.2rem',
+  marginBottom: '1rem',
   '& > span:first-child': {
     fontSize: '$sm',
     lineHeight: '$sm',
