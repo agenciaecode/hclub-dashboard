@@ -9,7 +9,7 @@ import { yup } from '@libs/yup';
 import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
 
 import { useCardSlug } from '../../hooks/useCardSlug';
-import { SocialMedia } from './api/getCardSocialMedias';
+import { SocialMediaItem } from './api/getCardSocialMedias';
 import { useToggleSocialMediaMutation } from './api/toggleSocialMedia';
 
 const toggleSocialMediaSchema = yup
@@ -19,7 +19,7 @@ const toggleSocialMediaSchema = yup
   .required();
 
 type ToggleSocialMediaSwitchProps = {
-  socialMedia: SocialMedia;
+  socialMedia: SocialMediaItem;
 };
 
 export const ToggleSocialMediaSwitch = ({

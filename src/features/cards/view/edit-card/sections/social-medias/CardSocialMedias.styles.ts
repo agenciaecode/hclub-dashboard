@@ -55,6 +55,16 @@ const StyledMobileDropdownButton = styled(Button, {
   },
 });
 
+const StyledFigure = styled('figure', {
+  position: 'relative',
+  width: '9.2rem',
+  height: '9.2rem',
+  '& > svg': {
+    width: '100%',
+    height: '100%',
+  },
+});
+
 export {
   StyledSocialMediaItem,
   StyledDragIconContainer,
@@ -62,4 +72,5 @@ export {
   StyledAddSocialMediaButton,
   StyledControlsWrapper,
   StyledMobileDropdownButton,
+  StyledFigure,
 };

@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { forwardRef, SVGProps, useState } from 'react';
 
 import { notNullish } from '@antfu/utils';
-import { PlusIcon } from '@radix-ui/react-icons';
 
 import { Spinner } from '@components/feedback/spinner';
 import { Button } from '@components/forms/button';
@@ -16,11 +15,10 @@ import { SectionWrapper } from '../../components/section-wrapper';
 import { useCardSlug } from '../../hooks/useCardSlug';
 import { AddSocialMediaSelect } from './AddSocialMediaSelect';
 import {
-  SocialMedia,
+  SocialMediaItem,
   useCardSocialMediasQuery,
 } from './api/getCardSocialMedias';
 import {
-  StyledAddSocialMediaButton,
   StyledControlsWrapper,
   StyledDragIconContainer,
   StyledMobileDropdownButton,
@@ -34,7 +32,8 @@ import {
 } from './ToggleSocialMediaSwitch';
 
 export const CardSocialMedias = () => {
-  const [editingSocialMedia, setEditingSocialMedia] = useState<SocialMedia>();
+  const [editingSocialMedia, setEditingSocialMedia] =
+    useState<SocialMediaItem>();
   const card = useCardSlug();
   const cardSocialMediasQuery = useCardSocialMediasQuery({ card });
 
@@ -92,15 +91,7 @@ export const CardSocialMedias = () => {
             </StyledSocialMediaItem>
           ))}
       </div>
-      <AddSocialMediaSelect
-        cardSlug={card}
-        triggerButton={
-          <StyledAddSocialMediaButton btn="secondary" type="button">
-            <PlusIcon />
-            Adicionar Rede Social
-          </StyledAddSocialMediaButton>
-        }
-      />
+      <AddSocialMediaSelect />
       {editingSocialMedia && (
         <EditSocialMediaModal
           socialMedia={editingSocialMedia}
@@ -108,6 +99,7 @@ export const CardSocialMedias = () => {
           onOpenChange={openState => {
             if (!openState) setEditingSocialMedia(undefined);
           }}
+          handleSuccesfulSubmit={() => setEditingSocialMedia(undefined)}
         />
       )}
     </SectionWrapper>

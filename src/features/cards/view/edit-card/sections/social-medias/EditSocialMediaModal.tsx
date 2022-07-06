@@ -13,14 +13,13 @@ import { yup } from '@libs/yup';
 import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
 import { animationDelay } from '@utils/animation/animation-delay';
 
-import { styled } from '@/theme';
-
 import { useCardSlug } from '../../hooks/useCardSlug';
-import { SocialMedia } from './api/getCardSocialMedias';
+import { SocialMediaItem } from './api/getCardSocialMedias';
 import {
   UpdateSocialMediaInputValidationError,
   useUpdateSocialMediaMutation,
 } from './api/updateSocialMedia';
+import { StyledFigure } from './CardSocialMedias.styles';
 
 const updateSocialMediaSchema = yup
   .object({
@@ -29,28 +28,39 @@ const updateSocialMediaSchema = yup
   .required();
 
 type EditSocialMediaModalProps = {
-  socialMedia: SocialMedia;
+  socialMedia: SocialMediaItem;
+  handleSuccesfulSubmit: () => void;
 } & ModalProps;
 
 /**
  * Modal to edit a social media
  * Uses separated content component to lazy load form stateful logic.
  * @param socialMedia
+ * @param closeModal
  * @param modalProps
- * @constructor
  */
 export const EditSocialMediaModal = ({
   socialMedia,
+  handleSuccesfulSubmit,
   ...modalProps
 }: EditSocialMediaModalProps) => (
   <Modal {...modalProps}>
-    <EditSocialMediaModalContent socialMedia={socialMedia} />
+    <EditSocialMediaForm
+      socialMedia={socialMedia}
+      handleSuccesfulSubmit={handleSuccesfulSubmit}
+    />
   </Modal>
 );
 
-const EditSocialMediaModalContent = ({
+type EditSocialMediaFormProps = Pick<
+  EditSocialMediaModalProps,
+  'socialMedia' | 'handleSuccesfulSubmit'
+>;
+
+const EditSocialMediaForm = ({
   socialMedia,
-}: Pick<EditSocialMediaModalProps, 'socialMedia'>) => {
+  handleSuccesfulSubmit,
+}: EditSocialMediaFormProps) => {
   const cardSlug = useCardSlug();
   const updateSocialMediaMutation = useUpdateSocialMediaMutation(cardSlug);
   const updateSocialMediaForm = useFormWithSchema(updateSocialMediaSchema, {
@@ -117,6 +127,7 @@ const EditSocialMediaModalContent = ({
           onAnimationFinished={async () => {
             await animationDelay();
             updateSocialMediaMutation.reset();
+            handleSuccesfulSubmit();
           }}
         >
           Salvar
@@ -125,13 +136,3 @@ const EditSocialMediaModalContent = ({
     </form>
   );
 };
-
-const StyledFigure = styled('figure', {
-  position: 'relative',
-  width: '9.2rem',
-  height: '9.2rem',
-  '& > svg': {
-    width: '100%',
-    height: '100%',
-  },
-});
