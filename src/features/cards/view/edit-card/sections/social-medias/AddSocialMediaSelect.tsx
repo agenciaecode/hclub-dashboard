@@ -1,5 +1,6 @@
 import React, { SyntheticEvent, useState } from 'react';
 
+import { notNullish } from '@antfu/utils';
 import { SelectItem } from '@radix-ui/react-select';
 
 import { Spinner } from '@components/feedback/spinner';
@@ -81,9 +82,10 @@ export const AddSocialMediaSelect = () => {
         )}
       </StyledSelect>
       <Modal
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        {...(!selectedSocialMedia && { open: false })}
-        // only controls open state when selectedSocialMedia is undefined
+        open={notNullish(selectedSocialMedia)}
+        onOpenChange={isOpen => {
+          if (!isOpen) setSelectedSocialMedia(undefined);
+        }}
         triggerButton={
           <Button
             disabled={
