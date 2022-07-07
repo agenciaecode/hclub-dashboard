@@ -15,6 +15,14 @@ const StyledSocialMediaItem = styled(Flex, {
         cursor: 'grabbing',
       },
     },
+    isDisabled: {
+      true: {
+        opacity: 0.65,
+        '@md': {
+          opacity: 'initial',
+        },
+      },
+    },
     isUpdating: {
       true: {
         opacity: 0.5,

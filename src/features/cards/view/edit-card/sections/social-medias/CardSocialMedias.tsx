@@ -105,6 +105,7 @@ export const CardSocialMedias = () => {
             >
               <StyledSocialMediaItem
                 grabbing={isDragged}
+                isDisabled={!socialMedia.active}
                 isUpdating={reorderSocialMediasMutation.isLoading}
               >
                 <Tooltip content="Reordenar">
