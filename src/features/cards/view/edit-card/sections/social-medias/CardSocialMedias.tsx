@@ -12,6 +12,7 @@ import { Dropdown, DropdownMenuItem } from '@components/overlay/dropdown';
 import { Tooltip } from '@components/overlay/tooltip';
 import { Text } from '@components/typography/text';
 import { showToastErrorMessage } from '@libs/toast/showToastMessage';
+import { MapToReorderSchema } from '@utils/reorder/map-to-reorder-schema';
 
 import { SectionWrapper } from '../../components/section-wrapper';
 import { useCardSlug } from '../../hooks/useCardSlug';
@@ -54,12 +55,7 @@ export const CardSocialMedias = () => {
     reorderSocialMediasMutation.mutate(
       {
         card,
-        orderSchema: reorderedSocialMediaItems.map(
-          (socialMediaItem, order) => ({
-            id: socialMediaItem.id,
-            order: order + 1,
-          }),
-        ),
+        orderSchema: MapToReorderSchema(reorderedSocialMediaItems),
       },
       {
         onError: () => {
