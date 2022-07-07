@@ -1,4 +1,6 @@
 export type Breakpoints = {
+  /** (min-width: 425px) */
+  xs: string;
   /** (min-width: 640px) */
   sm: string;
   /** (min-width: 768px) */
