@@ -21,6 +21,7 @@ import {
   StyledToolbar,
 } from './EditCardPage.styles';
 import { useCardSlug } from './hooks/useCardSlug';
+import { CardBlocks } from './sections/blocks';
 import { CardAvatar } from './sections/card-avatar';
 import { CardBiography } from './sections/card-bio';
 import { CardSocialMedias } from './sections/social-medias';
@@ -53,6 +54,7 @@ export const EditCardPage = () => {
           <CardBiography />
           <Separator />
           <CardSocialMedias />
+          <CardBlocks />
         </StyledFormsContainer>
         <StyledPreviewContainer>
           <StyledStickyPreviewWrapper>
