@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading,import/no-cycle */
 import { useEffect, useState } from 'react';
 
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { arrayMove, List } from 'react-movable';
 
 import { Spinner } from '@components/feedback/spinner';
-import { Button } from '@components/forms/button';
+import { Switch, SwitchThumb } from '@components/forms/switch';
 import { DragSvgIcon } from '@components/icons/drag-icon';
 import { EllipsisSvgIcon } from '@components/icons/drag-icon/ellipsis-icon';
 import { Flex } from '@components/layout/flex';
@@ -23,7 +24,10 @@ import {
   StyledCardBlockItem,
   StyledControlsWrapper,
   StyledDragIconContainer,
+  StyledIconButton,
+  StyledPencilIcon,
   StyledMobileDropdownButton,
+  StyledTrashIcon,
 } from './CardBlocks.styles';
 
 export const CardBlocks = () => {
@@ -57,7 +61,7 @@ export const CardBlocks = () => {
   }
 
   return (
-    <SectionWrapper title="Redes sociais">
+    <SectionWrapper title="Outras informações">
       {cardBlocksQuery.isLoading && <Spinner color="secondary" />}
       {cardBlockItems && (
         <List
@@ -112,13 +116,25 @@ export const CardBlocks = () => {
                   {cardBlock.title && <Text>{cardBlock.title}</Text>}
                 </Flex>
                 <StyledControlsWrapper>
-                  <Button
-                    btn="secondary"
-                    type="button"
-                    onClick={() => setEditingBlock(cardBlock)}
-                  >
-                    Editar
-                  </Button>
+                  <Tooltip content="Editar">
+                    <StyledIconButton
+                      btn="secondary"
+                      type="button"
+                      onClick={() => setEditingBlock(cardBlock)}
+                    >
+                      <VisuallyHidden>Editar</VisuallyHidden>
+                      <StyledPencilIcon />
+                    </StyledIconButton>
+                  </Tooltip>
+                  <Tooltip content="Excluir">
+                    <StyledIconButton btn="secondary" type="button">
+                      <VisuallyHidden>Excluir</VisuallyHidden>
+                      <StyledTrashIcon />
+                    </StyledIconButton>
+                  </Tooltip>
+                  <Switch>
+                    <SwitchThumb />
+                  </Switch>
                   {/* <ToggleSocialMediaSwitch socialMedia={cardBlock} /> */}
                   <Dropdown
                     trigger={
