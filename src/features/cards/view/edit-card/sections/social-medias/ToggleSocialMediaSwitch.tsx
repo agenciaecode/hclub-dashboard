@@ -1,6 +1,4 @@
 /* eslint-disable import/no-cycle */
-import { useEffect } from 'react';
-
 import { ControlledSwitch } from '@components/forms/switch';
 import { DropdownMenuItem } from '@components/overlay/dropdown';
 import { Tooltip } from '@components/overlay/tooltip';

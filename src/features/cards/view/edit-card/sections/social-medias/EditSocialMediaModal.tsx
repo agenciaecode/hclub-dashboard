@@ -5,7 +5,6 @@ import React from 'react';
 import { Button } from '@components/forms/button';
 import { LoadingButton } from '@components/forms/loading-button';
 import { TextInput } from '@components/forms/text-input';
-import { Flex } from '@components/layout/flex';
 import { DialogClose, Modal, ModalProps } from '@components/overlay/modal';
 import { Text } from '@components/typography/text';
 import { setFormErrorsFromException, useFormWithSchema } from '@libs/hook-form';
