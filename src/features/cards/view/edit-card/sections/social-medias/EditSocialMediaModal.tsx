@@ -20,7 +20,11 @@ import {
   UpdateSocialMediaInputValidationError,
   useUpdateSocialMediaMutation,
 } from './api/updateSocialMedia';
-import { StyledFigure } from './CardSocialMedias.styles';
+import {
+  StyledFigure,
+  StyledResponsiveFlex,
+  StyledResponsiveSocialMediaHeader,
+} from './CardSocialMedias.styles';
 
 const updateSocialMediaSchema = yup
   .object({
@@ -96,7 +100,7 @@ const EditSocialMediaForm = ({
 
   return (
     <form onSubmit={handleUpdateSocialMediaSubmit}>
-      <Flex alignItems="center" gap="2rem">
+      <StyledResponsiveSocialMediaHeader alignItems="center">
         <StyledFigure>
           {socialMedia.icon.url && (
             <Image
@@ -107,7 +111,7 @@ const EditSocialMediaForm = ({
           )}
         </StyledFigure>
         <Text size="xl">{socialMedia.name}</Text>
-      </Flex>
+      </StyledResponsiveSocialMediaHeader>
 
       {socialMedia.config.instructions && (
         <Text size="sm">{socialMedia.config.instructions}</Text>
@@ -125,7 +129,7 @@ const EditSocialMediaForm = ({
         css={{ marginTop: '3.2rem', marginBottom: '6rem' }}
       />
 
-      <Flex gap="2rem">
+      <StyledResponsiveFlex>
         <DialogClose asChild>
           <Button btn="secondary" type="reset">
             Cancelar
@@ -142,7 +146,7 @@ const EditSocialMediaForm = ({
         >
           Salvar
         </LoadingButton>
-      </Flex>
+      </StyledResponsiveFlex>
     </form>
   );
 };

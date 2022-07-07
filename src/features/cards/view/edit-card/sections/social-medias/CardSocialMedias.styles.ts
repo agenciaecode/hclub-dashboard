@@ -78,6 +78,25 @@ const StyledFigure = styled('figure', {
   },
 });
 
+const StyledResponsiveFlex = styled(Flex, {
+  gap: '2rem',
+  flexDirection: 'column-reverse',
+  '@sm': {
+    flexDirection: 'row',
+  },
+});
+
+const StyledResponsiveSocialMediaHeader = styled(Flex, {
+  marginBottom: '1rem',
+  gap: '1rem',
+  flexDirection: 'column',
+  '@xs': {
+    marginBottom: 0,
+    gap: '2rem',
+    flexDirection: 'row',
+  },
+});
+
 export {
   StyledSocialMediaItem,
   StyledDragIconContainer,
@@ -86,4 +105,6 @@ export {
   StyledControlsWrapper,
   StyledMobileDropdownButton,
   StyledFigure,
+  StyledResponsiveFlex,
+  StyledResponsiveSocialMediaHeader,
 };

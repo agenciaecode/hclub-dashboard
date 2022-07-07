@@ -20,7 +20,11 @@ import {
   useAddSocialMediaMutation,
 } from './api/addSocialMedia';
 import { SocialMedia } from './api/listSocialMedias';
-import { StyledFigure } from './CardSocialMedias.styles';
+import {
+  StyledFigure,
+  StyledResponsiveFlex,
+  StyledResponsiveSocialMediaHeader,
+} from './CardSocialMedias.styles';
 
 const addSocialMediaSchema = yup
   .object({
@@ -79,7 +83,7 @@ export const AddSocialMediaForm = ({
 
   return (
     <form onSubmit={handleAddSocialMediaSubmit}>
-      <Flex alignItems="center" gap="2rem">
+      <StyledResponsiveSocialMediaHeader alignItems="center">
         <StyledFigure>
           {addingSocialMedia.icon.url && (
             <Image
@@ -90,7 +94,7 @@ export const AddSocialMediaForm = ({
           )}
         </StyledFigure>
         <Text size="xl">{addingSocialMedia.name}</Text>
-      </Flex>
+      </StyledResponsiveSocialMediaHeader>
 
       {addingSocialMedia.instructions && (
         <Text size="sm">{addingSocialMedia.instructions}</Text>
@@ -112,7 +116,7 @@ export const AddSocialMediaForm = ({
         css={{ marginTop: '3.2rem', marginBottom: '6rem' }}
       />
 
-      <Flex gap="2rem">
+      <StyledResponsiveFlex>
         <DialogClose asChild>
           <Button btn="secondary" type="reset">
             Cancelar
@@ -129,7 +133,7 @@ export const AddSocialMediaForm = ({
         >
           Salvar
         </LoadingButton>
-      </Flex>
+      </StyledResponsiveFlex>
     </form>
   );
 };
