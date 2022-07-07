@@ -18,7 +18,7 @@ const StyledSocialMediaItem = styled(Flex, {
     isDisabled: {
       true: {
         opacity: 0.65,
-        '@md': {
+        '@sm': {
           opacity: 'initial',
         },
       },
