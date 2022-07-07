@@ -1,3 +1,5 @@
+import { Pencil1Icon } from '@radix-ui/react-icons';
+
 import { Button } from '@components/forms/button';
 import { Flex } from '@components/layout/flex';
 
@@ -50,11 +52,6 @@ const StyledSocialMediaIcon = styled(Flex, {
   },
 });
 
-const StyledAddSocialMediaButton = styled(Button, {
-  gap: '0.5rem',
-  marginTop: '3rem',
-});
-
 const StyledControlsWrapper = styled(Flex, {
   alignItems: 'center',
   gap: '2.4rem',
@@ -65,6 +62,17 @@ const StyledControlsWrapper = styled(Flex, {
       display: 'block',
     },
   },
+});
+
+const StyledIconButton = styled(Button, {
+  padding: '1.1rem',
+  lineHeight: '0',
+});
+
+const StyledPencilIcon = styled(Pencil1Icon, {
+  $$sizing: '2.4rem',
+  width: '$$sizing',
+  height: '$$sizing',
 });
 
 const StyledMobileDropdownButton = styled(Button, {
@@ -109,8 +117,9 @@ export {
   StyledSocialMediaItem,
   StyledDragIconContainer,
   StyledSocialMediaIcon,
-  StyledAddSocialMediaButton,
   StyledControlsWrapper,
+  StyledIconButton,
+  StyledPencilIcon,
   StyledMobileDropdownButton,
   StyledFigure,
   StyledResponsiveFlex,

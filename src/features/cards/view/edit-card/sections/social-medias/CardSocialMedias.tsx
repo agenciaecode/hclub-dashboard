@@ -3,10 +3,10 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 import { notNullish } from '@antfu/utils';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { arrayMove, List } from 'react-movable';
 
 import { Spinner } from '@components/feedback/spinner';
-import { Button } from '@components/forms/button';
 import { DragSvgIcon } from '@components/icons/drag-icon';
 import { EllipsisSvgIcon } from '@components/icons/drag-icon/ellipsis-icon';
 import { Flex } from '@components/layout/flex';
@@ -26,8 +26,10 @@ import {
 import { useReorderSocialMediasMutation } from './api/reorderSocialMedias';
 import {
   StyledControlsWrapper,
+  StyledIconButton,
   StyledDragIconContainer,
   StyledMobileDropdownButton,
+  StyledPencilIcon,
   StyledSocialMediaIcon,
   StyledSocialMediaItem,
 } from './CardSocialMedias.styles';
@@ -129,13 +131,16 @@ export const CardSocialMedias = () => {
                   <Text>@{socialMedia.value}</Text>
                 </Flex>
                 <StyledControlsWrapper>
-                  <Button
-                    btn="secondary"
-                    type="button"
-                    onClick={() => setEditingSocialMedia(socialMedia)}
-                  >
-                    Editar
-                  </Button>
+                  <Tooltip content="Editar">
+                    <StyledIconButton
+                      btn="secondary"
+                      type="button"
+                      onClick={() => setEditingSocialMedia(socialMedia)}
+                    >
+                      <VisuallyHidden>Editar</VisuallyHidden>
+                      <StyledPencilIcon />
+                    </StyledIconButton>
+                  </Tooltip>
                   <ToggleSocialMediaSwitch socialMedia={socialMedia} />
                   <Dropdown
                     trigger={
