@@ -5,7 +5,6 @@ import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { arrayMove, List } from 'react-movable';
 
 import { Spinner } from '@components/feedback/spinner';
-import { Switch, SwitchThumb } from '@components/forms/switch';
 import { DragSvgIcon } from '@components/icons/drag-icon';
 import { EllipsisSvgIcon } from '@components/icons/drag-icon/ellipsis-icon';
 import { Flex } from '@components/layout/flex';
@@ -32,6 +31,10 @@ import {
   DeleteCardBlockButton,
   DeleteteCardDropdownItem,
 } from './DeleteCardBlock';
+import {
+  ToggleCardBlockDropdownItem,
+  ToggleCardBlockSwitch,
+} from './ToggleCardBlock';
 
 export const CardBlocks = () => {
   const card = useCardSlug();
@@ -130,9 +133,7 @@ export const CardBlocks = () => {
                     </StyledIconButton>
                   </Tooltip>
                   <DeleteCardBlockButton cardBlock={cardBlock} />
-                  <Switch>
-                    <SwitchThumb />
-                  </Switch>
+                  <ToggleCardBlockSwitch cardBlock={cardBlock} />
                   <Dropdown
                     trigger={
                       <StyledMobileDropdownButton btn="secondary" type="button">
@@ -146,6 +147,7 @@ export const CardBlocks = () => {
                       Editar
                     </DropdownMenuItem>
                     <DeleteteCardDropdownItem cardBlock={cardBlock} />
+                    <ToggleCardBlockDropdownItem cardBlock={cardBlock} />
                   </Dropdown>
                 </StyledControlsWrapper>
               </StyledCardBlockItem>
