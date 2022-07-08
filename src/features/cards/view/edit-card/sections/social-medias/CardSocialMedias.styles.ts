@@ -1,5 +1,4 @@
 import { Button } from '@components/forms/button';
-import { PencilSvgIcon } from '@components/icons/pencil-icon';
 import { Flex } from '@components/layout/flex';
 
 import { styled } from '@/theme';
@@ -63,20 +62,17 @@ const StyledControlsWrapper = styled(Flex, {
   },
 });
 
+const buttonSizing = '4.8rem';
+
 const StyledIconButton = styled(Button, {
-  padding: '1.1rem',
-  lineHeight: '0',
-});
-
-const StyledPencilIcon = styled(PencilSvgIcon, {
-  $$sizing: '1.6rem',
-  width: '$$sizing',
-  height: '$$sizing',
-});
-
-const StyledMobileDropdownButton = styled(Button, {
-  padding: '1.5rem',
+  $$buttonSizing: buttonSizing,
+  width: '$$buttonSizing',
+  height: '$$buttonSizing',
+  padding: 0,
   lineHeight: 0,
+});
+
+const StyledMobileDropdownButton = styled(StyledIconButton, {
   display: 'block !important',
   '@sm': {
     display: 'none !important',
@@ -118,7 +114,6 @@ export {
   StyledSocialMediaIcon,
   StyledControlsWrapper,
   StyledIconButton,
-  StyledPencilIcon,
   StyledMobileDropdownButton,
   StyledFigure,
   StyledResponsiveFlex,

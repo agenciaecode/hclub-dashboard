@@ -9,6 +9,7 @@ import { arrayMove, List } from 'react-movable';
 import { Spinner } from '@components/feedback/spinner';
 import { DragSvgIcon } from '@components/icons/drag-icon';
 import { EllipsisSvgIcon } from '@components/icons/drag-icon/ellipsis-icon';
+import { PencilSvgIcon } from '@components/icons/pencil-icon';
 import { Flex } from '@components/layout/flex';
 import { Dropdown, DropdownMenuItem } from '@components/overlay/dropdown';
 import { Tooltip } from '@components/overlay/tooltip';
@@ -29,7 +30,6 @@ import {
   StyledIconButton,
   StyledDragIconContainer,
   StyledMobileDropdownButton,
-  StyledPencilIcon,
   StyledSocialMediaIcon,
   StyledSocialMediaItem,
 } from './CardSocialMedias.styles';
@@ -138,7 +138,7 @@ export const CardSocialMedias = () => {
                       onClick={() => setEditingSocialMedia(socialMedia)}
                     >
                       <VisuallyHidden>Editar</VisuallyHidden>
-                      <StyledPencilIcon />
+                      <PencilSvgIcon />
                     </StyledIconButton>
                   </Tooltip>
                   <ToggleSocialMediaSwitch socialMedia={socialMedia} />

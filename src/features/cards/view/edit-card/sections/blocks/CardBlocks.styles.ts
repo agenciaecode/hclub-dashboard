@@ -1,5 +1,3 @@
-import { TrashSvgIcon } from '@components/icons/trash-icon';
-
 import { styled } from '@/theme';
 
 import {
@@ -7,7 +5,6 @@ import {
   StyledSocialMediaIcon,
   StyledDragIconContainer,
   StyledIconButton,
-  StyledPencilIcon,
   StyledMobileDropdownButton,
   StyledControlsWrapper,
 } from '../social-medias/CardSocialMedias.styles';
@@ -20,19 +17,11 @@ const StyledCardBlockIcon = styled(StyledSocialMediaIcon, {
   },
 });
 
-const StyledTrashIcon = styled(TrashSvgIcon, {
-  $$sizing: '1.6rem',
-  width: '$$sizing',
-  height: '$$sizing',
-});
-
 export {
   StyledSocialMediaItem as StyledCardBlockItem,
   StyledCardBlockIcon,
   StyledDragIconContainer,
   StyledControlsWrapper,
   StyledIconButton,
-  StyledPencilIcon,
-  StyledTrashIcon,
   StyledMobileDropdownButton,
 };

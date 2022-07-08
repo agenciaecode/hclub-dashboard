@@ -7,6 +7,7 @@ import { arrayMove, List } from 'react-movable';
 import { Spinner } from '@components/feedback/spinner';
 import { DragSvgIcon } from '@components/icons/drag-icon';
 import { EllipsisSvgIcon } from '@components/icons/drag-icon/ellipsis-icon';
+import { PencilSvgIcon } from '@components/icons/pencil-icon';
 import { Flex } from '@components/layout/flex';
 import { Dropdown, DropdownMenuItem } from '@components/overlay/dropdown';
 import { Tooltip } from '@components/overlay/tooltip';
@@ -24,7 +25,6 @@ import {
   StyledControlsWrapper,
   StyledDragIconContainer,
   StyledIconButton,
-  StyledPencilIcon,
   StyledMobileDropdownButton,
 } from './CardBlocks.styles';
 import {
@@ -129,7 +129,7 @@ export const CardBlocks = () => {
                       onClick={() => setEditingBlock(cardBlock)}
                     >
                       <VisuallyHidden>Editar</VisuallyHidden>
-                      <StyledPencilIcon />
+                      <PencilSvgIcon />
                     </StyledIconButton>
                   </Tooltip>
                   <DeleteCardBlockButton cardBlock={cardBlock} />

@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
+import { TrashSvgIcon } from '@components/icons/trash-icon';
 import { AlertConfirmation } from '@components/overlay/alert-dialog';
 import { DropdownMenuItem } from '@components/overlay/dropdown';
 import { Tooltip } from '@components/overlay/tooltip';
@@ -12,7 +13,6 @@ import { useCardSlug } from '../../hooks/useCardSlug';
 import { StyledIconButton } from '../social-medias/CardSocialMedias.styles';
 import { useDeleteCardBlockMutation } from './api/deleteCardBlock';
 import { Block, BlockTypes } from './api/getCardBlocks';
-import { StyledTrashIcon } from './CardBlocks.styles';
 
 type DeleteCardBlockProps = {
   cardBlock: Block<BlockTypes>;
@@ -57,7 +57,7 @@ export const DeleteCardBlockButton = ({ cardBlock }: DeleteCardBlockProps) => {
           onClick={() => setIsConfirmationOpen(true)}
         >
           <VisuallyHidden>Excluir</VisuallyHidden>
-          <StyledTrashIcon />
+          <TrashSvgIcon />
         </StyledIconButton>
       </Tooltip>
       <AlertConfirmation
