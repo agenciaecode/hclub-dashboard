@@ -27,8 +27,11 @@ import {
   StyledIconButton,
   StyledPencilIcon,
   StyledMobileDropdownButton,
-  StyledTrashIcon,
 } from './CardBlocks.styles';
+import {
+  DeleteCardBlockButton,
+  DeleteteCardDropdownItem,
+} from './DeleteCardBlock';
 
 export const CardBlocks = () => {
   const card = useCardSlug();
@@ -126,16 +129,10 @@ export const CardBlocks = () => {
                       <StyledPencilIcon />
                     </StyledIconButton>
                   </Tooltip>
-                  <Tooltip content="Excluir">
-                    <StyledIconButton btn="secondary" type="button">
-                      <VisuallyHidden>Excluir</VisuallyHidden>
-                      <StyledTrashIcon />
-                    </StyledIconButton>
-                  </Tooltip>
+                  <DeleteCardBlockButton cardBlock={cardBlock} />
                   <Switch>
                     <SwitchThumb />
                   </Switch>
-                  {/* <ToggleSocialMediaSwitch socialMedia={cardBlock} /> */}
                   <Dropdown
                     trigger={
                       <StyledMobileDropdownButton btn="secondary" type="button">
@@ -148,7 +145,7 @@ export const CardBlocks = () => {
                     >
                       Editar
                     </DropdownMenuItem>
-                    {/* <ToggleSocialMediaDropdownItem socialMedia={cardBlock} /> */}
+                    <DeleteteCardDropdownItem cardBlock={cardBlock} />
                   </Dropdown>
                 </StyledControlsWrapper>
               </StyledCardBlockItem>
