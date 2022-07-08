@@ -76,7 +76,7 @@ export const FeedbackButton = () => {
       fileInputRef.current?.click();
   }
 
-  function handleFileInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleFileInputChange() {
     const currentFormData = new FormData(feedbackFormRef.current!);
     const selectedFile = currentFormData.get('attachment') as File;
     setFileName(selectedFile?.name);

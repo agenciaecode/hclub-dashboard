@@ -15,6 +15,14 @@ const StyledSocialMediaItem = styled(Flex, {
         cursor: 'grabbing',
       },
     },
+    isDisabled: {
+      true: {
+        opacity: 0.65,
+        '@sm': {
+          opacity: 'initial',
+        },
+      },
+    },
     isUpdating: {
       true: {
         opacity: 0.5,
@@ -42,11 +50,6 @@ const StyledSocialMediaIcon = styled(Flex, {
   },
 });
 
-const StyledAddSocialMediaButton = styled(Button, {
-  gap: '0.5rem',
-  marginTop: '3rem',
-});
-
 const StyledControlsWrapper = styled(Flex, {
   alignItems: 'center',
   gap: '2.4rem',
@@ -59,9 +62,17 @@ const StyledControlsWrapper = styled(Flex, {
   },
 });
 
-const StyledMobileDropdownButton = styled(Button, {
-  padding: '1.3rem',
+const buttonSizing = '4.8rem';
+
+const StyledIconButton = styled(Button, {
+  $$buttonSizing: buttonSizing,
+  width: '$$buttonSizing',
+  height: '$$buttonSizing',
+  padding: 0,
   lineHeight: 0,
+});
+
+const StyledMobileDropdownButton = styled(StyledIconButton, {
   display: 'block !important',
   '@sm': {
     display: 'none !important',
@@ -78,12 +89,33 @@ const StyledFigure = styled('figure', {
   },
 });
 
+const StyledResponsiveFlex = styled(Flex, {
+  gap: '2rem',
+  flexDirection: 'column-reverse',
+  '@sm': {
+    flexDirection: 'row',
+  },
+});
+
+const StyledResponsiveSocialMediaHeader = styled(Flex, {
+  marginBottom: '1rem',
+  gap: '1rem',
+  flexDirection: 'column',
+  '@xs': {
+    marginBottom: 0,
+    gap: '2rem',
+    flexDirection: 'row',
+  },
+});
+
 export {
   StyledSocialMediaItem,
   StyledDragIconContainer,
   StyledSocialMediaIcon,
-  StyledAddSocialMediaButton,
   StyledControlsWrapper,
+  StyledIconButton,
   StyledMobileDropdownButton,
   StyledFigure,
+  StyledResponsiveFlex,
+  StyledResponsiveSocialMediaHeader,
 };

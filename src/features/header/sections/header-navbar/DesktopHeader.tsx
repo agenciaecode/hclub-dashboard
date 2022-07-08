@@ -1,3 +1,4 @@
+import { VisuallyHidden } from '@components/disclosure/visually-hidden';
 import { Spinner } from '@components/feedback/spinner';
 import { Link } from '@components/navigator/link';
 import { LogoutConfirmation } from '@components/overlay/logout-confirmation';
@@ -28,11 +29,13 @@ export const DesktopHeader = () => {
     <StyledDesktopHeaderWrapper>
       <StyledAccountSection>
         <Link href="/dashboard">
+          <VisuallyHidden>Avatar</VisuallyHidden>
           {isSuccess ? (
             <StyledUserAvatar
               src={userProfile?.avatar?.url ?? defaultAvatar}
               width={userProfile?.avatar?.url ? 120 : 60}
               height={userProfile?.avatar?.url ? 120 : 60}
+              alt="Avatar"
             />
           ) : (
             <Spinner css={{ margin: '5rem 5rem' }} />

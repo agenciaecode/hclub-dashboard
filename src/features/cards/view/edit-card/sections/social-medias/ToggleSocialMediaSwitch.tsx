@@ -1,6 +1,4 @@
 /* eslint-disable import/no-cycle */
-import { useEffect } from 'react';
-
 import { ControlledSwitch } from '@components/forms/switch';
 import { DropdownMenuItem } from '@components/overlay/dropdown';
 import { Tooltip } from '@components/overlay/tooltip';
@@ -32,21 +30,17 @@ export const ToggleSocialMediaSwitch = ({
       active: socialMedia.active,
     },
   });
-  const switchToggleState = toggleSocialMediaForm.watch('active');
-
   useHttpExceptionHandler(toggleSocialMediaMutation.error, exceptionHandler =>
     exceptionHandler.executeHandler(),
   );
 
-  useEffect(() => {
-    if (
-      toggleSocialMediaMutation.isLoading ||
-      switchToggleState === socialMedia.active
-    )
+  function handleSwitchToggleChange(checked: boolean) {
+    if (toggleSocialMediaMutation.isLoading || checked === socialMedia.active)
       return;
+    toggleSocialMediaForm.setValue('active', checked);
     toggleSocialMediaMutation.mutate(
       {
-        active: switchToggleState,
+        active: checked,
         socialMediaId: socialMedia.id,
       },
       {
@@ -55,8 +49,7 @@ export const ToggleSocialMediaSwitch = ({
         },
       },
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [switchToggleState, socialMedia.active, socialMedia.id]);
+  }
 
   return (
     <Tooltip content={socialMedia.active ? 'Desativar' : 'Ativar'}>
@@ -66,6 +59,7 @@ export const ToggleSocialMediaSwitch = ({
           name="active"
           switchProps={{
             disabled: toggleSocialMediaMutation.isLoading,
+            onCheckedChange: handleSwitchToggleChange,
           }}
         />
       </span>

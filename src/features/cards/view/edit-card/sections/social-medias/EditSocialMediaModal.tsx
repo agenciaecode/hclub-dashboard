@@ -1,10 +1,10 @@
 /* eslint-disable import/no-cycle,react/jsx-props-no-spreading */
 import Image from 'next/image';
+import React from 'react';
 
 import { Button } from '@components/forms/button';
 import { LoadingButton } from '@components/forms/loading-button';
 import { TextInput } from '@components/forms/text-input';
-import { Flex } from '@components/layout/flex';
 import { DialogClose, Modal, ModalProps } from '@components/overlay/modal';
 import { Text } from '@components/typography/text';
 import { setFormErrorsFromException, useFormWithSchema } from '@libs/hook-form';
@@ -19,7 +19,11 @@ import {
   UpdateSocialMediaInputValidationError,
   useUpdateSocialMediaMutation,
 } from './api/updateSocialMedia';
-import { StyledFigure } from './CardSocialMedias.styles';
+import {
+  StyledFigure,
+  StyledResponsiveFlex,
+  StyledResponsiveSocialMediaHeader,
+} from './CardSocialMedias.styles';
 
 const updateSocialMediaSchema = yup
   .object({
@@ -29,7 +33,7 @@ const updateSocialMediaSchema = yup
 
 type EditSocialMediaModalProps = {
   socialMedia: SocialMediaItem;
-  handleSuccesfulSubmit: () => void;
+  handleSuccessfulSubmit: () => void;
 } & ModalProps;
 
 /**
@@ -41,25 +45,25 @@ type EditSocialMediaModalProps = {
  */
 export const EditSocialMediaModal = ({
   socialMedia,
-  handleSuccesfulSubmit,
+  handleSuccessfulSubmit,
   ...modalProps
 }: EditSocialMediaModalProps) => (
   <Modal {...modalProps}>
     <EditSocialMediaForm
       socialMedia={socialMedia}
-      handleSuccesfulSubmit={handleSuccesfulSubmit}
+      handleSuccessfulSubmit={handleSuccessfulSubmit}
     />
   </Modal>
 );
 
 type EditSocialMediaFormProps = Pick<
   EditSocialMediaModalProps,
-  'socialMedia' | 'handleSuccesfulSubmit'
+  'socialMedia' | 'handleSuccessfulSubmit'
 >;
 
 const EditSocialMediaForm = ({
   socialMedia,
-  handleSuccesfulSubmit,
+  handleSuccessfulSubmit,
 }: EditSocialMediaFormProps) => {
   const cardSlug = useCardSlug();
   const updateSocialMediaMutation = useUpdateSocialMediaMutation(cardSlug);
@@ -95,27 +99,36 @@ const EditSocialMediaForm = ({
 
   return (
     <form onSubmit={handleUpdateSocialMediaSubmit}>
-      <Flex alignItems="center" gap="2rem">
+      <StyledResponsiveSocialMediaHeader alignItems="center">
         <StyledFigure>
-          <Image
-            src={socialMedia.icon.url}
-            layout="fill"
-            alt={socialMedia.name}
-          />
+          {socialMedia.icon.url && (
+            <Image
+              src={socialMedia.icon.url}
+              layout="fill"
+              alt={socialMedia.name}
+            />
+          )}
         </StyledFigure>
         <Text size="xl">{socialMedia.name}</Text>
-      </Flex>
+      </StyledResponsiveSocialMediaHeader>
+
+      {socialMedia.config.instructions && (
+        <Text size="sm">{socialMedia.config.instructions}</Text>
+      )}
 
       <TextInput
         name="value"
-        label="Usuário"
-        placeholder="Digite o seu usuário da rede social"
+        label={socialMedia.config.label || 'Usuário'}
+        placeholder={
+          socialMedia.config.placeholder ||
+          'Digite o seu usuário da rede social'
+        }
         register={updateSocialMediaForm.register}
         errorMessage={updateSocialMediaForm.formState.errors.value?.message}
         css={{ marginTop: '3.2rem', marginBottom: '6rem' }}
       />
 
-      <Flex gap="2rem">
+      <StyledResponsiveFlex>
         <DialogClose asChild>
           <Button btn="secondary" type="reset">
             Cancelar
@@ -127,12 +140,12 @@ const EditSocialMediaForm = ({
           onAnimationFinished={async () => {
             await animationDelay();
             updateSocialMediaMutation.reset();
-            handleSuccesfulSubmit();
+            handleSuccessfulSubmit();
           }}
         >
           Salvar
         </LoadingButton>
-      </Flex>
+      </StyledResponsiveFlex>
     </form>
   );
 };

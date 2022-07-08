@@ -1,6 +1,6 @@
 import { Option } from '@components/forms/tag-select';
 import { yup } from '@libs/yup';
-import { PHONE_MASK_REGEX, removePhoneMask } from '@utils/mask/phone';
+import { PHONE_MASK_REGEX } from '@utils/mask/phone';
 
 import { GetUserMedicalProfileOutput } from '@features/user';
 

@@ -1,22 +1,15 @@
 import { useMutation, useQueryClient } from 'react-query';
 
-import { ValidationError } from '@libs/http/HttpException';
 import { http } from '@services/http/api-client';
+import { ReorderingSchema } from '@utils/reorder/map-to-reorder-schema';
 
 // eslint-disable-next-line import/no-cycle
 import { CardKeys, CardType } from '@features/cards';
 
 type ReorderSocialMediasInput = {
   card: CardType;
-  orderSchema: Array<{
-    id: number;
-    order: number;
-  }>;
+  orderSchema: ReorderingSchema;
 };
-
-type ReorderSocialMediasInputValidationError = ValidationError<
-  Pick<ReorderSocialMediasInput, 'orderSchema'>
->;
 
 function reorderSocialMedias({ card, orderSchema }: ReorderSocialMediasInput) {
   return http.post(`/cards/${card}/social-medias/reorder`, orderSchema);
@@ -32,7 +25,4 @@ const useReorderSocialMediasMutation = () => {
 };
 
 export { useReorderSocialMediasMutation };
-export type {
-  ReorderSocialMediasInput,
-  ReorderSocialMediasInputValidationError,
-};
+export type { ReorderSocialMediasInput };

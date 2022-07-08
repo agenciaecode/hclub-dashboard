@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading,prefer-arrow-callback */
 import { ComponentProps, ElementRef, forwardRef } from 'react';
 
-import { ErrorLabel } from '@components/forms/error-label';
 import {
   InputWrapper,
   InputWrapperProps,
