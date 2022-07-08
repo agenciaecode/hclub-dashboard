@@ -1,4 +1,6 @@
 /* eslint-disable import/no-cycle */
+import { useState } from 'react';
+
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 import { AlertConfirmation } from '@components/overlay/alert-dialog';
@@ -44,24 +46,33 @@ const useDeleteCardBlock = (cardBlock: DeleteCardBlockProps['cardBlock']) => {
 
 export const DeleteCardBlockButton = ({ cardBlock }: DeleteCardBlockProps) => {
   const { handleDeleteCardBlock } = useDeleteCardBlock(cardBlock);
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
   return (
-    <Tooltip content="Excluir">
-      <span>
-        <AlertConfirmation
-          title="Excluir bloco"
-          description="Realmente deseja excluir este bloco?"
-          cancelButtonText="Cancelar"
-          onOk={handleDeleteCardBlock}
-          triggerButton={
-            <StyledIconButton btn="secondary" type="button">
-              <VisuallyHidden>Excluir</VisuallyHidden>
-              <StyledTrashIcon />
-            </StyledIconButton>
-          }
-        />
-      </span>
-    </Tooltip>
+    <>
+      <Tooltip content="Excluir">
+        <StyledIconButton
+          btn="secondary"
+          type="button"
+          onClick={() => setIsConfirmationOpen(true)}
+        >
+          <VisuallyHidden>Excluir</VisuallyHidden>
+          <StyledTrashIcon />
+        </StyledIconButton>
+      </Tooltip>
+      <AlertConfirmation
+        title="Excluir bloco"
+        description="Realmente deseja excluir este bloco?"
+        cancelButtonText="Cancelar"
+        isOpen={isConfirmationOpen}
+        onOpenChange={setIsConfirmationOpen}
+        onOk={() => {
+          handleDeleteCardBlock();
+          setIsConfirmationOpen(false);
+        }}
+        triggerButton={null}
+      />
+    </>
   );
 };
 
