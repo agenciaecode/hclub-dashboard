@@ -1,4 +1,4 @@
-import { TrashIcon } from '@radix-ui/react-icons';
+import { TrashSvgIcon } from '@components/icons/trash-icon';
 
 import { styled } from '@/theme';
 
@@ -20,8 +20,8 @@ const StyledCardBlockIcon = styled(StyledSocialMediaIcon, {
   },
 });
 
-const StyledTrashIcon = styled(TrashIcon, {
-  $$sizing: '2.4rem',
+const StyledTrashIcon = styled(TrashSvgIcon, {
+  $$sizing: '1.6rem',
   width: '$$sizing',
   height: '$$sizing',
 });

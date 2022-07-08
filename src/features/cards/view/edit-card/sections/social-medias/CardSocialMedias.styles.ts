@@ -1,6 +1,5 @@
-import { Pencil1Icon } from '@radix-ui/react-icons';
-
 import { Button } from '@components/forms/button';
+import { PencilSvgIcon } from '@components/icons/pencil-icon';
 import { Flex } from '@components/layout/flex';
 
 import { styled } from '@/theme';
@@ -69,14 +68,14 @@ const StyledIconButton = styled(Button, {
   lineHeight: '0',
 });
 
-const StyledPencilIcon = styled(Pencil1Icon, {
-  $$sizing: '2.4rem',
+const StyledPencilIcon = styled(PencilSvgIcon, {
+  $$sizing: '1.6rem',
   width: '$$sizing',
   height: '$$sizing',
 });
 
 const StyledMobileDropdownButton = styled(Button, {
-  padding: '1.3rem',
+  padding: '1.5rem',
   lineHeight: 0,
   display: 'block !important',
   '@sm': {
