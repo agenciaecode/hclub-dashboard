@@ -87,6 +87,8 @@ const StyledDialogContent = styled(Dialog.Content, {
 
 const StyledDialogTrigger = styled(Dialog.Trigger, {
   display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   borderRadius: '5px',
   cursor: 'pointer',
   margin: '1rem',

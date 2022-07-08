@@ -14,7 +14,8 @@ import {
 } from './DialogModal.styles';
 
 type DialogModalProps = {
-  label: string | ReactElement;
+  btn: string | ReactElement;
+  btnTitle?: string;
   children: ReactNode;
   dialogTitle?: string;
   dialogDescription?: string;
@@ -23,13 +24,16 @@ type DialogModalProps = {
 
 const DialogModal = ({
   children,
-  label,
+  btn,
+  btnTitle,
   dialogTitle,
   dialogDescription,
   onClick,
 }: DialogModalProps) => (
   <Dialog.Root>
-    <StyledDialogTrigger onClick={onClick}>{label}</StyledDialogTrigger>
+    <StyledDialogTrigger onClick={onClick}>
+      {btn} {btnTitle}
+    </StyledDialogTrigger>
     <Dialog.Portal>
       <StyledOverlay>
         <StyledDialogContent>
@@ -57,6 +61,7 @@ DialogModal.defaultProps = {
   onClick: null,
   dialogTitle: null,
   dialogDescription: null,
+  btnTitle: null,
 };
 
 export { DialogModal };
