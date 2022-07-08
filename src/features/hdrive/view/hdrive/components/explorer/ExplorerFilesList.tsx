@@ -1,5 +1,5 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/no-unescaped-entities */
-/* eslint-disable no-console */
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@components/forms/button';
@@ -8,6 +8,8 @@ import { useQueryDashboard } from '@hooks/useQuery';
 import { apiDashboard } from '@services/app';
 
 import { DialogModal } from '../DialogModal/DialogModal';
+import { DropdownButton } from '../DropdownButton/DropdownButton';
+import { DotsIcon } from '../icons/dots-icon/DotsIcon';
 import { EditIcon } from '../icons/edit-icon/EditIcon';
 import { FileIcon } from '../icons/file-icon/FileIcon';
 import { FolderIcon } from '../icons/folder-icon/FolderIcon';
@@ -44,6 +46,11 @@ const ExplorerFilesList = () => {
     },
   });
 
+  async function onUpdate(id: string, name: string) {
+    // const endpoint = `hdrive/${id}/rename`;
+    // await apiDashboard.delete(endpoint);
+  }
+
   async function onDelete(id: string, fileType: string) {
     const endpoint =
       fileType === 'file'
@@ -68,30 +75,42 @@ const ExplorerFilesList = () => {
                 : 'Pasta'}
             </StyledExplorerTd>
             <StyledExplorerTd>
-              <DialogModal dialogTitle="Editar" label={<EditIcon />}>
-                <form>
+              <DropdownButton icon={<DotsIcon />}>
+                <DialogModal
+                  dialogTitle="Editar"
+                  btn={<EditIcon />}
+                  btnTitle="Editar"
+                >
                   <TextInput
                     type="text"
                     label="Nome"
-                    name="payer_name"
+                    name="name"
+                    value={file.name}
                     placeholder="Insira seu nome"
                     register={register}
                   />
-                  <Button css={{ width: '100%' }}>Salvar</Button>
-                </form>
-              </DialogModal>
-              <DialogModal
-                dialogTitle="Excluir arquivo?"
-                dialogDescription="Está ação não poderá ser desfeita"
-                label={<TrashIcon />}
-              >
-                <Button
-                  onClick={() => onDelete(file.id, file.type)}
-                  css={{ width: '250px' }}
+                  <Button
+                    type="submit"
+                    css={{ width: '100%' }}
+                    onClick={() => onUpdate(file.id, file.name)}
+                  >
+                    Salvar
+                  </Button>
+                </DialogModal>
+                <DialogModal
+                  dialogTitle="Excluir arquivo?"
+                  dialogDescription="Está ação não poderá ser desfeita"
+                  btn={<TrashIcon />}
+                  btnTitle="Excluir"
                 >
-                  Excluir
-                </Button>
-              </DialogModal>
+                  <Button
+                    onClick={() => onDelete(file.id, file.type)}
+                    css={{ width: '250px' }}
+                  >
+                    Excluir
+                  </Button>
+                </DialogModal>
+              </DropdownButton>
             </StyledExplorerTd>
           </ExplorerFileItem>
         ))}
