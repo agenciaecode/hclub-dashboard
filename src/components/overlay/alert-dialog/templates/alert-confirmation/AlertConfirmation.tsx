@@ -21,7 +21,7 @@ type AlertConfirmationProps = {
   cancelButtonText: ReactNode;
   onOk: AlertDialog.AlertDialogActionProps['onClick'];
   onCancel?: () => void;
-  triggerButton: ReactElement<typeof Button>;
+  triggerButton: ReactElement<typeof Button> | null;
   isOpen?: boolean;
   onOpenChange?: (isOpen: boolean) => void;
 };
