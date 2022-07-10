@@ -5,7 +5,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import { DropdownMenuContent } from './PrimitiveDropdown';
 
-type DropdownProps = ComponentProps<typeof DropdownMenu.Root> & {
+export type DropdownProps = ComponentProps<typeof DropdownMenu.Root> & {
   trigger: ReactElement;
 };
 
