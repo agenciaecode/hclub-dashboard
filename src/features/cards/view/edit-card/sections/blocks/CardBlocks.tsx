@@ -9,15 +9,16 @@ import { DragSvgIcon } from '@components/icons/drag-icon';
 import { EllipsisSvgIcon } from '@components/icons/drag-icon/ellipsis-icon';
 import { PencilSvgIcon } from '@components/icons/pencil-icon';
 import { Flex } from '@components/layout/flex';
-import { Dropdown, DropdownMenuItem } from '@components/overlay/dropdown';
+import { DropdownMenuItem } from '@components/overlay/dropdown';
 import { Tooltip } from '@components/overlay/tooltip';
 import { Text } from '@components/typography/text';
 import { showToastErrorMessage } from '@libs/toast/showToastMessage';
 import { MapToReorderSchema } from '@utils/reorder/map-to-reorder-schema';
 
+import { DropdownWithLock } from '../../components/dropdown-with-lock';
 import { SectionWrapper } from '../../components/section-wrapper';
 import { useCardSlug } from '../../hooks/useCardSlug';
-import { BlockTypes, useGetCardBlocksQuery } from './api/getCardBlocks';
+import { Block, BlockTypes, useGetCardBlocksQuery } from './api/getCardBlocks';
 import { useReorderCardBlocksMutation } from './api/reorderCardBlocks';
 import {
   StyledCardBlockIcon,
@@ -36,12 +37,16 @@ import {
   ToggleCardBlockSwitch,
 } from './ToggleCardBlock';
 
+export type WithCardBlockProp = {
+  cardBlock: Block<BlockTypes>;
+};
+
 export const CardBlocks = () => {
   const card = useCardSlug();
   const cardBlocksQuery = useGetCardBlocksQuery({ card });
   const reorderCardBlocksMutation = useReorderCardBlocksMutation();
   const [cardBlockItems, setCardBlockItems] = useState(cardBlocksQuery.data);
-  const [editingBlock, setEditingBlock] = useState<BlockTypes>();
+  const [editingBlock, setEditingBlock] = useState<Block<BlockTypes>>();
 
   useEffect(() => {
     setCardBlockItems(cardBlocksQuery.data);
@@ -134,21 +139,10 @@ export const CardBlocks = () => {
                   </Tooltip>
                   <DeleteCardBlockButton cardBlock={cardBlock} />
                   <ToggleCardBlockSwitch cardBlock={cardBlock} />
-                  <Dropdown
-                    trigger={
-                      <StyledMobileDropdownButton btn="secondary" type="button">
-                        <EllipsisSvgIcon />
-                      </StyledMobileDropdownButton>
-                    }
-                  >
-                    <DropdownMenuItem
-                      onSelect={() => setEditingBlock(cardBlock)}
-                    >
-                      Editar
-                    </DropdownMenuItem>
-                    <DeleteteCardDropdownItem cardBlock={cardBlock} />
-                    <ToggleCardBlockDropdownItem cardBlock={cardBlock} />
-                  </Dropdown>
+                  <MobileDropdownBlockActions
+                    cardBlock={cardBlock}
+                    setEditingBlock={setEditingBlock}
+                  />
                 </StyledControlsWrapper>
               </StyledCardBlockItem>
             </div>
@@ -158,3 +152,26 @@ export const CardBlocks = () => {
     </SectionWrapper>
   );
 };
+
+type MobileDropdownBlockActionsProps = WithCardBlockProp & {
+  setEditingBlock: (block?: Block<BlockTypes>) => void;
+};
+
+const MobileDropdownBlockActions = ({
+  cardBlock,
+  setEditingBlock,
+}: MobileDropdownBlockActionsProps) => (
+  <DropdownWithLock
+    trigger={
+      <StyledMobileDropdownButton btn="secondary" type="button">
+        <EllipsisSvgIcon />
+      </StyledMobileDropdownButton>
+    }
+  >
+    <DropdownMenuItem onSelect={() => setEditingBlock(cardBlock)}>
+      Editar
+    </DropdownMenuItem>
+    <DeleteteCardDropdownItem cardBlock={cardBlock} />
+    <ToggleCardBlockDropdownItem cardBlock={cardBlock} />
+  </DropdownWithLock>
+);

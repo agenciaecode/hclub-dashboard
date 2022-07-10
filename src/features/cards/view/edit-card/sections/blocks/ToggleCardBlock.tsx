@@ -1,19 +1,18 @@
 /* eslint-disable import/no-cycle */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
+import { CheckMarkSpinner } from '@components/feedback/checkmark-spinner';
 import { Switch, SwitchThumb } from '@components/forms/switch';
 import { DropdownMenuItem } from '@components/overlay/dropdown';
 import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
+import { animationDelay } from '@utils/animation/animation-delay';
 
+import { useDropdownControls } from '../../components/dropdown-with-lock';
 import { useCardSlug } from '../../hooks/useCardSlug';
-import { Block, BlockTypes } from './api/getCardBlocks';
 import { useToggleCardBlockMutation } from './api/toggleCardBlock';
+import { WithCardBlockProp } from './CardBlocks';
 
-type ToggleCardBlockProps = {
-  cardBlock: Block<BlockTypes>;
-};
-
-const useToggleCardBlock = (cardBlock: ToggleCardBlockProps['cardBlock']) => {
+const useToggleCardBlock = (cardBlock: WithCardBlockProp['cardBlock']) => {
   const card = useCardSlug();
   const toggleCardBlockMutation = useToggleCardBlockMutation();
 
@@ -21,20 +20,15 @@ const useToggleCardBlock = (cardBlock: ToggleCardBlockProps['cardBlock']) => {
     exceptionHandler.executeHandler(),
   );
 
-  function handleToggleCardBlock(callbacks?: {
-    onSuccess?: () => void;
-    onError?: () => void;
-  }) {
+  function handleToggleCardBlock(callbacks?: { onError?: () => void }) {
     if (toggleCardBlockMutation.isLoading) return;
     toggleCardBlockMutation.mutate(
       {
         cardBlockId: cardBlock.id,
         card,
+        block: !cardBlock.active,
       },
       {
-        onSettled: () => {
-          toggleCardBlockMutation.reset();
-        },
         ...callbacks,
       },
     );
@@ -43,7 +37,7 @@ const useToggleCardBlock = (cardBlock: ToggleCardBlockProps['cardBlock']) => {
   return { toggleCardBlockMutation, handleToggleCardBlock };
 };
 
-export const ToggleCardBlockSwitch = ({ cardBlock }: ToggleCardBlockProps) => {
+export const ToggleCardBlockSwitch = ({ cardBlock }: WithCardBlockProp) => {
   const { toggleCardBlockMutation, handleToggleCardBlock } =
     useToggleCardBlock(cardBlock);
   const [isBlockActive, setIsBlockActive] = useState(cardBlock.active);
@@ -68,16 +62,38 @@ export const ToggleCardBlockSwitch = ({ cardBlock }: ToggleCardBlockProps) => {
 
 export const ToggleCardBlockDropdownItem = ({
   cardBlock,
-}: ToggleCardBlockProps) => {
+}: WithCardBlockProp) => {
+  const { unlockDropdown, lockDropdown } = useDropdownControls();
   const { toggleCardBlockMutation, handleToggleCardBlock } =
     useToggleCardBlock(cardBlock);
+  const isBlockMutationEitherLoadingOrSuccess =
+    toggleCardBlockMutation.isLoading || toggleCardBlockMutation.isSuccess;
 
   return (
     <DropdownMenuItem
       disabled={toggleCardBlockMutation.isLoading}
-      onSelect={() => handleToggleCardBlock()}
+      onSelect={event => {
+        event.preventDefault();
+        lockDropdown();
+        handleToggleCardBlock();
+      }}
     >
-      {cardBlock.active ? 'Desativar' : 'Ativar'}
+      {/* eslint-disable-next-line no-nested-ternary */}
+      {isBlockMutationEitherLoadingOrSuccess ? (
+        <CheckMarkSpinner
+          color="secondary"
+          finished={toggleCardBlockMutation.isSuccess}
+          onAnimationFinish={async () => {
+            await animationDelay();
+            toggleCardBlockMutation.reset();
+            unlockDropdown();
+          }}
+        />
+      ) : cardBlock.active ? (
+        'Desativar'
+      ) : (
+        'Ativar'
+      )}
     </DropdownMenuItem>
   );
 };

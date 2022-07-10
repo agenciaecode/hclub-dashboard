@@ -12,19 +12,17 @@ import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHa
 import { useCardSlug } from '../../hooks/useCardSlug';
 import { StyledIconButton } from '../social-medias/CardSocialMedias.styles';
 import { useDeleteCardBlockMutation } from './api/deleteCardBlock';
-import { Block, BlockTypes } from './api/getCardBlocks';
+import type { WithCardBlockProp } from './CardBlocks';
 
-type DeleteCardBlockProps = {
-  cardBlock: Block<BlockTypes>;
-};
-
-const useDeleteCardBlock = (cardBlock: DeleteCardBlockProps['cardBlock']) => {
+const useDeleteCardBlock = (cardBlock: WithCardBlockProp['cardBlock']) => {
   const card = useCardSlug();
-  const deleteCardBlockMutation = useDeleteCardBlockMutation();
+  const deleteCardBlockMutation = useDeleteCardBlockMutation({
+    onError: handleDeleteCardBlockMutationError,
+  });
 
-  useHttpExceptionHandler(deleteCardBlockMutation.error, exceptionHandler =>
-    exceptionHandler.executeHandler(),
-  );
+  function handleDeleteCardBlockMutationError(mutationError: unknown) {
+    fromHttpException(mutationError).executeHandler();
+  }
 
   function handleDeleteCardBlock() {
     if (deleteCardBlockMutation.isLoading) return;
@@ -44,7 +42,7 @@ const useDeleteCardBlock = (cardBlock: DeleteCardBlockProps['cardBlock']) => {
   return { deleteCardBlockMutation, handleDeleteCardBlock };
 };
 
-export const DeleteCardBlockButton = ({ cardBlock }: DeleteCardBlockProps) => {
+export const DeleteCardBlockButton = ({ cardBlock }: WithCardBlockProp) => {
   const { handleDeleteCardBlock } = useDeleteCardBlock(cardBlock);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
@@ -76,9 +74,7 @@ export const DeleteCardBlockButton = ({ cardBlock }: DeleteCardBlockProps) => {
   );
 };
 
-export const DeleteteCardDropdownItem = ({
-  cardBlock,
-}: DeleteCardBlockProps) => {
+export const DeleteteCardDropdownItem = ({ cardBlock }: WithCardBlockProp) => {
   const { handleDeleteCardBlock } = useDeleteCardBlock(cardBlock);
 
   return (

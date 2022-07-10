@@ -8,10 +8,13 @@ import { CardKeys, CardType } from '@features/cards';
 type ToggleCardBlockInput = {
   card: CardType;
   cardBlockId: number;
+  block: boolean;
 };
 
-function toggleCardBlock({ card, cardBlockId }: ToggleCardBlockInput) {
-  return http.patch(`/cards/${card}/blocks/${cardBlockId}`);
+function toggleCardBlock({ card, cardBlockId, block }: ToggleCardBlockInput) {
+  return http.patch(`/cards/${card}/blocks/${cardBlockId}`, {
+    block,
+  });
 }
 
 const useToggleCardBlockMutation = () => {
