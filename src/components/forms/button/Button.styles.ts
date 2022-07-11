@@ -35,34 +35,11 @@ export const StyledButton = styled('button', {
           color: '$textWhite',
         },
       },
-      // success: { backgroundColor: '$green', color: '$white' },
-      // info: { backgroundColor: '$teal', color: '$white' },
-      // warning: { backgroundColor: '$warning', color: '$white' },
-      // danger: { backgroundColor: '$danger', color: '$white' },
-      // link: {
-      //   backgroundColor: 'transparent',
-      //   color: '$teal200',
-      //   '&:hover': {
-      //     textDecoration: 'underline',
-      //   },
-      // },
     },
     size: {
       small: {
         padding: '1.4rem',
       },
-      // medium: {
-      //   height: 48,
-      //   width: 216,
-      //   fontSize: 14,
-      //   fontWeight: 500,
-      // },
-      // large: {
-      //   height: 48,
-      //   width: 235,
-      //   fontSize: 14,
-      //   fontWeight: 500,
-      // },
     },
     outlined: {
       true: {
@@ -81,6 +58,14 @@ export const StyledButton = styled('button', {
     block: {
       true: {
         width: '100%',
+      },
+    },
+    fillWidthOnMobile: {
+      true: {
+        width: '100%',
+        '@sm': {
+          width: 'unset',
+        },
       },
     },
     disabled: {
@@ -102,61 +87,6 @@ export const StyledButton = styled('button', {
         },
       },
     },
-    // {
-    //   btn: 'success',
-    //   outlined: true,
-    //   css: {
-    //     color: '$green',
-    //     borderColor: '$green',
-    //     '&:hover': {
-    //       backgroundColor: '$green',
-    //     },
-    //   },
-    // },
-    // {
-    //   btn: 'info',
-    //   outlined: true,
-    //   css: {
-    //     color: '$teal',
-    //     borderColor: '$teal',
-    //     '&:hover': {
-    //       backgroundColor: '$teal',
-    //     },
-    //   },
-    // },
-    // {
-    //   btn: 'warning',
-    //   outlined: true,
-    //   css: {
-    //     color: '$warning',
-    //     borderColor: '$warning',
-    //     '&:hover': {
-    //       backgroundColor: '$warning',
-    //     },
-    //   },
-    // },
-    // {
-    //   btn: 'danger',
-    //   outlined: true,
-    //   css: {
-    //     color: '$danger',
-    //     borderColor: '$danger',
-    //     '&:hover': {
-    //       backgroundColor: '$danger',
-    //     },
-    //   },
-    // },
-    // {
-    //   btn: 'secondary',
-    //   outlined: true,
-    //   css: {
-    //     color: '$gray100',
-    //     borderColor: '$gray100',
-    //     '&:hover': {
-    //       backgroundColor: '$gray100',
-    //     },
-    //   },
-    // },
   ],
   defaultVariants: { btn: 'primary' },
 });
