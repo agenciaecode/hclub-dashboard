@@ -1,5 +1,10 @@
 /* eslint-disable react/prop-types,prefer-arrow-callback,react/jsx-props-no-spreading */
-import React, { ComponentProps, ElementRef, forwardRef } from 'react';
+import React, {
+  ComponentProps,
+  ElementRef,
+  forwardRef,
+  ReactNode,
+} from 'react';
 
 import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
 import { SelectItemProps } from '@radix-ui/react-select';
@@ -23,16 +28,18 @@ export type SelectProps = SelectPrimitiveProps &
     label: string;
   };
 
-export type SelectOptionProps = SelectItemProps & { text: string };
+// eslint-disable-next-line react/require-default-props
+export type SelectOptionProps = SelectItemProps & { text?: ReactNode };
 
 export const SelectOption = ({
   text,
   disabled,
   value,
   textValue,
+  children,
 }: SelectOptionProps) => (
   <SelectItem value={value} disabled={disabled} textValue={textValue}>
-    <SelectItemText>{text}</SelectItemText>
+    <SelectItemText>{text || children}</SelectItemText>
   </SelectItem>
 );
 
