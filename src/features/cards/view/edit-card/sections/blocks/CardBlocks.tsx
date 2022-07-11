@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading,import/no-cycle */
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { arrayMove, List } from 'react-movable';
 
@@ -12,6 +12,7 @@ import { Text } from '@components/typography/text';
 import { showToastErrorMessage } from '@libs/toast/showToastMessage';
 import { MapToReorderSchema } from '@utils/reorder/map-to-reorder-schema';
 
+import { DeleteButton } from '../../components/delete-button';
 import { DropdownWithLock } from '../../components/dropdown-with-lock';
 import { EditButton } from '../../components/edit-button/EditButton';
 import { MobileDropdownButton } from '../../components/ellipsis-button';
@@ -25,10 +26,7 @@ import {
   StyledControlsWrapper,
   StyledDragIconContainer,
 } from './CardBlocks.styles';
-import {
-  DeleteCardBlockButton,
-  DeleteteCardDropdownItem,
-} from './DeleteCardBlock';
+import { DeleteCardBlockConfirmationAlert } from './DeleteCardBlock';
 import {
   ToggleCardBlockDropdownItem,
   ToggleCardBlockSwitch,
@@ -44,6 +42,12 @@ export const CardBlocks = () => {
   const reorderCardBlocksMutation = useReorderCardBlocksMutation();
   const [cardBlockItems, setCardBlockItems] = useState(cardBlocksQuery.data);
   const [editingBlock, setEditingBlock] = useState<Block<BlockTypes>>();
+  const [deletingBlock, setDeletingBlock] = useState<Block<BlockTypes>>();
+
+  const closeDeleteBlockAlert = useCallback(
+    () => setDeletingBlock(undefined),
+    [],
+  );
 
   useEffect(() => {
     setCardBlockItems(cardBlocksQuery.data);
@@ -125,7 +129,7 @@ export const CardBlocks = () => {
                 </Flex>
                 <StyledControlsWrapper>
                   <EditButton onClick={() => setEditingBlock(cardBlock)} />
-                  <DeleteCardBlockButton cardBlock={cardBlock} />
+                  <DeleteButton onClick={() => setDeletingBlock(cardBlock)} />
                   <ToggleCardBlockSwitch cardBlock={cardBlock} />
                   <DropdownWithLock trigger={<MobileDropdownButton />}>
                     <DropdownMenuItem
@@ -133,13 +137,23 @@ export const CardBlocks = () => {
                     >
                       Editar
                     </DropdownMenuItem>
-                    <DeleteteCardDropdownItem cardBlock={cardBlock} />
+                    <DropdownMenuItem
+                      onSelect={() => setDeletingBlock(cardBlock)}
+                    >
+                      Excluir
+                    </DropdownMenuItem>
                     <ToggleCardBlockDropdownItem cardBlock={cardBlock} />
                   </DropdownWithLock>
                 </StyledControlsWrapper>
               </StyledCardBlockItem>
             </div>
           )}
+        />
+      )}
+      {deletingBlock && (
+        <DeleteCardBlockConfirmationAlert
+          cardBlock={deletingBlock}
+          closeAlert={closeDeleteBlockAlert}
         />
       )}
     </SectionWrapper>
