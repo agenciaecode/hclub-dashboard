@@ -14,7 +14,7 @@ import { MapToReorderSchema } from '@utils/reorder/map-to-reorder-schema';
 
 import { DropdownWithLock } from '../../components/dropdown-with-lock';
 import { EditButton } from '../../components/edit-button/EditButton';
-import { EllipsisButton } from '../../components/ellipsis-button';
+import { MobileDropdownButton } from '../../components/ellipsis-button';
 import { SectionWrapper } from '../../components/section-wrapper';
 import { useCardSlug } from '../../hooks/useCardSlug';
 import { Block, BlockTypes, useGetCardBlocksQuery } from './api/getCardBlocks';
@@ -127,7 +127,7 @@ export const CardBlocks = () => {
                   <EditButton onClick={() => setEditingBlock(cardBlock)} />
                   <DeleteCardBlockButton cardBlock={cardBlock} />
                   <ToggleCardBlockSwitch cardBlock={cardBlock} />
-                  <DropdownWithLock trigger={<EllipsisButton />}>
+                  <DropdownWithLock trigger={<MobileDropdownButton />}>
                     <DropdownMenuItem
                       onSelect={() => setEditingBlock(cardBlock)}
                     >
