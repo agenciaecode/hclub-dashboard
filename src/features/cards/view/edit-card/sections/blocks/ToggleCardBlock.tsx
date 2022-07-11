@@ -75,7 +75,7 @@ export const ToggleCardBlockDropdownItem = ({
       onSelect={event => {
         event.preventDefault();
         lockDropdown();
-        handleToggleCardBlock();
+        handleToggleCardBlock({ onError: unlockDropdown });
       }}
     >
       {/* eslint-disable-next-line no-nested-ternary */}
