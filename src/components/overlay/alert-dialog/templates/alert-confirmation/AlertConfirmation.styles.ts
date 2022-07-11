@@ -1,5 +1,3 @@
-import { Button } from '@components/forms/button';
-
 import { styled } from '@/theme';
 
 const FlexRow = styled('div', {
@@ -10,11 +8,4 @@ const FlexRow = styled('div', {
   flexFlow: 'wrap-reverse',
 });
 
-const StyledButton = styled(Button, {
-  width: '100%',
-  '@sm': {
-    width: 'unset',
-  },
-});
-
-export { FlexRow, StyledButton };
+export { FlexRow };

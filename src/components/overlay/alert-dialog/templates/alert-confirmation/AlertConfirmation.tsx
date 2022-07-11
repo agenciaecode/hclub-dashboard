@@ -3,13 +3,15 @@ import type { ReactElement, ReactNode } from 'react';
 import { notNullish } from '@antfu/utils';
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
 
+import { Button } from '@components/forms/button';
+
 import {
   StyledAlertDialogContent,
   StyledAlertDialogDescription,
   StyledAlertDialogTitle,
   StyledOverlay,
 } from '../../PrimitiveAlertDialog.styles';
-import { FlexRow, StyledButton } from './AlertConfirmation.styles';
+import { FlexRow } from './AlertConfirmation.styles';
 
 type AlertConfirmationProps = {
   title: string;
@@ -51,10 +53,14 @@ const AlertConfirmation = ({
         </StyledAlertDialogDescription>
         <FlexRow>
           <AlertDialog.Cancel asChild onClick={onCancel}>
-            <StyledButton btn="secondary">{cancelButtonText}</StyledButton>
+            <Button btn="secondary" fillWidthOnMobile>
+              {cancelButtonText}
+            </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action asChild onClick={onOk}>
-            {confirmButton || <StyledButton>{confirmButtonText}</StyledButton>}
+            {confirmButton || (
+              <Button fillWidthOnMobile>{confirmButtonText}</Button>
+            )}
           </AlertDialog.Action>
         </FlexRow>
       </StyledAlertDialogContent>
