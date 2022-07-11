@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle, react/jsx-props-no-spreading */
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { notNullish } from '@antfu/utils';
 import { arrayMove, List } from 'react-movable';
@@ -14,6 +14,7 @@ import { Text } from '@components/typography/text';
 import { showToastErrorMessage } from '@libs/toast/showToastMessage';
 import { MapToReorderSchema } from '@utils/reorder/map-to-reorder-schema';
 
+import { DeleteButton } from '../../components/delete-button';
 import { DropdownWithLock } from '../../components/dropdown-with-lock';
 import { EditButton } from '../../components/edit-button';
 import { MobileDropdownButton } from '../../components/ellipsis-button';
@@ -31,6 +32,7 @@ import {
   StyledSocialMediaIcon,
   StyledSocialMediaItem,
 } from './CardSocialMedias.styles';
+import { DeleteCardSocialMedia } from './DeleteCardSocialMedia';
 import { EditSocialMediaModal } from './EditSocialMediaModal';
 import {
   ToggleSocialMediaDropdownItem,
@@ -44,11 +46,18 @@ export type WithSocialMediaProp = {
 export const CardSocialMedias = () => {
   const [editingSocialMedia, setEditingSocialMedia] =
     useState<SocialMediaItem>();
+  const [deletingSocialMedia, setDeletingSocialMedia] =
+    useState<SocialMediaItem>();
   const card = useCardSlug();
   const cardSocialMediasQuery = useCardSocialMediasQuery({ card });
   const reorderSocialMediasMutation = useReorderSocialMediasMutation();
   const [socialMediaItems, setSocialMediaItems] = useState(
     cardSocialMediasQuery.data,
+  );
+
+  const closeDeleteSocialMediaAlert = useCallback(
+    () => setDeletingSocialMedia(undefined),
+    [],
   );
 
   useEffect(() => {
@@ -136,12 +145,20 @@ export const CardSocialMedias = () => {
                   <EditButton
                     onClick={() => setEditingSocialMedia(socialMedia)}
                   />
+                  <DeleteButton
+                    onClick={() => setDeletingSocialMedia(socialMedia)}
+                  />
                   <ToggleSocialMedia socialMedia={socialMedia} />
                   <DropdownWithLock trigger={<MobileDropdownButton />}>
                     <DropdownMenuItem
                       onSelect={() => setEditingSocialMedia(socialMedia)}
                     >
                       Editar
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onSelect={() => setDeletingSocialMedia(socialMedia)}
+                    >
+                      Excluir
                     </DropdownMenuItem>
                     <ToggleSocialMediaDropdownItem socialMedia={socialMedia} />
                   </DropdownWithLock>
@@ -160,6 +177,12 @@ export const CardSocialMedias = () => {
             if (!openState) setEditingSocialMedia(undefined);
           }}
           handleSuccessfulSubmit={() => setEditingSocialMedia(undefined)}
+        />
+      )}
+      {deletingSocialMedia && (
+        <DeleteCardSocialMedia
+          socialMedia={deletingSocialMedia}
+          closeAlert={closeDeleteSocialMediaAlert}
         />
       )}
     </SectionWrapper>
