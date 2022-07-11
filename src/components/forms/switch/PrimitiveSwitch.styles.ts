@@ -12,6 +12,7 @@ const StyledSwitch = styled(SwitchPrimitive.Root, {
   boxShadow: `0 2px 10px $blackLight`,
   WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
   transition: 'background-color 100ms ease-in-out, opacity 100ms ease-in-out',
+  cursor: 'pointer',
   '&:focus': { boxShadow: `0 0 0 2px $black` },
   '&[data-state="checked"]': { backgroundColor: '$green' },
   '&:disabled': {
