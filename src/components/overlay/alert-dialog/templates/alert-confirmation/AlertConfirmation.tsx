@@ -3,8 +3,6 @@ import type { ReactElement, ReactNode } from 'react';
 import { notNullish } from '@antfu/utils';
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
 
-import { Button } from '@components/forms/button';
-
 import {
   StyledAlertDialogContent,
   StyledAlertDialogDescription,
@@ -21,7 +19,7 @@ type AlertConfirmationProps = {
   cancelButtonText: ReactNode;
   onOk: AlertDialog.AlertDialogActionProps['onClick'];
   onCancel?: () => void;
-  triggerButton: ReactElement<typeof Button> | null;
+  triggerButton: ReactElement | null;
   isOpen?: boolean;
   onOpenChange?: (isOpen: boolean) => void;
 };
