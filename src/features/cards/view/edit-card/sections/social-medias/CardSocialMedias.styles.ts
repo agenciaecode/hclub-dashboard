@@ -1,7 +1,8 @@
-import { Button } from '@components/forms/button';
 import { Flex } from '@components/layout/flex';
 
 import { styled } from '@/theme';
+
+import { IconButton } from '../../components/icon-button';
 
 const StyledSocialMediaItem = styled(Flex, {
   display: 'flex',
@@ -62,17 +63,7 @@ const StyledControlsWrapper = styled(Flex, {
   },
 });
 
-const buttonSizing = '4.8rem';
-
-const StyledIconButton = styled(Button, {
-  $$buttonSizing: buttonSizing,
-  width: '$$buttonSizing',
-  height: '$$buttonSizing',
-  padding: 0,
-  lineHeight: 0,
-});
-
-const StyledMobileDropdownButton = styled(StyledIconButton, {
+const StyledMobileDropdownButton = styled(IconButton, {
   display: 'block !important',
   '@sm': {
     display: 'none !important',
@@ -113,7 +104,6 @@ export {
   StyledDragIconContainer,
   StyledSocialMediaIcon,
   StyledControlsWrapper,
-  StyledIconButton,
   StyledMobileDropdownButton,
   StyledFigure,
   StyledResponsiveFlex,

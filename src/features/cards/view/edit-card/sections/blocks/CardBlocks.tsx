@@ -1,13 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading,import/no-cycle */
 import { useEffect, useState } from 'react';
 
-import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { arrayMove, List } from 'react-movable';
 
 import { Spinner } from '@components/feedback/spinner';
 import { DragSvgIcon } from '@components/icons/drag-icon';
 import { EllipsisSvgIcon } from '@components/icons/drag-icon/ellipsis-icon';
-import { PencilSvgIcon } from '@components/icons/pencil-icon';
 import { Flex } from '@components/layout/flex';
 import { DropdownMenuItem } from '@components/overlay/dropdown';
 import { Tooltip } from '@components/overlay/tooltip';
@@ -16,6 +14,7 @@ import { showToastErrorMessage } from '@libs/toast/showToastMessage';
 import { MapToReorderSchema } from '@utils/reorder/map-to-reorder-schema';
 
 import { DropdownWithLock } from '../../components/dropdown-with-lock';
+import { EditButton } from '../../components/edit-button/EditButton';
 import { SectionWrapper } from '../../components/section-wrapper';
 import { useCardSlug } from '../../hooks/useCardSlug';
 import { Block, BlockTypes, useGetCardBlocksQuery } from './api/getCardBlocks';
@@ -25,7 +24,6 @@ import {
   StyledCardBlockItem,
   StyledControlsWrapper,
   StyledDragIconContainer,
-  StyledIconButton,
   StyledMobileDropdownButton,
 } from './CardBlocks.styles';
 import {
@@ -127,16 +125,7 @@ export const CardBlocks = () => {
                   {cardBlock.title && <Text>{cardBlock.title}</Text>}
                 </Flex>
                 <StyledControlsWrapper>
-                  <Tooltip content="Editar">
-                    <StyledIconButton
-                      btn="secondary"
-                      type="button"
-                      onClick={() => setEditingBlock(cardBlock)}
-                    >
-                      <VisuallyHidden>Editar</VisuallyHidden>
-                      <PencilSvgIcon />
-                    </StyledIconButton>
-                  </Tooltip>
+                  <EditButton onClick={() => setEditingBlock(cardBlock)} />
                   <DeleteCardBlockButton cardBlock={cardBlock} />
                   <ToggleCardBlockSwitch cardBlock={cardBlock} />
                   <MobileDropdownBlockActions

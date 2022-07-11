@@ -7,10 +7,11 @@ import { TrashSvgIcon } from '@components/icons/trash-icon';
 import { AlertConfirmation } from '@components/overlay/alert-dialog';
 import { DropdownMenuItem } from '@components/overlay/dropdown';
 import { Tooltip } from '@components/overlay/tooltip';
+import { fromHttpException } from '@services/http/default-exception-handler-factory';
 import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
 
+import { DeleteButton } from '../../components/delete-button';
 import { useCardSlug } from '../../hooks/useCardSlug';
-import { StyledIconButton } from '../social-medias/CardSocialMedias.styles';
 import { useDeleteCardBlockMutation } from './api/deleteCardBlock';
 import type { WithCardBlockProp } from './CardBlocks';
 
@@ -48,16 +49,7 @@ export const DeleteCardBlockButton = ({ cardBlock }: WithCardBlockProp) => {
 
   return (
     <>
-      <Tooltip content="Excluir">
-        <StyledIconButton
-          btn="secondary"
-          type="button"
-          onClick={() => setIsConfirmationOpen(true)}
-        >
-          <VisuallyHidden>Excluir</VisuallyHidden>
-          <TrashSvgIcon />
-        </StyledIconButton>
-      </Tooltip>
+      <DeleteButton onClick={() => setIsConfirmationOpen(true)} />
       <AlertConfirmation
         title="Excluir bloco"
         description="Realmente deseja excluir este bloco?"
