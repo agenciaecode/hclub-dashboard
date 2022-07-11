@@ -2,8 +2,6 @@ import { Flex } from '@components/layout/flex';
 
 import { styled } from '@/theme';
 
-import { IconButton } from '../../components/icon-button';
-
 const StyledSocialMediaItem = styled(Flex, {
   display: 'flex',
   padding: '3.2rem 0',
@@ -63,13 +61,6 @@ const StyledControlsWrapper = styled(Flex, {
   },
 });
 
-const StyledMobileDropdownButton = styled(IconButton, {
-  display: 'block !important',
-  '@sm': {
-    display: 'none !important',
-  },
-});
-
 const StyledFigure = styled('figure', {
   position: 'relative',
   width: '9.2rem',
@@ -104,7 +95,6 @@ export {
   StyledDragIconContainer,
   StyledSocialMediaIcon,
   StyledControlsWrapper,
-  StyledMobileDropdownButton,
   StyledFigure,
   StyledResponsiveFlex,
   StyledResponsiveSocialMediaHeader,

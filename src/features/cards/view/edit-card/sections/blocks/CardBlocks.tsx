@@ -5,7 +5,6 @@ import { arrayMove, List } from 'react-movable';
 
 import { Spinner } from '@components/feedback/spinner';
 import { DragSvgIcon } from '@components/icons/drag-icon';
-import { EllipsisSvgIcon } from '@components/icons/drag-icon/ellipsis-icon';
 import { Flex } from '@components/layout/flex';
 import { DropdownMenuItem } from '@components/overlay/dropdown';
 import { Tooltip } from '@components/overlay/tooltip';
@@ -15,6 +14,7 @@ import { MapToReorderSchema } from '@utils/reorder/map-to-reorder-schema';
 
 import { DropdownWithLock } from '../../components/dropdown-with-lock';
 import { EditButton } from '../../components/edit-button/EditButton';
+import { EllipsisButton } from '../../components/ellipsis-button';
 import { SectionWrapper } from '../../components/section-wrapper';
 import { useCardSlug } from '../../hooks/useCardSlug';
 import { Block, BlockTypes, useGetCardBlocksQuery } from './api/getCardBlocks';
@@ -24,7 +24,6 @@ import {
   StyledCardBlockItem,
   StyledControlsWrapper,
   StyledDragIconContainer,
-  StyledMobileDropdownButton,
 } from './CardBlocks.styles';
 import {
   DeleteCardBlockButton,
@@ -128,10 +127,15 @@ export const CardBlocks = () => {
                   <EditButton onClick={() => setEditingBlock(cardBlock)} />
                   <DeleteCardBlockButton cardBlock={cardBlock} />
                   <ToggleCardBlockSwitch cardBlock={cardBlock} />
-                  <MobileDropdownBlockActions
-                    cardBlock={cardBlock}
-                    setEditingBlock={setEditingBlock}
-                  />
+                  <DropdownWithLock trigger={<EllipsisButton />}>
+                    <DropdownMenuItem
+                      onSelect={() => setEditingBlock(cardBlock)}
+                    >
+                      Editar
+                    </DropdownMenuItem>
+                    <DeleteteCardDropdownItem cardBlock={cardBlock} />
+                    <ToggleCardBlockDropdownItem cardBlock={cardBlock} />
+                  </DropdownWithLock>
                 </StyledControlsWrapper>
               </StyledCardBlockItem>
             </div>
@@ -141,26 +145,3 @@ export const CardBlocks = () => {
     </SectionWrapper>
   );
 };
-
-type MobileDropdownBlockActionsProps = WithCardBlockProp & {
-  setEditingBlock: (block?: Block<BlockTypes>) => void;
-};
-
-const MobileDropdownBlockActions = ({
-  cardBlock,
-  setEditingBlock,
-}: MobileDropdownBlockActionsProps) => (
-  <DropdownWithLock
-    trigger={
-      <StyledMobileDropdownButton btn="secondary" type="button">
-        <EllipsisSvgIcon />
-      </StyledMobileDropdownButton>
-    }
-  >
-    <DropdownMenuItem onSelect={() => setEditingBlock(cardBlock)}>
-      Editar
-    </DropdownMenuItem>
-    <DeleteteCardDropdownItem cardBlock={cardBlock} />
-    <ToggleCardBlockDropdownItem cardBlock={cardBlock} />
-  </DropdownWithLock>
-);
