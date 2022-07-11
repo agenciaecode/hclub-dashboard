@@ -11,12 +11,13 @@ import { DragSvgIcon } from '@components/icons/drag-icon';
 import { EllipsisSvgIcon } from '@components/icons/drag-icon/ellipsis-icon';
 import { PencilSvgIcon } from '@components/icons/pencil-icon';
 import { Flex } from '@components/layout/flex';
-import { Dropdown, DropdownMenuItem } from '@components/overlay/dropdown';
+import { DropdownMenuItem } from '@components/overlay/dropdown';
 import { Tooltip } from '@components/overlay/tooltip';
 import { Text } from '@components/typography/text';
 import { showToastErrorMessage } from '@libs/toast/showToastMessage';
 import { MapToReorderSchema } from '@utils/reorder/map-to-reorder-schema';
 
+import { DropdownWithLock } from '../../components/dropdown-with-lock';
 import { SectionWrapper } from '../../components/section-wrapper';
 import { useCardSlug } from '../../hooks/useCardSlug';
 import { AddSocialMediaSelect } from './AddSocialMediaSelect';
@@ -36,8 +37,12 @@ import {
 import { EditSocialMediaModal } from './EditSocialMediaModal';
 import {
   ToggleSocialMediaDropdownItem,
-  ToggleSocialMediaSwitch,
-} from './ToggleSocialMediaSwitch';
+  ToggleSocialMedia,
+} from './ToggleSocialMedia';
+
+export type WithSocialMediaProp = {
+  socialMedia: SocialMediaItem;
+};
 
 export const CardSocialMedias = () => {
   const [editingSocialMedia, setEditingSocialMedia] =
@@ -141,21 +146,11 @@ export const CardSocialMedias = () => {
                       <PencilSvgIcon />
                     </StyledIconButton>
                   </Tooltip>
-                  <ToggleSocialMediaSwitch socialMedia={socialMedia} />
-                  <Dropdown
-                    trigger={
-                      <StyledMobileDropdownButton btn="secondary" type="button">
-                        <EllipsisSvgIcon />
-                      </StyledMobileDropdownButton>
-                    }
-                  >
-                    <DropdownMenuItem
-                      onSelect={() => setEditingSocialMedia(socialMedia)}
-                    >
-                      Editar
-                    </DropdownMenuItem>
-                    <ToggleSocialMediaDropdownItem socialMedia={socialMedia} />
-                  </Dropdown>
+                  <ToggleSocialMedia socialMedia={socialMedia} />
+                  <MobileDropdownSocialMediasActions
+                    socialMedia={socialMedia}
+                    setEditingSocialMedia={setEditingSocialMedia}
+                  />
                 </StyledControlsWrapper>
               </StyledSocialMediaItem>
             </div>
@@ -176,3 +171,25 @@ export const CardSocialMedias = () => {
     </SectionWrapper>
   );
 };
+
+type MobileDropdownSocialMediasActionsProps = WithSocialMediaProp & {
+  setEditingSocialMedia: (socialMedia: SocialMediaItem) => void;
+};
+
+const MobileDropdownSocialMediasActions = ({
+  socialMedia,
+  setEditingSocialMedia,
+}: MobileDropdownSocialMediasActionsProps) => (
+  <DropdownWithLock
+    trigger={
+      <StyledMobileDropdownButton btn="secondary" type="button">
+        <EllipsisSvgIcon />
+      </StyledMobileDropdownButton>
+    }
+  >
+    <DropdownMenuItem onSelect={() => setEditingSocialMedia(socialMedia)}>
+      Editar
+    </DropdownMenuItem>
+    <ToggleSocialMediaDropdownItem socialMedia={socialMedia} />
+  </DropdownWithLock>
+);
