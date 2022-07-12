@@ -51,14 +51,16 @@ export const ToggleCardBlockSwitch = ({ cardBlock }: WithCardBlockProp) => {
   }
 
   return (
-    <Tooltip content={isBlockActive ? 'Desativar' : 'Ativar'} notAsChild>
-      <Switch
-        disabled={toggleCardBlockMutation.isLoading}
-        checked={isBlockActive}
-        onCheckedChange={handleSwitchToggleChange}
-      >
-        <SwitchThumb />
-      </Switch>
+    <Tooltip content={isBlockActive ? 'Desativar' : 'Ativar'}>
+      <span>
+        <Switch
+          disabled={toggleCardBlockMutation.isLoading}
+          checked={isBlockActive}
+          onCheckedChange={handleSwitchToggleChange}
+        >
+          <SwitchThumb />
+        </Switch>
+      </span>
     </Tooltip>
   );
 };

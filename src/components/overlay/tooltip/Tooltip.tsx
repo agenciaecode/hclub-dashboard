@@ -12,7 +12,6 @@ type TooltipProps = {
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
-  notAsChild?: boolean;
 } & TooltipPrimitive.TooltipContentProps &
   VariantProps<typeof StyledFakeArrow>;
 
@@ -23,7 +22,6 @@ const Tooltip = ({
   defaultOpen,
   onOpenChange,
   color,
-  notAsChild,
   ...tooltipProps
 }: TooltipProps) => (
   <TooltipPrimitive.Root
@@ -31,9 +29,7 @@ const Tooltip = ({
     defaultOpen={defaultOpen}
     onOpenChange={onOpenChange}
   >
-    <TooltipPrimitive.Trigger asChild={!notAsChild}>
-      {children}
-    </TooltipPrimitive.Trigger>
+    <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
     <StyledContent colors={color} side="top" align="center" {...tooltipProps}>
       {content}
       <TooltipPrimitive.Arrow offset={15} asChild>
@@ -47,7 +43,6 @@ Tooltip.defaultProps = {
   open: undefined,
   defaultOpen: undefined,
   onOpenChange: undefined,
-  notAsChild: false,
 };
 
 const TooltipProvider = TooltipPrimitive.Provider;
