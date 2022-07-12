@@ -2,10 +2,15 @@
 import { useRef } from 'react';
 
 import { FieldValues, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import { Button } from '@components/forms/button';
+import { TextInput } from '@components/forms/text-input';
 import { apiDashboard } from '@services/app';
 
+import { DialogModal } from '../DialogModal/DialogModal';
+import { DropdownButton } from '../DropdownButton/DropdownButton';
+import { DropdownButtonItem } from '../DropdownButton/DropdownButtonItem';
 import {
   StyledLeftContent,
   StyledNavbarExplorer,
@@ -22,35 +27,65 @@ const NavbarExplorer = () => {
 
     const endpoint = 'hdrive/files/';
 
-    await apiDashboard.post(endpoint, formData);
+    await apiDashboard
+      .post(endpoint, formData)
+      .then(() => toast.success('Upload realizado com sucesso.'));
+  }
+
+  async function onCreateFolder(bodyFolderRequest: FieldValues) {
+    const endpoint = 'hdrive/folders/';
+    await apiDashboard
+      .post(endpoint, bodyFolderRequest)
+      .then(() => toast.success('Pasta criada com sucesso.'));
   }
 
   return (
-    <StyledNavbarExplorer>
-      <StyledLeftContent> </StyledLeftContent>
-      <StyledRightContent>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            hidden
-            type="file"
-            {...register('file')}
-            ref={originalRef => {
-              register('file').ref(originalRef);
-              inputFileRef.current = originalRef;
-            }}
-            onChange={onSubmit}
-          />
-          <Button
-            btn="secondary"
-            onClick={() => inputFileRef?.current?.click()}
-            outlined
-            type="button"
-          >
-            Novo
-          </Button>
-        </form>
-      </StyledRightContent>
-    </StyledNavbarExplorer>
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          hidden
+          type="file"
+          {...register('file')}
+          ref={originalRef => {
+            register('file').ref(originalRef);
+            inputFileRef.current = originalRef;
+          }}
+          onChange={onSubmit}
+        />
+      </form>
+
+      <StyledNavbarExplorer>
+        <StyledLeftContent> </StyledLeftContent>
+        <StyledRightContent>
+          <DropdownButton size="large" icon="Novo">
+            <DropdownButtonItem onClick={() => inputFileRef?.current?.click()}>
+              Novo arquivo
+            </DropdownButtonItem>
+            <DropdownButtonItem>
+              <DropdownButtonItem>
+                <DialogModal dialogTitle="Nova pasta" btn="Nova pasta">
+                  <form onSubmit={handleSubmit(onCreateFolder)}>
+                    <TextInput
+                      type="text"
+                      label="Pasta"
+                      name="name"
+                      placeholder="Nome para a pasta"
+                      register={register}
+                    />
+                    <Button
+                      type="submit"
+                      css={{ width: '100%', marginTop: '1.5rem' }}
+                    >
+                      Criar pasta
+                    </Button>
+                  </form>
+                </DialogModal>
+              </DropdownButtonItem>
+            </DropdownButtonItem>
+          </DropdownButton>
+        </StyledRightContent>
+      </StyledNavbarExplorer>
+    </>
   );
 };
 

@@ -1,6 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/no-unescaped-entities */
-import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+
+import { FieldValues, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import { Button } from '@components/forms/button';
 import { TextInput } from '@components/forms/text-input';
@@ -9,11 +12,10 @@ import { apiDashboard } from '@services/app';
 
 import { DialogModal } from '../DialogModal/DialogModal';
 import { DropdownButton } from '../DropdownButton/DropdownButton';
+import { DropdownButtonItem } from '../DropdownButton/DropdownButtonItem';
 import { DotsIcon } from '../icons/dots-icon/DotsIcon';
-import { EditIcon } from '../icons/edit-icon/EditIcon';
 import { FileIcon } from '../icons/file-icon/FileIcon';
 import { FolderIcon } from '../icons/folder-icon/FolderIcon';
-import { TrashIcon } from '../icons/trash-icon/TrashIcon';
 import { ExplorerFileItem } from './ExplorerFileItem';
 import { StyledExplorerTd } from './ExplorerFileItem.styles';
 import {
@@ -38,7 +40,9 @@ type FileData = {
 };
 
 const ExplorerFilesList = () => {
-  const { register } = useForm();
+  const { register, handleSubmit } = useForm();
+  const [isRenomearOpen, setIsRenomearOpen] = useState(false);
+  const [isExcluirOpen, setIsExcluirOpen] = useState(false);
 
   const { data } = useQueryDashboard<FileData>('/hdrive/explorer', {
     optionsQuery: {
@@ -46,9 +50,11 @@ const ExplorerFilesList = () => {
     },
   });
 
-  async function onUpdate(id: string, name: string) {
-    // const endpoint = `hdrive/${id}/rename`;
-    // await apiDashboard.delete(endpoint);
+  async function onUpdate(bodyRequest: FieldValues) {
+    const endpoint = `hdrive/${bodyRequest.id}/rename`;
+    await apiDashboard.patch(endpoint, bodyRequest);
+    setIsRenomearOpen(false);
+    setIsExcluirOpen(false);
   }
 
   async function onDelete(id: string, fileType: string) {
@@ -56,7 +62,9 @@ const ExplorerFilesList = () => {
       fileType === 'file'
         ? `hdrive/files/${id}/delete`
         : `hdrive/folders/${id}/delete`;
-    await apiDashboard.delete(endpoint);
+    await apiDashboard
+      .delete(endpoint)
+      .then(() => toast.success('Arquivo excluído.'));
   }
 
   return data?.data ? (
@@ -72,44 +80,61 @@ const ExplorerFilesList = () => {
             <StyledExplorerTd>
               {file.media?.size
                 ? `${(file.media.size / 1024 / 1024).toFixed(2)} Mb`
-                : 'Pasta'}
+                : '--'}
             </StyledExplorerTd>
             <StyledExplorerTd>
               <DropdownButton icon={<DotsIcon />}>
-                <DialogModal
-                  dialogTitle="Editar"
-                  btn={<EditIcon />}
-                  btnTitle="Editar"
-                >
-                  <TextInput
-                    type="text"
-                    label="Nome"
-                    name="name"
-                    value={file.name}
-                    placeholder="Insira seu nome"
-                    register={register}
-                  />
-                  <Button
-                    type="submit"
-                    css={{ width: '100%' }}
-                    onClick={() => onUpdate(file.id, file.name)}
+                <DropdownButtonItem>
+                  <DialogModal
+                    onClick={() => setIsRenomearOpen(true)}
+                    isOpen={isRenomearOpen}
+                    dialogTitle="Renomear"
+                    btn="Renomear"
                   >
-                    Salvar
-                  </Button>
-                </DialogModal>
-                <DialogModal
-                  dialogTitle="Excluir arquivo?"
-                  dialogDescription="Está ação não poderá ser desfeita"
-                  btn={<TrashIcon />}
-                  btnTitle="Excluir"
-                >
-                  <Button
-                    onClick={() => onDelete(file.id, file.type)}
-                    css={{ width: '250px' }}
+                    <form onSubmit={handleSubmit(onUpdate)}>
+                      <TextInput
+                        css={{ display: 'none' }}
+                        readOnly
+                        name="id"
+                        value={file.id}
+                        register={register}
+                        label=""
+                        placeholder=""
+                      />
+                      <TextInput
+                        type="text"
+                        label="Renomear pasta"
+                        name="name"
+                        placeholder="Novo nome para a pasta"
+                        register={register}
+                      />
+                      <Button
+                        type="submit"
+                        css={{ width: '100%', marginTop: '1.5rem' }}
+                      >
+                        Renomear
+                      </Button>
+                    </form>
+                  </DialogModal>
+                </DropdownButtonItem>
+                <DropdownButtonItem>Mover</DropdownButtonItem>
+                <DropdownButtonItem>
+                  <DialogModal
+                    onClick={() => setIsExcluirOpen(true)}
+                    isOpen={isExcluirOpen}
+                    dialogTitle="Excluir arquivo?"
+                    dialogDescription="Está ação não poderá ser desfeita"
+                    btn="Excluir"
                   >
-                    Excluir
-                  </Button>
-                </DialogModal>
+                    <Button
+                      onClick={() => onDelete(file.id, file.type)}
+                      css={{ width: '250px' }}
+                    >
+                      Excluir
+                    </Button>
+                  </DialogModal>
+                </DropdownButtonItem>
+                <DropdownButtonItem>Tornar público</DropdownButtonItem>
               </DropdownButton>
             </StyledExplorerTd>
           </ExplorerFileItem>
