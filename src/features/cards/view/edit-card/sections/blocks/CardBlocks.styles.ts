@@ -4,8 +4,6 @@ import {
   StyledSocialMediaItem,
   StyledSocialMediaIcon,
   StyledDragIconContainer,
-  StyledIconButton,
-  StyledMobileDropdownButton,
   StyledControlsWrapper,
 } from '../social-medias/CardSocialMedias.styles';
 
@@ -22,6 +20,4 @@ export {
   StyledCardBlockIcon,
   StyledDragIconContainer,
   StyledControlsWrapper,
-  StyledIconButton,
-  StyledMobileDropdownButton,
 };
