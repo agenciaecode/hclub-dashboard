@@ -54,7 +54,10 @@ export const ToggleSocialMedia = ({ socialMedia }: WithSocialMediaProp) => {
   }
 
   return (
-    <Tooltip content={socialMedia.active ? 'Desativar' : 'Ativar'}>
+    <Tooltip
+      content={socialMedia.active ? 'Desativar' : 'Ativar'}
+      triggerNotAsChild
+    >
       <Switch
         disabled={toggleSocialMediaMutation.isLoading}
         checked={isSocialMediaActive}
