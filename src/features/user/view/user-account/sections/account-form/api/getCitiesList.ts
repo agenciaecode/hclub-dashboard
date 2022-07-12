@@ -7,7 +7,7 @@ import { UserProfile } from '@features/user';
 import { Paginated, PaginationParams } from '@/types/paginated';
 
 export const CitiesKeys = {
-  all: ['states'] as const,
+  all: ['cities'] as const,
   list: (paginationParams: GetCitiesListInput) =>
     [...CitiesKeys.all, 'list', paginationParams] as const,
 };
