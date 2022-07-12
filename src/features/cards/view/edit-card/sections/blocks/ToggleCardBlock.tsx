@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { CheckMarkSpinner } from '@components/feedback/checkmark-spinner';
 import { Switch, SwitchThumb } from '@components/forms/switch';
 import { DropdownMenuItem } from '@components/overlay/dropdown';
+import { Tooltip } from '@components/overlay/tooltip';
 import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
 import { animationDelay } from '@utils/animation/animation-delay';
 
@@ -50,13 +51,15 @@ export const ToggleCardBlockSwitch = ({ cardBlock }: WithCardBlockProp) => {
   }
 
   return (
-    <Switch
-      disabled={toggleCardBlockMutation.isLoading}
-      checked={isBlockActive}
-      onCheckedChange={handleSwitchToggleChange}
-    >
-      <SwitchThumb />
-    </Switch>
+    <Tooltip content={isBlockActive ? 'Desativar' : 'Ativar'} notAsChild>
+      <Switch
+        disabled={toggleCardBlockMutation.isLoading}
+        checked={isBlockActive}
+        onCheckedChange={handleSwitchToggleChange}
+      >
+        <SwitchThumb />
+      </Switch>
+    </Tooltip>
   );
 };
 
