@@ -1,7 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/no-unescaped-entities */
-import { useState } from 'react';
-
 import { FieldValues, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
@@ -16,6 +14,7 @@ import { DropdownButtonItem } from '../DropdownButton/DropdownButtonItem';
 import { DotsIcon } from '../icons/dots-icon/DotsIcon';
 import { FileIcon } from '../icons/file-icon/FileIcon';
 import { FolderIcon } from '../icons/folder-icon/FolderIcon';
+import { PrivacyIcon } from '../icons/privacy-icon/PrivacyIcon';
 import { ExplorerFileItem } from './ExplorerFileItem';
 import { StyledExplorerTd } from './ExplorerFileItem.styles';
 import {
@@ -30,6 +29,7 @@ type FileData = {
       id: string;
       name: string;
       type: string;
+      privacy: string;
       created_at: string;
       tamanho: string;
       media: {
@@ -41,8 +41,6 @@ type FileData = {
 
 const ExplorerFilesList = () => {
   const { register, handleSubmit } = useForm();
-  const [isRenomearOpen, setIsRenomearOpen] = useState(false);
-  const [isExcluirOpen, setIsExcluirOpen] = useState(false);
 
   const { data } = useQueryDashboard<FileData>('/hdrive/explorer', {
     optionsQuery: {
@@ -53,8 +51,6 @@ const ExplorerFilesList = () => {
   async function onUpdate(bodyRequest: FieldValues) {
     const endpoint = `hdrive/${bodyRequest.id}/rename`;
     await apiDashboard.patch(endpoint, bodyRequest);
-    setIsRenomearOpen(false);
-    setIsExcluirOpen(false);
   }
 
   async function onDelete(id: string, fileType: string) {
@@ -67,14 +63,30 @@ const ExplorerFilesList = () => {
       .then(() => toast.success('Arquivo excluído.'));
   }
 
+  async function onChangePrivacy(
+    id: string,
+    fileType: string,
+    privacy: string,
+  ) {
+    const bodyRequest = { id, fileType, privacy };
+    const endpoint =
+      bodyRequest.fileType === 'file'
+        ? `hdrive/files/${bodyRequest.id}/privacy`
+        : `hdrive/folders/${bodyRequest.id}/privacy`;
+    await apiDashboard
+      .patch(endpoint, bodyRequest)
+      .then(() => toast.success('Privacidade alterada.'));
+  }
+
   return data?.data ? (
     <StyledExplorerFilesList>
       <StyledTbody>
         {data?.data.map(file => (
           <ExplorerFileItem key={file.id}>
-            <StyledExplorerTd svgSpace size="lg">
+            <StyledExplorerTd svgSpace="right" size="lg">
               {file.type === 'file' ? <FileIcon /> : <FolderIcon />}
               {file.name}
+              {file.privacy !== 'private' && <PrivacyIcon />}
             </StyledExplorerTd>
             <StyledExplorerTd>{file.created_at}</StyledExplorerTd>
             <StyledExplorerTd>
@@ -85,12 +97,7 @@ const ExplorerFilesList = () => {
             <StyledExplorerTd>
               <DropdownButton icon={<DotsIcon />}>
                 <DropdownButtonItem>
-                  <DialogModal
-                    onClick={() => setIsRenomearOpen(true)}
-                    isOpen={isRenomearOpen}
-                    dialogTitle="Renomear"
-                    btn="Renomear"
-                  >
+                  <DialogModal dialogTitle="Renomear" btn="Renomear">
                     <form onSubmit={handleSubmit(onUpdate)}>
                       <TextInput
                         css={{ display: 'none' }}
@@ -120,8 +127,6 @@ const ExplorerFilesList = () => {
                 <DropdownButtonItem>Mover</DropdownButtonItem>
                 <DropdownButtonItem>
                   <DialogModal
-                    onClick={() => setIsExcluirOpen(true)}
-                    isOpen={isExcluirOpen}
                     dialogTitle="Excluir arquivo?"
                     dialogDescription="Está ação não poderá ser desfeita"
                     btn="Excluir"
@@ -134,7 +139,19 @@ const ExplorerFilesList = () => {
                     </Button>
                   </DialogModal>
                 </DropdownButtonItem>
-                <DropdownButtonItem>Tornar público</DropdownButtonItem>
+                <DropdownButtonItem
+                  onClick={() =>
+                    onChangePrivacy(
+                      file.id,
+                      file.type,
+                      file.privacy === 'public' ? 'private' : 'public',
+                    )
+                  }
+                >
+                  {file.privacy === 'private'
+                    ? 'Tornar público'
+                    : 'Tornar privado'}
+                </DropdownButtonItem>
               </DropdownButton>
             </StyledExplorerTd>
           </ExplorerFileItem>

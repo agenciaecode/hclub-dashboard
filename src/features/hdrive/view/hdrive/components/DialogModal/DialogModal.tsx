@@ -18,7 +18,6 @@ type DialogModalProps = {
   children: ReactNode;
   dialogTitle?: string;
   dialogDescription?: string;
-  isOpen: boolean;
   onClick?: MouseEventHandler;
 };
 
@@ -27,10 +26,9 @@ const DialogModal = ({
   btn,
   dialogTitle,
   dialogDescription,
-  isOpen,
   onClick,
 }: DialogModalProps) => (
-  <Dialog.Root open={isOpen} onOpenChange={() => !isOpen}>
+  <Dialog.Root>
     <StyledDialogTrigger onClick={onClick}>{btn}</StyledDialogTrigger>
     <Dialog.Portal>
       <StyledOverlay>

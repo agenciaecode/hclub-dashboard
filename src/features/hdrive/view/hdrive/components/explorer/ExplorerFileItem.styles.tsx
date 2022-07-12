@@ -19,9 +19,14 @@ const StyledExplorerTd = styled('td', {
   lineHeight: '2.3rem',
   variants: {
     svgSpace: {
-      true: {
+      right: {
         '& svg': {
           marginRight: '2.4rem',
+        },
+      },
+      left: {
+        '& svg': {
+          marginLeft: '2.4rem',
         },
       },
     },
