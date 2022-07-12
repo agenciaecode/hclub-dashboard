@@ -3,8 +3,9 @@ import { useMutation, useQueryClient } from 'react-query';
 import { ValidationError } from '@libs/http/HttpException';
 import { http } from '@services/http/api-client';
 
+import { UserKeys } from '@features/user';
+
 import { GetUserMedicalProfileOutput } from './getUserMedicalProfile';
-import { UserKeys } from './UserKeyFactory';
 
 type UpdateUserMedicalProfileInput = Partial<GetUserMedicalProfileOutput>;
 

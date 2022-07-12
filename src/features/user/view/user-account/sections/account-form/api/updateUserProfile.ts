@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { ValidationError } from '@libs/http/HttpException';
 import { http } from '@services/http/api-client';
 
-import { UserKeys } from './UserKeyFactory';
+import { UserKeys } from '@features/user';
 
 type UpdateUserProfileInput = {
   username: string;

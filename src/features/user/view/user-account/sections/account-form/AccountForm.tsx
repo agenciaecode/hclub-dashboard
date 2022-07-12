@@ -25,11 +25,7 @@ import {
   removePhoneRegionNumber,
 } from '@utils/mask/phone';
 
-import {
-  useUserProfileQuery,
-  UpdateUserProfileValidationErrors,
-  useUpdateUserProfileMutation,
-} from '@features/user';
+import { useUserProfileQuery } from '@features/user';
 
 import { SectionWrapper } from '../../components/section-wrapper';
 import { StyledSectionForm } from '../../UserAccountPage.styles';
@@ -40,6 +36,10 @@ import {
 } from './AccountForm.styles';
 import { useCitiesListQuery } from './api/getCitiesList';
 import { useStatesListQuery } from './api/getStatesList';
+import {
+  useUpdateUserProfileMutation,
+  UpdateUserProfileValidationErrors,
+} from './api/updateUserProfile';
 
 const INITIAL_SELECTED_STATE = '';
 const EMPTY_CITY_OPTION = '';

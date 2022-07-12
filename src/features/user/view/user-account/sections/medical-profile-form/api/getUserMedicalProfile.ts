@@ -2,10 +2,10 @@ import { useQuery } from 'react-query';
 
 import { http } from '@services/http/api-client';
 
+import { UserKeys } from '@features/user';
+
 import { ApiResponse } from '@/types/api-response';
 import { BloodType } from '@/types/BloodType';
-
-import { UserKeys } from './UserKeyFactory';
 
 type GetUserMedicalProfileOutput = {
   weight: number;

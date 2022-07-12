@@ -6,7 +6,7 @@ import { InputWrapper } from '@components/forms/input-wrapper';
 import { Label } from '@components/forms/label';
 import { LoadingButton } from '@components/forms/loading-button';
 import { MaskedInput } from '@components/forms/masked-input';
-import { SelectOption, Select } from '@components/forms/select';
+import { Select, SelectOption } from '@components/forms/select';
 import { ControlledSwitch } from '@components/forms/switch';
 import {
   ControlledTagSelect,
@@ -23,16 +23,15 @@ import {
   removePhoneRegionNumber,
 } from '@utils/mask/phone';
 
-import {
-  UpdateUserMedicalProfileValidationErrors,
-  useUpdateUserMedicalProfileMutation,
-  useUserMedicalProfileQuery,
-} from '@features/user';
-
 import { BloodTypes } from '@/types/BloodType';
 
 import { SectionWrapper } from '../../components/section-wrapper';
 import { StyledSectionForm } from '../../UserAccountPage.styles';
+import { useUserMedicalProfileQuery } from './api/getUserMedicalProfile';
+import {
+  UpdateUserMedicalProfileValidationErrors,
+  useUpdateUserMedicalProfileMutation,
+} from './api/updateUserMedicalProfile';
 import { medicalProfileFormSchema } from './MedicalProfileForm.schema';
 import {
   StyledDummyDiv,
