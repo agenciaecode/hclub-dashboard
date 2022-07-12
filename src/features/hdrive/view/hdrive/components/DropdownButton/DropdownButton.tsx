@@ -9,18 +9,23 @@ import {
 } from './DropdownButton.styles';
 
 type DropdownButtonProps = {
-  icon: ReactElement;
+  icon: string | ReactElement;
   children: ReactNode;
+  size?: 'large' | undefined;
 };
 
-const DropdownButton = ({ icon, children }: DropdownButtonProps) => (
+const DropdownButton = ({ icon, children, size }: DropdownButtonProps) => (
   <DropdownMenu.Root>
-    <StyledDropdownTrigger>{icon}</StyledDropdownTrigger>
+    <StyledDropdownTrigger size={size}>{icon}</StyledDropdownTrigger>
     <StyledDropdownContent>
       {children}
       <StyledDropdownArrow />
     </StyledDropdownContent>
   </DropdownMenu.Root>
 );
+
+DropdownButton.defaultProps = {
+  size: undefined,
+};
 
 export { DropdownButton };

@@ -17,7 +17,6 @@ const StyledDropdownContent = styled(DropdownMenu.Content, {
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  padding: '0.1rem',
   border: '1px solid $black',
   borderRadius: '5px',
   color: '$white',
@@ -38,6 +37,18 @@ const StyledDropdownTrigger = styled(DropdownMenu.Trigger, {
   height: '4.8rem',
   border: '1px solid $black',
   borderRadius: '5px',
+  variants: {
+    size: {
+      large: {
+        padding: '1.5rem 5rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '$base',
+        cursor: 'pointer',
+      },
+    },
+  },
 });
 
 export { StyledDropdownContent, StyledDropdownTrigger, StyledDropdownArrow };
