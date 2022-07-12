@@ -15,25 +15,23 @@ import {
 
 type DialogModalProps = {
   btn: string | ReactElement;
-  btnTitle?: string;
   children: ReactNode;
   dialogTitle?: string;
   dialogDescription?: string;
+  isOpen: boolean;
   onClick?: MouseEventHandler;
 };
 
 const DialogModal = ({
   children,
   btn,
-  btnTitle,
   dialogTitle,
   dialogDescription,
+  isOpen,
   onClick,
 }: DialogModalProps) => (
-  <Dialog.Root>
-    <StyledDialogTrigger onClick={onClick}>
-      {btn} {btnTitle}
-    </StyledDialogTrigger>
+  <Dialog.Root open={isOpen} onOpenChange={() => !isOpen}>
+    <StyledDialogTrigger onClick={onClick}>{btn}</StyledDialogTrigger>
     <Dialog.Portal>
       <StyledOverlay>
         <StyledDialogContent>
@@ -61,7 +59,6 @@ DialogModal.defaultProps = {
   onClick: null,
   dialogTitle: null,
   dialogDescription: null,
-  btnTitle: null,
 };
 
 export { DialogModal };

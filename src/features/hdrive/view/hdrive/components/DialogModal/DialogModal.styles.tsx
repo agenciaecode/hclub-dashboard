@@ -89,28 +89,9 @@ const StyledDialogTrigger = styled(Dialog.Trigger, {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  borderRadius: '5px',
-  cursor: 'pointer',
-  margin: '1rem',
-  width: '88%',
   fontFamily: 'Raleway-Regular',
   fontStyle: 'normal',
   fontWeight: '400',
-  variants: {
-    type: {
-      btn: {
-        color: '$black',
-      },
-      card: {
-        display: 'block',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        height: '100%',
-        color: '$white',
-      },
-    },
-  },
 });
 
 export {
