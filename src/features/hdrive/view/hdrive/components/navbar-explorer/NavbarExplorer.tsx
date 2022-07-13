@@ -2,6 +2,7 @@
 import { useRef } from 'react';
 
 import { FieldValues, useForm } from 'react-hook-form';
+import { useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 
 import { Button } from '@components/forms/button';
@@ -20,6 +21,7 @@ import {
 const NavbarExplorer = () => {
   const inputFileRef = useRef<HTMLInputElement | null>(null);
   const { handleSubmit, register } = useForm();
+  const queryClient = useQueryClient();
 
   async function onSubmit(bodyRequest: FieldValues) {
     const formData = new FormData();
@@ -27,16 +29,18 @@ const NavbarExplorer = () => {
 
     const endpoint = 'hdrive/files/';
 
-    await apiDashboard
-      .post(endpoint, formData)
-      .then(() => toast.success('Upload realizado com sucesso.'));
+    await apiDashboard.post(endpoint, formData).then(() => {
+      queryClient.invalidateQueries(['/hdrive/explorer']);
+      toast.success('Upload concluído.');
+    });
   }
 
   async function onCreateFolder(bodyFolderRequest: FieldValues) {
     const endpoint = 'hdrive/folders/';
-    await apiDashboard
-      .post(endpoint, bodyFolderRequest)
-      .then(() => toast.success('Pasta criada com sucesso.'));
+    await apiDashboard.post(endpoint, bodyFolderRequest).then(() => {
+      queryClient.invalidateQueries(['/hdrive/explorer']);
+      toast.success('Pasta criada com sucesso.');
+    });
   }
 
   return (

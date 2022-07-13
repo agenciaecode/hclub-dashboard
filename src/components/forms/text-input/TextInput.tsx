@@ -8,7 +8,7 @@ import { Label } from '@components/forms/label';
 import { StyledInputGroup } from './TextInput.styles';
 
 type TextInputProps = {
-  label: string;
+  label?: string;
   id?: string;
   name: string;
   placeholder: string;
@@ -65,6 +65,7 @@ const TextInput = ({
 };
 
 TextInput.defaultProps = {
+  label: undefined,
   errorMessage: undefined,
   defaultValue: undefined,
   id: undefined,

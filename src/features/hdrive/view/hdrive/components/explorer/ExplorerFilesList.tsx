@@ -42,7 +42,7 @@ type FileData = {
 const ExplorerFilesList = () => {
   const { register, handleSubmit } = useForm();
 
-  const { data } = useQueryDashboard<FileData>('/hdrive/explorer', {
+  const { data, refetch } = useQueryDashboard<FileData>('/hdrive/explorer', {
     optionsQuery: {
       refetchOnWindowFocus: false,
     },
@@ -50,7 +50,10 @@ const ExplorerFilesList = () => {
 
   async function onUpdate(bodyRequest: FieldValues) {
     const endpoint = `hdrive/${bodyRequest.id}/rename`;
-    await apiDashboard.patch(endpoint, bodyRequest);
+    await apiDashboard.patch(endpoint, bodyRequest).then(() => {
+      toast.success('Arquivo renomeado.');
+      refetch();
+    });
   }
 
   async function onDelete(id: string, fileType: string) {
@@ -58,9 +61,10 @@ const ExplorerFilesList = () => {
       fileType === 'file'
         ? `hdrive/files/${id}/delete`
         : `hdrive/folders/${id}/delete`;
-    await apiDashboard
-      .delete(endpoint)
-      .then(() => toast.success('Arquivo excluído.'));
+    await apiDashboard.delete(endpoint).then(() => {
+      toast.success('Arquivo removido.');
+      refetch();
+    });
   }
 
   async function onChangePrivacy(
@@ -73,9 +77,10 @@ const ExplorerFilesList = () => {
       bodyRequest.fileType === 'file'
         ? `hdrive/files/${bodyRequest.id}/privacy`
         : `hdrive/folders/${bodyRequest.id}/privacy`;
-    await apiDashboard
-      .patch(endpoint, bodyRequest)
-      .then(() => toast.success('Privacidade alterada.'));
+    await apiDashboard.patch(endpoint, bodyRequest).then(() => {
+      toast.success('Privacidade de arquivo alterada.');
+      refetch();
+    });
   }
 
   return data?.data ? (
@@ -110,9 +115,8 @@ const ExplorerFilesList = () => {
                       />
                       <TextInput
                         type="text"
-                        label="Renomear pasta"
                         name="name"
-                        placeholder="Novo nome para a pasta"
+                        placeholder="Novo nome"
                         register={register}
                       />
                       <Button
