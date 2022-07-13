@@ -48,7 +48,11 @@ export const EditCardPage = () => {
               <StyledTitle>Editar informações</StyledTitle>
             </FlexWrapper>
             <StyledToolbar>
-              <Link href={`${HCLUB_BASE_URL}/${user.username}/${cardSlug}`}>
+              <Link
+                href={`${HCLUB_BASE_URL}/${user.username}/${cardSlug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Button btn="secondary">Visualizar</Button>
               </Link>
               <Button btn="secondary">
