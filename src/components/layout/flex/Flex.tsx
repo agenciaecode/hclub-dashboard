@@ -1,8 +1,6 @@
 /* eslint-disable prefer-arrow-callback,react/jsx-props-no-spreading, react/require-default-props */
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react';
 
-import { Property } from '@stitches/react/types/css';
-
 import { styled } from '@/theme';
 
 export const StyledFlex = styled('div', {
@@ -24,6 +22,14 @@ export const StyledFlex = styled('div', {
         justifyContent: 'center',
       },
     },
+    gap: {
+      '3.2': {
+        gap: '3.2rem',
+      },
+      '0.8': {
+        gap: '0.8rem',
+      },
+    },
     alignItems: {
       center: {
         alignItems: 'center',
@@ -32,21 +38,10 @@ export const StyledFlex = styled('div', {
   },
 });
 
-type FlexProps = ComponentPropsWithoutRef<typeof StyledFlex> & {
-  gap?: Property.Gap;
-};
+type FlexProps = ComponentPropsWithoutRef<typeof StyledFlex>;
 
 export const Flex = forwardRef<ElementRef<typeof StyledFlex>, FlexProps>(
-  function Flex({ css, ...flexProps }, forwardedRef) {
-    return (
-      <StyledFlex
-        {...flexProps}
-        css={{
-          ...css,
-          ...(flexProps.gap && { gap: flexProps.gap }),
-        }}
-        ref={forwardedRef}
-      />
-    );
+  function Flex(flexProps, forwardedRef) {
+    return <StyledFlex {...flexProps} ref={forwardedRef} />;
   },
 );

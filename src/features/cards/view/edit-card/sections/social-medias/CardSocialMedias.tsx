@@ -135,7 +135,7 @@ export const CardSocialMedias = () => {
                 </StyledSocialMediaIcon>
                 <Flex
                   direction="column"
-                  gap="0.8rem"
+                  gap="0.8"
                   css={{ marginRight: 'auto' }}
                 >
                   <Text size="xl">{socialMedia.name}</Text>
