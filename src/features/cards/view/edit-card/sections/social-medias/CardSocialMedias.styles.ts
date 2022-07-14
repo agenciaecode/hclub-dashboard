@@ -83,6 +83,7 @@ const StyledResponsiveSocialMediaHeader = styled(Flex, {
   marginBottom: '1rem',
   gap: '1rem',
   flexDirection: 'column',
+  alignItems: 'center',
   '@xs': {
     marginBottom: 0,
     gap: '2rem',

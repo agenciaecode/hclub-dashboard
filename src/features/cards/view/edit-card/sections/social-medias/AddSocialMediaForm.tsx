@@ -82,7 +82,7 @@ export const AddSocialMediaForm = ({
 
   return (
     <form onSubmit={handleAddSocialMediaSubmit}>
-      <StyledResponsiveSocialMediaHeader alignItems="center">
+      <StyledResponsiveSocialMediaHeader>
         <StyledFigure>
           {addingSocialMedia.icon.url && (
             <Image
