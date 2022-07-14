@@ -9,6 +9,9 @@ export const Text = styled('span', {
       secondary: {
         color: '$textWhite',
       },
+      negative: {
+        color: '$auxiliaryNegative',
+      },
     },
     size: {
       sm: {
