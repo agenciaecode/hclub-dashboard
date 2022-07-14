@@ -23,11 +23,12 @@ const EMPTY_OPTION = '';
  * Select to add a new card block
  */
 export const AddCardBlockSelect = () => {
+  const [isAddBlockModalOpen, setIsAddBlockModalOpen] = useState(false);
   const [selectedBlockType, setSelectedBlockType] = useState<BlockTypeOption>();
   const listBlockTypesQuery = useListCardBlockTypesQuery();
 
   const closeAddingBlockFormModal = useCallback(() => {
-    setSelectedBlockType(undefined);
+    setIsAddBlockModalOpen(false);
   }, []);
 
   function handleAddBlockButtonClick(event: SyntheticEvent) {
@@ -83,6 +84,8 @@ export const AddCardBlockSelect = () => {
         )}
       </StyledSelect>
       <Modal
+        open={isAddBlockModalOpen}
+        onOpenChange={setIsAddBlockModalOpen}
         triggerButton={
           <Button
             disabled={!selectedBlockType}
