@@ -7,6 +7,7 @@ import { Spinner } from '@components/feedback/spinner';
 import { DragSvgIcon } from '@components/icons/drag-icon';
 import { Flex } from '@components/layout/flex';
 import { DropdownMenuItem } from '@components/overlay/dropdown';
+import { Modal } from '@components/overlay/modal';
 import { Tooltip } from '@components/overlay/tooltip';
 import { Text } from '@components/typography/text';
 import { showToastErrorMessage } from '@libs/toast/showToastMessage';
@@ -27,6 +28,7 @@ import {
   StyledControlsWrapper,
   StyledDragIconContainer,
 } from './CardBlocks.styles';
+import { CardBlockFormByType } from './components/CardBlockForm';
 import { DeleteCardBlockConfirmationAlert } from './DeleteCardBlock';
 import {
   ToggleCardBlockDropdownItem,
@@ -44,6 +46,8 @@ export const CardBlocks = () => {
   const [cardBlockItems, setCardBlockItems] = useState(cardBlocksQuery.data);
   const [editingBlock, setEditingBlock] = useState<AnyBlockType>();
   const [deletingBlock, setDeletingBlock] = useState<AnyBlockType>();
+
+  const closeEditBlockModal = useCallback(() => setEditingBlock(undefined), []);
 
   const closeDeleteBlockAlert = useCallback(
     () => setDeletingBlock(undefined),
@@ -158,6 +162,19 @@ export const CardBlocks = () => {
           closeAlert={closeDeleteBlockAlert}
         />
       )}
+      <Modal
+        open={Boolean(editingBlock)}
+        onOpenChange={isOpen => {
+          if (!isOpen) closeEditBlockModal();
+        }}
+      >
+        {editingBlock && (
+          <CardBlockFormByType
+            managingBlock={editingBlock}
+            handleSuccesfullFormSubmit={closeEditBlockModal}
+          />
+        )}
+      </Modal>
     </SectionWrapper>
   );
 };
