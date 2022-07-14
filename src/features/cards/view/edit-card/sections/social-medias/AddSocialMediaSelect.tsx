@@ -1,12 +1,10 @@
 import React, { SyntheticEvent, useState } from 'react';
 
 import { notNullish } from '@antfu/utils';
-import { SelectItem } from '@radix-ui/react-select';
 
 import { Spinner } from '@components/feedback/spinner';
 import { Button } from '@components/forms/button';
 import { Select, SelectOption } from '@components/forms/select';
-import { SelectItemText } from '@components/forms/select/PrimitiveSelect';
 import { Flex } from '@components/layout/flex';
 import { Modal } from '@components/overlay/modal';
 import { Text } from '@components/typography/text';
@@ -41,7 +39,7 @@ export const AddSocialMediaSelect = () => {
   }
 
   return (
-    <StyledFlex>
+    <StyledSelectWrapper>
       <StyledSelect
         label="Rede Social"
         name="social-media-select"
@@ -51,18 +49,14 @@ export const AddSocialMediaSelect = () => {
         value={selectedSocialMediaId}
       >
         {listSocialMediasQuery.isLoading && (
-          <SelectItem value={EMPTY_OPTION} disabled>
-            <SelectItemText>
-              <Spinner color="secondary" />
-            </SelectItemText>
-          </SelectItem>
+          <SelectOption value={EMPTY_OPTION} disabled>
+            <Spinner color="secondary" />
+          </SelectOption>
         )}
         {listSocialMediasQuery.isError && (
-          <SelectItem value={EMPTY_OPTION} disabled>
-            <SelectItemText>
-              <Text css={{ color: 'red' }}>Erro ao carregar redes sociais</Text>
-            </SelectItemText>
-          </SelectItem>
+          <SelectOption value={EMPTY_OPTION} disabled>
+            <Text color="negative">Erro ao carregar redes sociais</Text>
+          </SelectOption>
         )}
         {listSocialMediasQuery.isSuccess && (
           <>
@@ -105,17 +99,17 @@ export const AddSocialMediaSelect = () => {
           />
         )}
       </Modal>
-    </StyledFlex>
+    </StyledSelectWrapper>
   );
 };
 
-const StyledFlex = styled(Flex, {
+export const StyledSelectWrapper = styled(Flex, {
   gap: '2rem',
   flexWrap: 'wrap',
   margin: '3.2rem 0',
 });
 
-const StyledSelect = styled(Select, {
+export const StyledSelect = styled(Select, {
   width: 'stretch',
   '@md': {
     width: '31rem',
