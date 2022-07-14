@@ -18,7 +18,8 @@ import { EditButton } from '../../components/edit-button/EditButton';
 import { MobileDropdownButton } from '../../components/ellipsis-button';
 import { SectionWrapper } from '../../components/section-wrapper';
 import { useCardSlug } from '../../hooks/useCardSlug';
-import { Block, BlockTypes, useGetCardBlocksQuery } from './api/getCardBlocks';
+import { AddCardBlockSelect } from './AddCardBlockSelect';
+import { AnyBlockType, useGetCardBlocksQuery } from './api/getCardBlocks';
 import { useReorderCardBlocksMutation } from './api/reorderCardBlocks';
 import {
   StyledCardBlockIcon,
@@ -33,7 +34,7 @@ import {
 } from './ToggleCardBlock';
 
 export type WithCardBlockProp = {
-  cardBlock: Block<BlockTypes>;
+  cardBlock: AnyBlockType;
 };
 
 export const CardBlocks = () => {
@@ -41,8 +42,8 @@ export const CardBlocks = () => {
   const cardBlocksQuery = useGetCardBlocksQuery({ card });
   const reorderCardBlocksMutation = useReorderCardBlocksMutation();
   const [cardBlockItems, setCardBlockItems] = useState(cardBlocksQuery.data);
-  const [editingBlock, setEditingBlock] = useState<Block<BlockTypes>>();
-  const [deletingBlock, setDeletingBlock] = useState<Block<BlockTypes>>();
+  const [editingBlock, setEditingBlock] = useState<AnyBlockType>();
+  const [deletingBlock, setDeletingBlock] = useState<AnyBlockType>();
 
   const closeDeleteBlockAlert = useCallback(
     () => setDeletingBlock(undefined),
@@ -121,7 +122,7 @@ export const CardBlocks = () => {
                 />
                 <Flex
                   direction="column"
-                  gap="0.8rem"
+                  gap="0.8"
                   css={{ marginRight: 'auto' }}
                 >
                   <Text size="xl">{cardBlock.type_label}</Text>
@@ -150,6 +151,7 @@ export const CardBlocks = () => {
           )}
         />
       )}
+      <AddCardBlockSelect />
       {deletingBlock && (
         <DeleteCardBlockConfirmationAlert
           cardBlock={deletingBlock}

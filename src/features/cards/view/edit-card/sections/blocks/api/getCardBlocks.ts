@@ -7,11 +7,14 @@ import { CardKeys, CardType } from '@features/cards';
 
 import { ApiResponse } from '@/types/api-response';
 
+const VIDEO_BLOCK_PROVIDERS = ['youtube', 'vimeo'] as const;
+type VideoBlockProvider = typeof VIDEO_BLOCK_PROVIDERS[number];
+
 type VideoBlock = {
   type: 'video';
   config: {
     url: string;
-    provider: string;
+    provider: VideoBlockProvider;
     video_id: string;
   };
 };
@@ -58,11 +61,13 @@ type Block<BlockType extends BlockTypes> = BlockType & {
   type_label: string;
 };
 
+type AnyBlockType = Block<BlockTypes>;
+
 type GetCardBlocksIntput = {
   card: CardType;
 };
 
-type GetCardBlocksOutput = Block<BlockTypes>[];
+type GetCardBlocksOutput = AnyBlockType[];
 
 async function getCardBlocks({ card }: GetCardBlocksIntput) {
   const { data } = await http.get<ApiResponse<GetCardBlocksOutput>>(
@@ -80,12 +85,14 @@ const useGetCardBlocksQuery = (cardBlocksQueryParams: GetCardBlocksIntput) =>
     },
   );
 
-export { useGetCardBlocksQuery };
+export { useGetCardBlocksQuery, VIDEO_BLOCK_PROVIDERS };
 export type {
   GetCardBlocksIntput,
   GetCardBlocksOutput,
   BlockTypes,
   Block,
+  AnyBlockType,
+  VideoBlockProvider,
   VideoBlock,
   ExternalLinkBlock,
   ImageBlock,
