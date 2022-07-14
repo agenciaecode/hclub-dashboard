@@ -89,6 +89,7 @@ export const CardBiography = () => {
           form="bio-form"
           isLoading={cardBiographyMutation.isLoading}
           isSuccess={cardBiographyMutation.isSuccess}
+          disabled={cardBiographyMutation.isLoading}
           onClick={event => {
             if (!isEditing) {
               event.preventDefault();
