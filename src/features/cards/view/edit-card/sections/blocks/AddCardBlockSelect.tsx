@@ -1,11 +1,10 @@
 /* eslint-disable import/no-cycle */
 import React, { SyntheticEvent, useCallback, useState } from 'react';
 
-import { VisuallyHidden } from '@components/disclosure/visually-hidden';
 import { Spinner } from '@components/feedback/spinner';
 import { Button } from '@components/forms/button';
 import { SelectOption } from '@components/forms/select';
-import { DialogTitle, Modal } from '@components/overlay/modal';
+import { Modal } from '@components/overlay/modal';
 import { Text } from '@components/typography/text';
 
 import {
@@ -95,17 +94,10 @@ export const AddCardBlockSelect = () => {
         }
       >
         {selectedBlockType && (
-          <>
-            <VisuallyHidden asChild>
-              <DialogTitle>
-                Adicionar bloco de {selectedBlockType.type_label}
-              </DialogTitle>
-            </VisuallyHidden>
-            <CardBlockFormByType
-              managingBlock={selectedBlockType as AnyBlockType}
-              handleSuccesfullFormSubmit={closeAddingBlockFormModal}
-            />
-          </>
+          <CardBlockFormByType
+            managingBlock={selectedBlockType as AnyBlockType}
+            handleSuccesfullFormSubmit={closeAddingBlockFormModal}
+          />
         )}
       </Modal>
     </StyledSelectWrapper>

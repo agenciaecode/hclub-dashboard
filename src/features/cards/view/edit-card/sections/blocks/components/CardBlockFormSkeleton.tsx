@@ -1,8 +1,9 @@
 import React, { SyntheticEvent } from 'react';
 
+import { VisuallyHidden } from '@components/disclosure/visually-hidden';
 import { Button } from '@components/forms/button';
 import { LoadingButton } from '@components/forms/loading-button';
-import { DialogClose } from '@components/overlay/modal';
+import { DialogClose, DialogTitle } from '@components/overlay/modal';
 import { Text } from '@components/typography/text';
 import { animationDelay } from '@utils/animation/animation-delay';
 
@@ -39,36 +40,41 @@ export const CardBlockFormSkeleton = ({
   handleSuccesfullFormSubmit,
   children,
 }: CardBlockFormSkeletonProps) => (
-  <form onSubmit={handleFormSubmit}>
-    <StyledResponsiveBlockHeader>
-      <StyledSvgFigure
-        dangerouslySetInnerHTML={{
-          __html: managingBlock.icon_xml_svg,
-        }}
-      />
-      <Text size="xl">{managingBlock.type_label}</Text>
-    </StyledResponsiveBlockHeader>
+  <>
+    <VisuallyHidden asChild>
+      <DialogTitle>Adicionar bloco de {managingBlock.type_label}</DialogTitle>
+    </VisuallyHidden>
+    <form onSubmit={handleFormSubmit}>
+      <StyledResponsiveBlockHeader>
+        <StyledSvgFigure
+          dangerouslySetInnerHTML={{
+            __html: managingBlock.icon_xml_svg,
+          }}
+        />
+        <Text size="xl">{managingBlock.type_label}</Text>
+      </StyledResponsiveBlockHeader>
 
-    <StyledFormWrapper>{children}</StyledFormWrapper>
+      <StyledFormWrapper>{children}</StyledFormWrapper>
 
-    <StyledResponsiveFlex>
-      <DialogClose asChild>
-        <Button btn="secondary" type="reset">
-          Cancelar
-        </Button>
-      </DialogClose>
-      <LoadingButton
-        onAnimationFinished={async () => {
-          await animationDelay();
-          handleSuccesfullFormSubmit();
-        }}
-        isLoading={isSubmitting}
-        isSuccess={isSubmitSuccesful}
-      >
-        Salvar
-      </LoadingButton>
-    </StyledResponsiveFlex>
-  </form>
+      <StyledResponsiveFlex>
+        <DialogClose asChild>
+          <Button btn="secondary" type="reset">
+            Cancelar
+          </Button>
+        </DialogClose>
+        <LoadingButton
+          onAnimationFinished={async () => {
+            await animationDelay();
+            handleSuccesfullFormSubmit();
+          }}
+          isLoading={isSubmitting}
+          isSuccess={isSubmitSuccesful}
+        >
+          Salvar
+        </LoadingButton>
+      </StyledResponsiveFlex>
+    </form>
+  </>
 );
 
 const StyledSvgFigure = styled(StyledFigure, {
