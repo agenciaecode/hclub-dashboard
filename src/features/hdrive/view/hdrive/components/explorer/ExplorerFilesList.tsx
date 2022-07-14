@@ -1,20 +1,25 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/no-unescaped-entities */
-import { FieldValues, useForm } from 'react-hook-form';
+// import { FieldValues, useForm } from 'react-hook-form';
+import { useState } from 'react';
+
 import { toast } from 'react-toastify';
 
 import { Button } from '@components/forms/button';
-import { TextInput } from '@components/forms/text-input';
+// import { TextInput } from '@components/forms/text-input';
 import { useQueryDashboard } from '@hooks/useQuery';
 import { apiDashboard } from '@services/app';
 
-import { DialogModal } from '../DialogModal/DialogModal';
-import { DropdownButton } from '../DropdownButton/DropdownButton';
-import { DropdownButtonItem } from '../DropdownButton/DropdownButtonItem';
+import { DialogModal } from '../dialog-modal/DialogModal';
+import { DropdownButton } from '../dropdown-button/DropdownButton';
+import { DropdownButtonItem } from '../dropdown-button/DropdownButtonItem';
 import { DotsIcon } from '../icons/dots-icon/DotsIcon';
 import { FileIcon } from '../icons/file-icon/FileIcon';
 import { FolderIcon } from '../icons/folder-icon/FolderIcon';
 import { PrivacyIcon } from '../icons/privacy-icon/PrivacyIcon';
+import { InfoDialogModal } from '../info-dialog-modal/InfoDialogModal';
+import { InfoDialogModalItem } from '../info-dialog-modal/InfoDialogModalItem';
 import { ExplorerFileItem } from './ExplorerFileItem';
 import { StyledExplorerTd } from './ExplorerFileItem.styles';
 import {
@@ -40,21 +45,21 @@ type FileData = {
 };
 
 const ExplorerFilesList = () => {
-  const { register, handleSubmit } = useForm();
-
+  // const { register, handleSubmit } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
   const { data, refetch } = useQueryDashboard<FileData>('/hdrive/explorer', {
     optionsQuery: {
       refetchOnWindowFocus: false,
     },
   });
 
-  async function onUpdate(bodyRequest: FieldValues) {
-    const endpoint = `hdrive/${bodyRequest.id}/rename`;
-    await apiDashboard.patch(endpoint, bodyRequest).then(() => {
-      toast.success('Arquivo renomeado.');
-      refetch();
-    });
-  }
+  // async function onUpdate(bodyRequest: FieldValues) {
+  //   const endpoint = `hdrive/${bodyRequest.id}/rename`;
+  //   await apiDashboard.patch(endpoint, bodyRequest).then(() => {
+  //     toast.success('Arquivo renomeado.');
+  //     refetch();
+  //   });
+  // }
 
   async function onDelete(id: string, fileType: string) {
     const endpoint =
@@ -72,6 +77,7 @@ const ExplorerFilesList = () => {
     fileType: string,
     privacy: string,
   ) {
+    setIsLoading(true);
     const bodyRequest = { id, fileType, privacy };
     const endpoint =
       bodyRequest.fileType === 'file'
@@ -80,6 +86,9 @@ const ExplorerFilesList = () => {
     await apiDashboard.patch(endpoint, bodyRequest).then(() => {
       toast.success('Privacidade de arquivo alterada.');
       refetch();
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
     });
   }
 
@@ -101,7 +110,7 @@ const ExplorerFilesList = () => {
             </StyledExplorerTd>
             <StyledExplorerTd>
               <DropdownButton icon={<DotsIcon />}>
-                <DropdownButtonItem>
+                {/* <DropdownButtonItem>
                   <DialogModal dialogTitle="Renomear" btn="Renomear">
                     <form onSubmit={handleSubmit(onUpdate)}>
                       <TextInput
@@ -128,7 +137,37 @@ const ExplorerFilesList = () => {
                     </form>
                   </DialogModal>
                 </DropdownButtonItem>
-                <DropdownButtonItem>Mover</DropdownButtonItem>
+                <DropdownButtonItem>Mover</DropdownButtonItem> */}
+                <DropdownButtonItem>
+                  <InfoDialogModal
+                    fileId={file.id}
+                    fileType={file.type}
+                    filePrivacy={file.privacy}
+                    dialogTitle="Informações"
+                    btn="Informações"
+                  >
+                    <InfoDialogModalItem label="Nome" value={file.name} />
+
+                    <InfoDialogModalItem
+                      label="Tamanho"
+                      value={`${(file.media.size / 1024 / 1024).toFixed(
+                        2,
+                      )} Mbs`}
+                    />
+
+                    <InfoDialogModalItem label="Local" value="---" />
+
+                    <InfoDialogModalItem
+                      label="Criado em"
+                      value={file.created_at}
+                    />
+
+                    <InfoDialogModalItem
+                      label="Privacidade"
+                      value={file.privacy}
+                    />
+                  </InfoDialogModal>
+                </DropdownButtonItem>
                 <DropdownButtonItem>
                   <DialogModal
                     dialogTitle="Excluir arquivo?"
@@ -152,7 +191,9 @@ const ExplorerFilesList = () => {
                     )
                   }
                 >
-                  {file.privacy === 'private'
+                  {isLoading
+                    ? 'Alterando...'
+                    : file.privacy === 'private'
                     ? 'Tornar público'
                     : 'Tornar privado'}
                 </DropdownButtonItem>

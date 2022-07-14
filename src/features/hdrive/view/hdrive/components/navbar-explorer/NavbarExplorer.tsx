@@ -9,9 +9,9 @@ import { Button } from '@components/forms/button';
 import { TextInput } from '@components/forms/text-input';
 import { apiDashboard } from '@services/app';
 
-import { DialogModal } from '../DialogModal/DialogModal';
-import { DropdownButton } from '../DropdownButton/DropdownButton';
-import { DropdownButtonItem } from '../DropdownButton/DropdownButtonItem';
+import { DialogModal } from '../dialog-modal/DialogModal';
+import { DropdownButton } from '../dropdown-button/DropdownButton';
+import { DropdownButtonItem } from '../dropdown-button/DropdownButtonItem';
 import {
   StyledLeftContent,
   StyledNavbarExplorer,
