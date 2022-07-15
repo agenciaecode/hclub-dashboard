@@ -18,7 +18,7 @@ type AlertConfirmationProps = {
   description: string | ReactElement;
   confirmButton?: ReactElement;
   confirmButtonText?: ReactNode;
-  cancelButtonText: ReactNode;
+  cancelButtonText?: ReactNode;
   onOk: AlertDialog.AlertDialogActionProps['onClick'];
   onCancel?: () => void;
   triggerButton: ReactElement | null;
@@ -73,6 +73,7 @@ AlertConfirmation.defaultProps = {
   onCancel: undefined,
   confirmButton: undefined,
   confirmButtonText: 'Confirmar',
+  cancelButtonText: 'Cancelar',
   onOpenChange: undefined,
 };
 

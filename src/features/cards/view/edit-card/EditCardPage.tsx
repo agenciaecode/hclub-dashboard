@@ -13,7 +13,6 @@ import previewImage from './unknown.png';
 
 import {
   FlexWrapper,
-  HiddenOnMobile,
   StyledContentWrapper,
   StyledFormsContainer,
   StyledHeader,
@@ -26,6 +25,7 @@ import { useCardSlug } from './hooks/useCardSlug';
 import { CardBlocks } from './sections/blocks';
 import { CardAvatar } from './sections/card-avatar';
 import { CardBiography } from './sections/card-bio';
+import { SetCardAsMainButton } from './sections/set-card-as-main';
 import { CardSocialMedias } from './sections/social-medias';
 
 const HCLUB_BASE_URL = process.env.APP_HCLUB_BASE_URL;
@@ -55,9 +55,7 @@ export const EditCardPage = () => {
               >
                 <Button btn="secondary">Visualizar</Button>
               </Link>
-              <Button btn="secondary">
-                Tornar <HiddenOnMobile> cartão </HiddenOnMobile>padrão
-              </Button>
+              <SetCardAsMainButton />
             </StyledToolbar>
           </StyledHeader>
           <StyledContentWrapper>
