@@ -119,7 +119,11 @@ export const TempImageFileInput = ({
         )}
       </StyledPreviewFigure>
       <Flex direction="column" gap="2">
-        <Text>Capa para o download</Text>
+        <Text>
+          {existingImageUrl
+            ? 'Selecione uma nova imagem'
+            : 'Selecione uma imagem'}
+        </Text>
         <LoadingButton
           btn="secondary"
           type="button"
