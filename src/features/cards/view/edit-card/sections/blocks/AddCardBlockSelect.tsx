@@ -49,9 +49,9 @@ export const AddCardBlockSelect = () => {
   return (
     <StyledSelectWrapper>
       <StyledSelect
-        label="Rede Social"
-        name="social-media-select"
-        id="social-media-select"
+        label="Bloco de informação"
+        name="block-select"
+        id="block-select"
         defaultValue={EMPTY_OPTION}
         onValueChange={handleCardBlockTypeSelectionChange}
         value={selectedBlockType?.type ?? EMPTY_OPTION}
