@@ -28,11 +28,11 @@ type ImageBlockInputs = OmitBlockTypeConfig<
   ImageBlock,
   'id' | 'width' | 'height'
 > & {
-  image_token: string;
+  image_token?: string; // required only on create
 };
 
 type DownloadBlockInputs = OmitBlockTypeConfig<DownloadBlock, 'cover'> & {
-  cover_token: string;
+  cover_token?: string; // required only on create
 };
 
 type BlockTypesInputs =
