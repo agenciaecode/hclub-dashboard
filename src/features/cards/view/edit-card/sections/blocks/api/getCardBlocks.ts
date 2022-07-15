@@ -10,6 +10,13 @@ import { ApiResponse } from '@/types/api-response';
 const VIDEO_BLOCK_PROVIDERS = ['youtube', 'vimeo'] as const;
 type VideoBlockProvider = typeof VIDEO_BLOCK_PROVIDERS[number];
 
+type ImageProperties = {
+  id: number;
+  width: number;
+  height: number;
+  url: string;
+};
+
 type VideoBlock = {
   type: 'video';
   config: {
@@ -29,10 +36,7 @@ type ExternalLinkBlock = {
 type ImageBlock = {
   type: 'image';
   config: {
-    id: number;
-    url: string;
-    width: string;
-    height: string;
+    image: ImageProperties;
   };
 };
 
@@ -40,12 +44,7 @@ type DownloadBlock = {
   type: 'download';
   config: {
     url: string;
-    cover: {
-      id: number;
-      url: string;
-      width: string;
-      height: string;
-    };
+    cover: ImageProperties;
   };
 };
 

@@ -24,10 +24,7 @@ type VideoBlockInputs = OmitBlockTypeConfig<VideoBlock, 'video_id'>;
 
 type ExternalLinkBlockInputs = OmitBlockTypeConfig<ExternalLinkBlock, never>;
 
-type ImageBlockInputs = OmitBlockTypeConfig<
-  ImageBlock,
-  'id' | 'width' | 'height'
-> & {
+type ImageBlockInputs = OmitBlockTypeConfig<ImageBlock, 'image'> & {
   image_token?: string; // required only on create
 };
 

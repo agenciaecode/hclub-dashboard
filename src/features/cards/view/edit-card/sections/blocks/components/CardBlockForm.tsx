@@ -7,6 +7,7 @@ import type { BlockTypes } from '../api/getCardBlocks';
 import type { BlockFormInputsProps } from './CardBlockFormSkeleton';
 import { DownloadBlockForm } from './DownloadBlockForm';
 import { ExternalLinkBlockForm } from './ExternalLinkBlockForm';
+import { ImageBlockForm } from './ImageBlockForm';
 import { VideoBlockForm } from './VideoBlockForm';
 
 export const CardBlockFormByType = ({
@@ -26,7 +27,9 @@ export const CardBlockFormByType = ({
         />
       );
     case 'image':
-      return <Text>TODO</Text>;
+      return (
+        <ImageBlockForm managingBlock={managingBlock} {...blockFormProps} />
+      );
     case 'download':
       return (
         <DownloadBlockForm managingBlock={managingBlock} {...blockFormProps} />
