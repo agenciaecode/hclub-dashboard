@@ -99,7 +99,7 @@ export const AddCardBlockSelect = () => {
         {selectedBlockType && (
           <CardBlockFormByType
             managingBlock={selectedBlockType as AnyBlockType}
-            handleSuccesfullFormSubmit={closeAddingBlockFormModal}
+            handleSuccessfulFormSubmit={closeAddingBlockFormModal}
           />
         )}
       </Modal>

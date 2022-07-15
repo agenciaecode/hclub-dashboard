@@ -20,14 +20,14 @@ import type { AnyBlockType, Block, BlockTypes } from '../api/getCardBlocks';
 export type CardBlockFormSkeletonProps = WithChildren<{
   managingBlock: AnyBlockType;
   isSubmitting: boolean;
-  isSubmitSuccesful: boolean;
+  isSubmitSuccessful: boolean;
   handleFormSubmit: (event: SyntheticEvent) => Promise<void>;
-  handleSuccesfullFormSubmit: () => void;
+  handleSuccessfulFormSubmit: () => void;
 }>;
 
 export type BlockFormInputsProps<BlockType extends BlockTypes> = Pick<
   CardBlockFormSkeletonProps,
-  'handleSuccesfullFormSubmit'
+  'handleSuccessfulFormSubmit'
 > & {
   managingBlock: Block<BlockType>;
 };
@@ -35,9 +35,9 @@ export type BlockFormInputsProps<BlockType extends BlockTypes> = Pick<
 export const CardBlockFormSkeleton = ({
   managingBlock,
   isSubmitting,
-  isSubmitSuccesful,
+  isSubmitSuccessful,
   handleFormSubmit,
-  handleSuccesfullFormSubmit,
+  handleSuccessfulFormSubmit,
   children,
 }: CardBlockFormSkeletonProps) => (
   <>
@@ -65,10 +65,10 @@ export const CardBlockFormSkeleton = ({
         <LoadingButton
           onAnimationFinished={async () => {
             await animationDelay();
-            handleSuccesfullFormSubmit();
+            handleSuccessfulFormSubmit();
           }}
           isLoading={isSubmitting}
-          isSuccess={isSubmitSuccesful}
+          isSuccess={isSubmitSuccessful}
         >
           Salvar
         </LoadingButton>

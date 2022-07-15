@@ -42,7 +42,7 @@ const [defaultProviderOption] = VIDEO_BLOCK_PROVIDERS;
 
 export const VideoBlockForm = ({
   managingBlock,
-  handleSuccesfullFormSubmit,
+  handleSuccessfulFormSubmit,
 }: BlockFormInputsProps<VideoBlock>) => {
   const isEditMode = notNullish(managingBlock.id);
 
@@ -80,8 +80,8 @@ export const VideoBlockForm = ({
     <CardBlockFormSkeleton
       managingBlock={managingBlock}
       handleFormSubmit={handleAddVideoSubmit}
-      handleSuccesfullFormSubmit={handleSuccesfullFormSubmit}
-      isSubmitSuccesful={cardBlockMutation.isSuccess}
+      handleSuccessfulFormSubmit={handleSuccessfulFormSubmit}
+      isSubmitSuccessful={cardBlockMutation.isSuccess}
       isSubmitting={cardBlockMutation.isLoading}
     >
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}

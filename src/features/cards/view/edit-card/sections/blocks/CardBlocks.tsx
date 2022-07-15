@@ -171,7 +171,7 @@ export const CardBlocks = () => {
         {editingBlock && (
           <CardBlockFormByType
             managingBlock={editingBlock}
-            handleSuccesfullFormSubmit={closeEditBlockModal}
+            handleSuccessfulFormSubmit={closeEditBlockModal}
           />
         )}
       </Modal>

@@ -28,7 +28,7 @@ const externalLinkFormSchema = yup
 
 export const ExternalLinkBlockForm = ({
   managingBlock,
-  handleSuccesfullFormSubmit,
+  handleSuccessfulFormSubmit,
 }: BlockFormInputsProps<ExternalLinkBlock>) => {
   const isEditMode = notNullish(managingBlock.id);
 
@@ -60,8 +60,8 @@ export const ExternalLinkBlockForm = ({
     <CardBlockFormSkeleton
       managingBlock={managingBlock}
       handleFormSubmit={handleSaveExternalLinkBlockSubmit}
-      handleSuccesfullFormSubmit={handleSuccesfullFormSubmit}
-      isSubmitSuccesful={cardBlockMutation.isSuccess}
+      handleSuccessfulFormSubmit={handleSuccessfulFormSubmit}
+      isSubmitSuccessful={cardBlockMutation.isSuccess}
       isSubmitting={cardBlockMutation.isLoading}
     >
       {isEditMode && (
