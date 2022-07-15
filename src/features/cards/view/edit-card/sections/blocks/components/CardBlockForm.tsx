@@ -5,6 +5,7 @@ import { Text } from '@components/typography/text';
 
 import type { BlockTypes } from '../api/getCardBlocks';
 import type { BlockFormInputsProps } from './CardBlockFormSkeleton';
+import { DownloadBlockForm } from './DownloadBlockForm';
 import { ExternalLinkBlockForm } from './ExternalLinkBlockForm';
 import { VideoBlockForm } from './VideoBlockForm';
 
@@ -27,7 +28,9 @@ export const CardBlockFormByType = ({
     case 'image':
       return <Text>TODO</Text>;
     case 'download':
-      return <Text>TODO</Text>;
+      return (
+        <DownloadBlockForm managingBlock={managingBlock} {...blockFormProps} />
+      );
     default:
       return <Text color="negative">Erro - bloco inválido</Text>;
   }
