@@ -23,11 +23,14 @@ export const StyledFlex = styled('div', {
       },
     },
     gap: {
-      '3.2': {
-        gap: '3.2rem',
-      },
       '0.8': {
         gap: '0.8rem',
+      },
+      2: {
+        gap: '2rem',
+      },
+      '3.2': {
+        gap: '3.2rem',
       },
     },
     alignItems: {
