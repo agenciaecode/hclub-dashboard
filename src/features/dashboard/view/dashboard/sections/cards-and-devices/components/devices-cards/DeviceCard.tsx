@@ -53,22 +53,22 @@ const DeviceCard = ({ device, isLastDevice }: DeviceCardProps) => (
       </StyledFrontCardBody>
     }
     backContent={
-      <Tooltip
-        // open
-        content={
-          <WrappableText>
-            Dispositivo: {device.product_name}
-            <br />
-            Nº de Serie: {device.serial_number}
-          </WrappableText>
-        }
-      >
-        <StyledDeviceOptions>
-          <UnlinkDeviceButton device={device} isLastDevice={isLastDevice} />
-          <LostDeviceButton device={device} />
-          <SelectDefaultCardButton device={device} />
-        </StyledDeviceOptions>
-      </Tooltip>
+      // <Tooltip
+      //   // open
+      //   content={
+      //     <WrappableText>
+      //       Dispositivo: {device.product_name}
+      //       <br />
+      //       Nº de Serie: {device.serial_number}
+      //     </WrappableText>
+      //   }
+      // >
+      <StyledDeviceOptions>
+        <UnlinkDeviceButton device={device} isLastDevice={isLastDevice} />
+        <LostDeviceButton device={device} />
+        <SelectDefaultCardButton device={device} />
+      </StyledDeviceOptions>
+      // </Tooltip>
     }
   />
 );
