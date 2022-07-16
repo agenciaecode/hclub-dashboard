@@ -28,6 +28,7 @@ import { CardBiography } from './sections/card-bio';
 import { SetCardAsMainButton } from './sections/set-card-as-main';
 import { CardSocialMedias } from './sections/social-medias';
 import { ToggleDarkTheme } from './sections/toggle-dark-theme';
+import { ToggleCardNewsletter } from './sections/toggle-newsletter';
 
 const HCLUB_BASE_URL = process.env.APP_HCLUB_BASE_URL;
 
@@ -66,6 +67,8 @@ export const EditCardPage = () => {
               <CardBiography />
               <Separator />
               <ToggleDarkTheme />
+              <Separator />
+              <ToggleCardNewsletter />
               <Separator />
               <CardSocialMedias />
               <CardBlocks />
