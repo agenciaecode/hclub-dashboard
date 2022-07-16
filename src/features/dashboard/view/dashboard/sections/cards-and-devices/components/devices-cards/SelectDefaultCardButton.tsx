@@ -60,7 +60,7 @@ export const SelectDefaultCardButton = ({
     <DescriptiveModal
       title="Definir cartão padrão"
       description={`Defina o cartão padrão para o dispositivo ${device.product_name}.`}
-      triggerButton={<StyledButton>Padrão da conta</StyledButton>}
+      triggerButton={<StyledButton>Card padrão</StyledButton>}
     >
       <form onSubmit={handleDefaultCardChangeSubmit}>
         {(cardListQuery.isLoading && <Spinner />) ||
