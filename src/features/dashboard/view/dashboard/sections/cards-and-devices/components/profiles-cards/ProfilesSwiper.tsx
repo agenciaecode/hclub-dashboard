@@ -29,7 +29,11 @@ export const ProfilesSwiper = forwardRef<
       <Swiper>
         {cardList?.map(card => (
           <SwiperSlide key={card.id}>
-            <ProfileCard title={card.type_label} type={card.type} />
+            <ProfileCard
+              title={card.type_label}
+              type={card.type}
+              isDefault={card.default}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
