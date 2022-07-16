@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { Switch, SwitchThumb } from '@components/forms/switch';
 import { Tooltip } from '@components/overlay/tooltip';
-import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHandler';
+import { fromHttpException } from '@services/http/default-exception-handler-factory';
 
 import { useShowCardQuery } from '../../api/showCard';
 import { SectionWrapper } from '../../components/section-wrapper';
@@ -21,10 +21,6 @@ export const ToggleDarkTheme = () => {
   const updateCardThemeMutation = useUpdateCardThemeMutation();
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
-  useHttpExceptionHandler(updateCardThemeMutation.error, exceptionHandler =>
-    exceptionHandler.executeHandler(),
-  );
-
   useEffect(() => {
     if (showCardQuery.data) {
       setIsDarkTheme(isCardInDarkMode(showCardQuery.data));
@@ -40,6 +36,9 @@ export const ToggleDarkTheme = () => {
         theme: isDark ? 'dark' : 'light',
       },
       {
+        onError: (error: unknown) => {
+          fromHttpException(error).executeHandler();
+        },
         onSettled: () => updateCardThemeMutation.reset(),
       },
     );
