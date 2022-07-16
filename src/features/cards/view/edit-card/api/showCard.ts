@@ -26,6 +26,8 @@ type ShowCardOutput = {
   };
 };
 
+type Card = ShowCardOutput;
+
 async function showCard({ card }: ShowCardInput) {
   return http.get<ShowCardOutput>(`/cards/${card}`);
 }
@@ -36,4 +38,4 @@ const useShowCardQuery = (cardQuery: ShowCardInput) =>
   });
 
 export { useShowCardQuery };
-export type { ShowCardInput, ShowCardOutput };
+export type { ShowCardInput, ShowCardOutput, Card };
