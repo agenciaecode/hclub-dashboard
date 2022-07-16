@@ -17,6 +17,7 @@ type ShowCardOutput = {
   theme: 'dark' | 'light';
   newsletter: boolean;
   pix: boolean;
+  default: boolean;
   avatar?: {
     id: number;
     url: string;
