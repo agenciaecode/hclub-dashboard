@@ -129,8 +129,10 @@ export const CardBlocks = () => {
                   gap="0.8"
                   css={{ marginRight: 'auto' }}
                 >
-                  <Text size="xl">{cardBlock.type_label}</Text>
-                  {cardBlock.title && <Text>{cardBlock.title}</Text>}
+                  <Text size="xl" breakWord>
+                    {cardBlock.type_label}
+                  </Text>
+                  {cardBlock.title && <Text breakWord>{cardBlock.title}</Text>}
                 </Flex>
                 <StyledControlsWrapper>
                   <EditButton onClick={() => setEditingBlock(cardBlock)} />

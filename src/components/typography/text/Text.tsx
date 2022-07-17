@@ -39,6 +39,11 @@ export const Text = styled('span', {
         lineHeight: '$3xl',
       },
     },
+    breakWord: {
+      true: {
+        wordBreak: 'break-all',
+      },
+    },
   },
   defaultVariants: {
     color: 'primary',

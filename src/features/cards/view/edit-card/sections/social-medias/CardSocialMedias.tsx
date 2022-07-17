@@ -138,8 +138,10 @@ export const CardSocialMedias = () => {
                   gap="0.8"
                   css={{ marginRight: 'auto' }}
                 >
-                  <Text size="xl">{socialMedia.name}</Text>
-                  <Text>@{socialMedia.value}</Text>
+                  <Text size="xl" breakWord>
+                    {socialMedia.name}
+                  </Text>
+                  <Text breakWord>@{socialMedia.value}</Text>
                 </Flex>
                 <StyledControlsWrapper>
                   <EditButton
