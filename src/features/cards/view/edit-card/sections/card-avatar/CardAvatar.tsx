@@ -50,6 +50,7 @@ export const CardAvatar = () => {
                 }
                 layout="fill"
                 alt="avatar"
+                objectFit="cover"
               />
               {showCardQuery.data.avatar?.url && (
                 <DeleteCardAvatarButton card={cardSlug} />

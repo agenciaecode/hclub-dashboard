@@ -36,6 +36,7 @@ export const DesktopHeader = () => {
               width={userProfile?.avatar?.url ? 120 : 60}
               height={userProfile?.avatar?.url ? 120 : 60}
               alt="Avatar"
+              objectFit="cover"
             />
           ) : (
             <Spinner css={{ margin: '5rem 5rem' }} />

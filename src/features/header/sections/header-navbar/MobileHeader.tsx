@@ -28,6 +28,67 @@ import {
   StyledButtonsToolbar,
 } from './MobileHeader.styles';
 
+const CloseMobileMenuButton = () => (
+  <CollapsibleTrigger asChild>
+    <StyledMenuButton type="button" css={{ alignSelf: 'flex-end' }}>
+      <CloseMenuSvgIcon />
+      <VisuallyHidden>Fechar menu de navegação</VisuallyHidden>
+    </StyledMenuButton>
+  </CollapsibleTrigger>
+);
+
+export const MobileHeader = () => {
+  const { data: userProfile, isSuccess } = useUserProfileQuery();
+
+  return (
+    <StyledMobileHeaderWrapper>
+      <Link href="/dashboard">
+        <HmanLogoWhite />
+      </Link>
+      <Collapsible
+        trigger={
+          <StyledMenuButton type="button">
+            <HamburgerMenuSvgIcon />
+            <VisuallyHidden>Abrir menu de navegação</VisuallyHidden>
+          </StyledMenuButton>
+        }
+      >
+        <Portal asChild>
+          <StyledMobileNavigation>
+            <CloseMobileMenuButton />
+            <StyledAvatarWrapper>
+              <Link href="/dashboard">
+                {isSuccess ? (
+                  <StyledUserAvatar
+                    src={userProfile?.avatar?.url ?? defaultAvatar}
+                    width={userProfile?.avatar?.url ? 120 : 100}
+                    height={userProfile?.avatar?.url ? 120 : 100}
+                    objectFit="cover"
+                  />
+                ) : (
+                  <Spinner css={{ margin: '5rem 5rem' }} />
+                )}
+              </Link>
+            </StyledAvatarWrapper>
+            <StyledUserName>
+              {userProfile?.name ?? 'carregando...'}
+            </StyledUserName>
+            <StyledUserEmail>
+              {userProfile?.email ?? 'carregando...'}
+            </StyledUserEmail>
+            <StyledSeparator />
+            <AccountManage mobile />
+            <StyledButtonsToolbar>
+              <FeedbackButton />
+              <LogoutButton />
+            </StyledButtonsToolbar>
+          </StyledMobileNavigation>
+        </Portal>
+      </Collapsible>
+    </StyledMobileHeaderWrapper>
+  );
+};
+
 const HmanLogoWhite = () => (
   <Image src={logoImage} alt="H.man Logo" width={60} height={60} />
 );
@@ -88,63 +149,3 @@ const CloseMenuSvgIcon = () => (
     />
   </svg>
 );
-
-const CloseMobileMenuButton = () => (
-  <CollapsibleTrigger asChild>
-    <StyledMenuButton type="button" css={{ alignSelf: 'flex-end' }}>
-      <CloseMenuSvgIcon />
-      <VisuallyHidden>Fechar menu de navegação</VisuallyHidden>
-    </StyledMenuButton>
-  </CollapsibleTrigger>
-);
-
-export const MobileHeader = () => {
-  const { data: userProfile, isSuccess } = useUserProfileQuery();
-
-  return (
-    <StyledMobileHeaderWrapper>
-      <Link href="/dashboard">
-        <HmanLogoWhite />
-      </Link>
-      <Collapsible
-        trigger={
-          <StyledMenuButton type="button">
-            <HamburgerMenuSvgIcon />
-            <VisuallyHidden>Abrir menu de navegação</VisuallyHidden>
-          </StyledMenuButton>
-        }
-      >
-        <Portal asChild>
-          <StyledMobileNavigation>
-            <CloseMobileMenuButton />
-            <StyledAvatarWrapper>
-              <Link href="/dashboard">
-                {isSuccess ? (
-                  <StyledUserAvatar
-                    src={userProfile?.avatar?.url ?? defaultAvatar}
-                    width={userProfile?.avatar?.url ? 120 : 100}
-                    height={userProfile?.avatar?.url ? 120 : 100}
-                  />
-                ) : (
-                  <Spinner css={{ margin: '5rem 5rem' }} />
-                )}
-              </Link>
-            </StyledAvatarWrapper>
-            <StyledUserName>
-              {userProfile?.name ?? 'carregando...'}
-            </StyledUserName>
-            <StyledUserEmail>
-              {userProfile?.email ?? 'carregando...'}
-            </StyledUserEmail>
-            <StyledSeparator />
-            <AccountManage mobile />
-            <StyledButtonsToolbar>
-              <FeedbackButton />
-              <LogoutButton />
-            </StyledButtonsToolbar>
-          </StyledMobileNavigation>
-        </Portal>
-      </Collapsible>
-    </StyledMobileHeaderWrapper>
-  );
-};

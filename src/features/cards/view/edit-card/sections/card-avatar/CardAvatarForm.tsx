@@ -100,7 +100,12 @@ export const CardAvatarForm = memo(
         <StyledFlexRow>
           <StyledFigureContainer>
             {previewUrl && (
-              <RoundedImage src={previewUrl} layout="fill" alt="avatar" />
+              <RoundedImage
+                src={previewUrl}
+                layout="fill"
+                alt="avatar"
+                objectFit="cover"
+              />
             )}
             {!previewUrl &&
               (showCardQuery.isSuccess ? (
@@ -112,6 +117,7 @@ export const CardAvatarForm = memo(
                   }
                   layout="fill"
                   alt="avatar"
+                  objectFit="cover"
                 />
               ) : (
                 <Spinner color="secondary" css={{ margin: '5rem 5rem' }} />
