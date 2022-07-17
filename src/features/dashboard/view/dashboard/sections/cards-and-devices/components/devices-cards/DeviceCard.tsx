@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
 
-import { Tooltip } from '@components/overlay/tooltip';
-
 import { Device } from '@features/devices';
 
 import {
@@ -13,7 +11,6 @@ import {
   StyledFlippableCard,
   StyledFrontCardBody,
   StyledImageWrapper,
-  WrappableText,
 } from './DeviceCard.styles';
 import { LostDeviceButton } from './LostDeviceButton';
 import { SelectDefaultCardButton } from './SelectDefaultCardButton';
