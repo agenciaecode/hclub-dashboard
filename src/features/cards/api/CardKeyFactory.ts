@@ -6,8 +6,8 @@ export const CardKeys = {
   show: (card: CardType) => [...CardKeys.all, 'show', card] as const,
   listSocialMedias: () => ['social-medias'] as const,
   showSocialMedias: (card: CardType) =>
-    [...CardKeys.all, 'show', card, ...CardKeys.listSocialMedias()] as const,
+    ['show', card, ...CardKeys.listSocialMedias()] as const,
   listBlocks: () => ['blocks'] as const,
   showBlocks: (card: CardType) =>
-    [...CardKeys.all, 'show', card, ...CardKeys.listBlocks()] as const,
+    ['show', card, ...CardKeys.listBlocks()] as const,
 };
