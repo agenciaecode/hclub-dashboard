@@ -9,22 +9,22 @@ import { animationDelay } from '@utils/animation/animation-delay';
 import { useShowCardQuery } from '../../api/showCard';
 import { HiddenOnMobile } from '../../EditCardPage.styles';
 import { useCardSlug } from '../../hooks/useCardSlug';
-import { useSetCardAsMainMutation } from './api/setCardAsMain';
+import { useSetCardAsDefaultMutation } from './api/setCardAsDefault';
 
-export const SetCardAsMainButton = () => {
+export const SetCardAsDefaultButton = () => {
   const card = useCardSlug();
   const showCardQuery = useShowCardQuery({
     card,
   });
-  const setCardAsMainMutation = useSetCardAsMainMutation();
+  const setCardAsDefaultMutation = useSetCardAsDefaultMutation();
 
-  useHttpExceptionHandler(setCardAsMainMutation.error, exceptionHandler =>
+  useHttpExceptionHandler(setCardAsDefaultMutation.error, exceptionHandler =>
     exceptionHandler.executeHandler(),
   );
 
   function handleSetCardAsMainConfirmation() {
-    if (setCardAsMainMutation.isLoading) return;
-    setCardAsMainMutation.mutate(
+    if (setCardAsDefaultMutation.isLoading) return;
+    setCardAsDefaultMutation.mutate(
       {
         card,
       },
@@ -40,18 +40,18 @@ export const SetCardAsMainButton = () => {
 
   return (
     <AlertConfirmation
-      title="Tornar cartão principal"
-      description="Você tem certeza que deseja tornar este cartão o principal de sua conta?"
+      title="Tornar cartão padrão"
+      description="Você tem certeza que deseja tornar este cartão o padrão da sua conta?"
       onOk={handleSetCardAsMainConfirmation}
       triggerButton={
         <LoadingButton
           btn="secondary"
           disabled={!showCardQuery.isSuccess || showCardQuery.data.default}
-          isLoading={setCardAsMainMutation.isLoading}
-          isSuccess={setCardAsMainMutation.isSuccess}
+          isLoading={setCardAsDefaultMutation.isLoading}
+          isSuccess={setCardAsDefaultMutation.isSuccess}
           onAnimationFinished={async () => {
             await animationDelay();
-            setCardAsMainMutation.reset();
+            setCardAsDefaultMutation.reset();
           }}
         >
           {showCardQuery.isSuccess &&

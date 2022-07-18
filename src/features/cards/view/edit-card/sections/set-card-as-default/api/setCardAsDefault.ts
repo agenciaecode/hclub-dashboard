@@ -10,13 +10,13 @@ type setCardAsMainInput = {
   card: CardType;
 };
 
-function setCardAsMain({ card }: setCardAsMainInput) {
+function setCardAsDefault({ card }: setCardAsMainInput) {
   return http.post(`/cards/${card}/default-card`, undefined);
 }
 
-const useSetCardAsMainMutation = () => {
+const useSetCardAsDefaultMutation = () => {
   const queryClient = useQueryClient();
-  return useMutation(setCardAsMain, {
+  return useMutation(setCardAsDefault, {
     onSuccess(_, { card }) {
       queryClient.invalidateQueries(CardKeys.show(card));
       queryClient.invalidateQueries(CardKeys.list());
@@ -24,5 +24,5 @@ const useSetCardAsMainMutation = () => {
   });
 };
 
-export { useSetCardAsMainMutation };
+export { useSetCardAsDefaultMutation };
 export type { setCardAsMainInput };

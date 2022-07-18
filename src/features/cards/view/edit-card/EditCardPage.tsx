@@ -26,7 +26,7 @@ import { useCardSlug } from './hooks/useCardSlug';
 import { CardBlocks } from './sections/blocks';
 import { CardAvatar } from './sections/card-avatar';
 import { CardBiography } from './sections/card-bio';
-import { SetCardAsMainButton } from './sections/set-card-as-main';
+import { SetCardAsDefaultButton } from './sections/set-card-as-default';
 import { CardSocialMedias } from './sections/social-medias';
 import { ToggleDarkTheme } from './sections/toggle-dark-theme';
 import { ToggleCardNewsletter } from './sections/toggle-newsletter';
@@ -59,7 +59,7 @@ export const EditCardPage = () => {
                 >
                   <Button btn="secondary">Visualizar</Button>
                 </Link>
-                <SetCardAsMainButton />
+                <SetCardAsDefaultButton />
               </Flex>
             </StyledToolbar>
           </StyledHeader>
