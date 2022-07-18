@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Separator } from '@components/data-display/separator';
 import { Spinner } from '@components/feedback/spinner';
 import { Button } from '@components/forms/button';
+import { Flex } from '@components/layout/flex';
 import { PageContent } from '@components/layout/page-content';
 import { Link } from '@components/navigator/link';
 import { ResponsiveBackButton } from '@components/others/back-button';
@@ -50,14 +51,16 @@ export const EditCardPage = () => {
               <StyledTitle>Editar informações</StyledTitle>
             </FlexWrapper>
             <StyledToolbar>
-              <Link
-                href={`${HCLUB_BASE_URL}/${user.username}/${cardSlug}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button btn="secondary">Visualizar</Button>
-              </Link>
-              <SetCardAsMainButton />
+              <Flex justifyContent="center" gap="1-6" flexWrap>
+                <Link
+                  href={`${HCLUB_BASE_URL}/${user.username}/${cardSlug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button btn="secondary">Visualizar</Button>
+                </Link>
+                <SetCardAsMainButton />
+              </Flex>
             </StyledToolbar>
           </StyledHeader>
           <StyledContentWrapper>

@@ -126,7 +126,7 @@ export const CardBlocks = () => {
                 />
                 <Flex
                   direction="column"
-                  gap="0.8"
+                  gap="0-8"
                   css={{ marginRight: 'auto' }}
                 >
                   <Text size="xl" breakWord>

@@ -59,7 +59,7 @@ export const SetCardAsMainButton = () => {
               'Cartão Principal'
             ) : (
               <>
-                Tornar <HiddenOnMobile> cartão </HiddenOnMobile>principal
+                Tornar <HiddenOnMobile> cartão </HiddenOnMobile>padrão
               </>
             ))}
           {showCardQuery.isError && (
