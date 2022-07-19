@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import React from 'react';
 
 import { CollapsibleTrigger } from '@radix-ui/react-collapsible';
 import { Portal } from '@radix-ui/react-portal';
@@ -6,16 +7,17 @@ import { Portal } from '@radix-ui/react-portal';
 import { Collapsible } from '@components/data-display/collapsible';
 import { VisuallyHidden } from '@components/disclosure/visually-hidden';
 import { Spinner } from '@components/feedback/spinner';
+import { UserIcon } from '@components/icons/user-icon';
 import { Link } from '@components/navigator/link';
 
 import { useUserProfileQuery } from '@features/user';
 
 import logoImage from '@assets/images/logo-hman-white.svg';
-import defaultAvatar from '@assets/images/user-avatar.svg';
 
 import { AccountManage } from './components/account-manage';
 import { FeedbackButton } from './components/feedback-button';
 import { LogoutButton } from './components/logout-button/LogoutButton';
+import { StyledFigureContainer } from './DesktopHeader.styles';
 import {
   StyledUserAvatar,
   StyledMenuButton,
@@ -58,16 +60,25 @@ export const MobileHeader = () => {
             <CloseMobileMenuButton />
             <StyledAvatarWrapper>
               <Link href="/dashboard">
-                {isSuccess ? (
-                  <StyledUserAvatar
-                    src={userProfile?.avatar?.url ?? defaultAvatar}
-                    width={userProfile?.avatar?.url ? 120 : 100}
-                    height={userProfile?.avatar?.url ? 120 : 100}
-                    objectFit="cover"
-                  />
-                ) : (
-                  <Spinner css={{ margin: '5rem 5rem' }} />
-                )}
+                <StyledFigureContainer>
+                  <VisuallyHidden>Avatar</VisuallyHidden>
+                  {/* eslint-disable-next-line no-nested-ternary */}
+                  {isSuccess ? (
+                    userProfile?.avatar?.url ? (
+                      <StyledUserAvatar
+                        src={userProfile.avatar.url}
+                        width={120}
+                        height={120}
+                        alt="Avatar"
+                        objectFit="cover"
+                      />
+                    ) : (
+                      <UserIcon />
+                    )
+                  ) : (
+                    <Spinner css={{ margin: '5rem 5rem' }} />
+                  )}
+                </StyledFigureContainer>
               </Link>
             </StyledAvatarWrapper>
             <StyledUserName>

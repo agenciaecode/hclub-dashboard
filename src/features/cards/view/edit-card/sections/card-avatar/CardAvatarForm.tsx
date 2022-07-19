@@ -6,6 +6,7 @@ import { Spinner } from '@components/feedback/spinner';
 import { Button } from '@components/forms/button';
 import { ErrorLabel } from '@components/forms/error-label';
 import { LoadingButton } from '@components/forms/loading-button';
+import { UserIcon } from '@components/icons/user-icon';
 import { DialogClose } from '@components/overlay/modal';
 import { setFormErrorsFromException, useFormWithSchema } from '@libs/hook-form';
 import { showToastSuccessMessage } from '@libs/toast/showToastMessage';
@@ -14,8 +15,6 @@ import { animationDelay } from '@utils/animation/animation-delay';
 
 import { CardType } from '@features/cards';
 import { useUserProfileQuery } from '@features/user';
-
-import defaultAvatar from '@assets/images/user-avatar.svg';
 
 import { useShowCardQuery } from '../../api/showCard';
 import {
@@ -95,6 +94,9 @@ export const CardAvatarForm = memo(
       },
     );
 
+    const avatarUrl =
+      showCardQuery.data?.avatar?.url ?? userProfileQuery.data?.avatar?.url;
+
     return (
       <form onSubmit={handleSetAvatarFormSubmit}>
         <StyledFlexRow>
@@ -109,16 +111,20 @@ export const CardAvatarForm = memo(
             )}
             {!previewUrl &&
               (showCardQuery.isSuccess ? (
-                <RoundedImage
-                  src={
-                    showCardQuery.data.avatar?.url ??
-                    userProfileQuery.data?.avatar?.url ??
-                    defaultAvatar
-                  }
-                  layout="fill"
-                  alt="avatar"
-                  objectFit="cover"
-                />
+                // eslint-disable-next-line react/jsx-no-useless-fragment
+                <>
+                  {avatarUrl ? (
+                    <RoundedImage
+                      className="avatar"
+                      src={avatarUrl}
+                      layout="fill"
+                      alt="avatar"
+                      objectFit="cover"
+                    />
+                  ) : (
+                    <UserIcon />
+                  )}
+                </>
               ) : (
                 <Spinner color="secondary" css={{ margin: '5rem 5rem' }} />
               ))}

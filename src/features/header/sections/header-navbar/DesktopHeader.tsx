@@ -1,12 +1,13 @@
+import React from 'react';
+
 import { VisuallyHidden } from '@components/disclosure/visually-hidden';
 import { Spinner } from '@components/feedback/spinner';
+import { UserIcon } from '@components/icons/user-icon/UserIcon';
 import { Link } from '@components/navigator/link';
 import { LogoutConfirmation } from '@components/overlay/logout-confirmation';
 import { Tooltip } from '@components/overlay/tooltip';
 
 import { useUserProfileQuery } from '@features/user';
-
-import defaultAvatar from '@assets/images/user-avatar.svg';
 
 import { AccountManage } from './components/account-manage';
 import { FeedbackButton } from './components/feedback-button';
@@ -20,6 +21,7 @@ import {
   StyledUserName,
   StyledUserEmail,
   StyledSeparator,
+  StyledFigureContainer,
 } from './DesktopHeader.styles';
 
 export const DesktopHeader = () => {
@@ -29,18 +31,25 @@ export const DesktopHeader = () => {
     <StyledDesktopHeaderWrapper>
       <StyledAccountSection>
         <Link href="/dashboard">
-          <VisuallyHidden>Avatar</VisuallyHidden>
-          {isSuccess ? (
-            <StyledUserAvatar
-              src={userProfile?.avatar?.url ?? defaultAvatar}
-              width={userProfile?.avatar?.url ? 120 : 60}
-              height={userProfile?.avatar?.url ? 120 : 60}
-              alt="Avatar"
-              objectFit="cover"
-            />
-          ) : (
-            <Spinner css={{ margin: '5rem 5rem' }} />
-          )}
+          <StyledFigureContainer>
+            <VisuallyHidden>Avatar</VisuallyHidden>
+            {/* eslint-disable-next-line no-nested-ternary */}
+            {isSuccess ? (
+              userProfile?.avatar?.url ? (
+                <StyledUserAvatar
+                  src={userProfile.avatar.url}
+                  width={120}
+                  height={120}
+                  alt="Avatar"
+                  objectFit="cover"
+                />
+              ) : (
+                <UserIcon />
+              )
+            ) : (
+              <Spinner css={{ margin: '5rem 5rem' }} />
+            )}
+          </StyledFigureContainer>
         </Link>
         <StyledUserInfo>
           <Tooltip content={userProfile?.name ?? 'carregando...'}>

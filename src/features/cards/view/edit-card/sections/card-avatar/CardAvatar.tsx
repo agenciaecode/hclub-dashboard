@@ -5,6 +5,7 @@ import { Cross1Icon } from '@radix-ui/react-icons';
 
 import { Spinner } from '@components/feedback/spinner';
 import { Button } from '@components/forms/button';
+import { UserIcon } from '@components/icons/user-icon/UserIcon';
 import { AlertConfirmation } from '@components/overlay/alert-dialog';
 import { DescriptiveModal } from '@components/overlay/modal';
 import { showToastSuccessMessage } from '@libs/toast/showToastMessage';
@@ -12,8 +13,6 @@ import { useHttpExceptionHandler } from '@services/http/hooks/useHttpExceptionHa
 
 import type { CardType } from '@features/cards';
 import { useUserProfileQuery } from '@features/user';
-
-import defaultAvatar from '@assets/images/user-avatar.svg';
 
 import { useShowCardQuery } from '../../api/showCard';
 import { SectionWrapper } from '../../components/section-wrapper';
@@ -35,25 +34,31 @@ export const CardAvatar = () => {
     card: cardSlug,
   });
 
+  const avatarUrl =
+    showCardQuery.data?.avatar?.url ?? userProfileQuery.data?.avatar?.url;
+
   return (
     <SectionWrapper title="Foto de Perfil">
       <StyledContentWrapper>
         <StyledFigureContainer css={{ borderRadius: 'unset' }}>
           {showCardQuery.isSuccess ? (
             <>
-              <RoundedImage
-                className="avatar"
-                src={
-                  showCardQuery.data?.avatar?.url ??
-                  userProfileQuery.data?.avatar?.url ??
-                  defaultAvatar
-                }
-                layout="fill"
-                alt="avatar"
-                objectFit="cover"
-              />
+              {avatarUrl ? (
+                <RoundedImage
+                  className="avatar"
+                  src={avatarUrl}
+                  layout="fill"
+                  alt="avatar"
+                  objectFit="cover"
+                />
+              ) : (
+                <UserIcon />
+              )}
               {showCardQuery.data.avatar?.url && (
-                <DeleteCardAvatarButton card={cardSlug} />
+                <DeleteCardAvatarButton
+                  aria-label="default user avatar"
+                  card={cardSlug}
+                />
               )}
             </>
           ) : (

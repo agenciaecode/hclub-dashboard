@@ -32,6 +32,17 @@ const StyledAccountSection = styled('section', {
   justifyContent: 'center',
 });
 
+const StyledFigureContainer = styled('figure', {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'relative',
+  $$sizing: '12rem',
+  width: '$$sizing',
+  height: '$$sizing',
+  color: '$textWhite',
+});
+
 const StyledUserAvatar = styled(Image, {
   borderRadius: '50%',
 });
@@ -82,6 +93,7 @@ export {
   StyledButtonsToolbar,
   StyledLogoutButton,
   StyledAccountSection,
+  StyledFigureContainer,
   StyledUserAvatar,
   StyledUserInfo,
   StyledUserName,

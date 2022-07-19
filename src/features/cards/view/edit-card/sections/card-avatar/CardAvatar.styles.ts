@@ -15,11 +15,15 @@ const StyledContentWrapper = styled('div', {
 });
 
 const StyledFigureContainer = styled('figure', {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   position: 'relative',
   overflow: 'hidden',
   $$sizing: '12rem',
   width: '$$sizing',
   height: '$$sizing',
+  color: '$textBlack',
   '@md': {
     $$desktopSizing: '13.5rem',
     width: '$$desktopSizing',
