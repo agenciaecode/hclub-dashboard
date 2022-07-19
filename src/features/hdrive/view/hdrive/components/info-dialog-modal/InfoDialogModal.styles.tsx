@@ -139,11 +139,11 @@ const StyledDialogContentImg = styled('img', {
 
 const StyledDialogContentBottom = styled('div', {
   display: 'flex',
+  height: '100%',
+  justifyContent: 'end',
   width: '100%',
   flexDirection: 'column',
-  position: 'absolute',
   padding: '2rem',
-  bottom: 0,
 });
 
 const StyledDialogButton = styled('button', {
