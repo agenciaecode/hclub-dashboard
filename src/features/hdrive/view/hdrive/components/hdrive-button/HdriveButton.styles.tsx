@@ -17,10 +17,18 @@ const StyledHdriveButton = styled('button', {
         lineHeight: '2.8rem',
       },
       big: {
-        fontStyle: 'normal',
-        fontWeight: '400',
-        fontSize: '3.4rem',
-        lineHeight: '4rem',
+        '@mobile': {
+          fontStyle: 'normal',
+          fontWeight: '400',
+          fontSize: '2.4rem',
+          lineHeight: '4rem',
+        },
+        '@desktop': {
+          fontStyle: 'normal',
+          fontWeight: '400',
+          fontSize: '3.4rem',
+          lineHeight: '4rem',
+        },
       },
     },
   },

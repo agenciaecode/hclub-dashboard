@@ -6,7 +6,7 @@ import {
 
 type InfoDialogModalItemProps = {
   label: string;
-  value: string;
+  value: string | number;
 };
 
 const InfoDialogModalItem = ({ label, value }: InfoDialogModalItemProps) => (

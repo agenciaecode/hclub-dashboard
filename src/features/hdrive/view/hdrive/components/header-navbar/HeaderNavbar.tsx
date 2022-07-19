@@ -18,7 +18,7 @@ const HeaderNavbar = () => (
     </StyledLeftContent>
 
     <StyledRightContent>
-      <StorageFileBarHdrive />
+      <StorageFileBarHdrive displayOn="desktop" />
     </StyledRightContent>
   </StyledHeaderNavbar>
 );

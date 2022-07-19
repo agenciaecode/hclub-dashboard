@@ -15,6 +15,9 @@ const StyledTitle = styled('div', {
   marginBottom: '8px',
   '@mobile': {
     flexDirection: 'column',
+    '& button': {
+      display: 'none',
+    },
   },
 });
 

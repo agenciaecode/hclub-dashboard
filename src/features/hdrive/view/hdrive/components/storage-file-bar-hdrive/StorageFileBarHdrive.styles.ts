@@ -2,6 +2,37 @@ import * as ProgressPrimitive from '@radix-ui/react-progress';
 
 import { styled } from '@/theme';
 
+const StyledProgressBar = styled('div', {
+  '@mobile': {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  variants: {
+    displayOn: {
+      desktop: {
+        '@desktop': {
+          display: 'flex',
+          flexDirection: 'column',
+        },
+        '@mobile': {
+          display: 'none',
+        },
+      },
+      mobile: {
+        '@desktop': {
+          display: 'none',
+        },
+        '@mobile': {
+          display: 'flex',
+        },
+      },
+      both: {
+        display: 'flex',
+      },
+    },
+  },
+});
+
 const StyledTitle = styled('div', {
   display: 'flex',
   width: '100%',
@@ -20,8 +51,13 @@ const StyledProgressBarHdrive = styled(ProgressPrimitive.Root, {
   overflow: 'hidden',
   background: '$white',
   borderRadius: '10px',
-  width: '27.7rem',
   height: '8px',
+  '@mobile': {
+    width: '164px',
+  },
+  '@desktop': {
+    width: '277px',
+  },
 });
 
 const StyledIndicator = styled(ProgressPrimitive.Indicator, {
@@ -31,4 +67,9 @@ const StyledIndicator = styled(ProgressPrimitive.Indicator, {
   transition: 'transform 660ms cubic-bezier(0.65, 0, 0.35, 1)',
 });
 
-export { StyledTitle, StyledProgressBarHdrive, StyledIndicator };
+export {
+  StyledProgressBar,
+  StyledTitle,
+  StyledProgressBarHdrive,
+  StyledIndicator,
+};

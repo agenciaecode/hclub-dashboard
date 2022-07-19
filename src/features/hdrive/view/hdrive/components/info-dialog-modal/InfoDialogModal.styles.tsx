@@ -59,7 +59,7 @@ const StyledTitle = styled(Dialog.Title, {
 const StyledDialogContent = styled(Dialog.Content, {
   display: 'flex',
   width: '337px',
-  height: '100vh',
+  height: '100%',
   flexDirection: 'column',
   alignSelf: 'end',
   right: 0,
@@ -68,6 +68,9 @@ const StyledDialogContent = styled(Dialog.Content, {
     'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
   position: 'fixed',
   animation: `${contentShow} 0.3s forwards`,
+  '@mobile': {
+    width: '90%',
+  },
   variants: {
     type: {
       btn: {},
@@ -120,6 +123,12 @@ const StyledDialogTrigger = styled(Dialog.Trigger, {
   fontFamily: 'Raleway-Regular',
   fontStyle: 'normal',
   fontWeight: '400',
+  '@mobile': {
+    border: '1px solid $black',
+    borderRadius: '5px',
+    width: '4.8rem',
+    height: '4.8rem',
+  },
 });
 
 const StyledDialogContentImg = styled('img', {

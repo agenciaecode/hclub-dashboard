@@ -53,6 +53,18 @@ const StorageFileBar = () => {
           }}
         />
       </StyledProgressBar>
+      <Link href="/hdrive" passHref>
+        <Button
+          btn="secondary"
+          css={{
+            width: '100%',
+            marginTop: '2rem',
+            '@desktop': { display: 'none' },
+          }}
+        >
+          Ver todos meus arquivos
+        </Button>
+      </Link>
     </DashboardSection>
   );
 };

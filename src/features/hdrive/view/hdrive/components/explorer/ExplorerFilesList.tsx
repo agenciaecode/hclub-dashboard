@@ -17,6 +17,7 @@ import { DropdownButtonItem } from '../dropdown-button/DropdownButtonItem';
 import { DotsIcon } from '../icons/dots-icon/DotsIcon';
 import { FileIcon } from '../icons/file-icon/FileIcon';
 import { FolderIcon } from '../icons/folder-icon/FolderIcon';
+import { InfoIcon } from '../icons/info-icon/InfoIcon';
 import { PrivacyIcon } from '../icons/privacy-icon/PrivacyIcon';
 import { InfoDialogModal } from '../info-dialog-modal/InfoDialogModal';
 import { InfoDialogModalItem } from '../info-dialog-modal/InfoDialogModalItem';
@@ -92,23 +93,25 @@ const ExplorerFilesList = () => {
     });
   }
 
-  return data?.data ? (
+  return data?.data && data.data.length > 0 ? (
     <StyledExplorerFilesList>
       <StyledTbody>
         {data?.data.map(file => (
           <ExplorerFileItem key={file.id}>
-            <StyledExplorerTd svgSpace="right" size="lg">
+            <StyledExplorerTd svgSpace="right" size="lg" displayOn="both">
               {file.type === 'file' ? <FileIcon /> : <FolderIcon />}
               {file.name}
               {file.privacy !== 'private' && <PrivacyIcon />}
             </StyledExplorerTd>
-            <StyledExplorerTd>{file.created_at}</StyledExplorerTd>
-            <StyledExplorerTd>
+            <StyledExplorerTd displayOn="desktop">
+              {file.created_at}
+            </StyledExplorerTd>
+            <StyledExplorerTd displayOn="desktop">
               {file.media?.size
                 ? `${(file.media.size / 1024 / 1024).toFixed(2)} Mb`
                 : '--'}
             </StyledExplorerTd>
-            <StyledExplorerTd>
+            <StyledExplorerTd displayOn="desktop">
               <DropdownButton icon={<DotsIcon />}>
                 {/* <DropdownButtonItem>
                   <DialogModal dialogTitle="Renomear" btn="Renomear">
@@ -150,9 +153,11 @@ const ExplorerFilesList = () => {
 
                     <InfoDialogModalItem
                       label="Tamanho"
-                      value={`${(file.media.size / 1024 / 1024).toFixed(
-                        2,
-                      )} Mbs`}
+                      value={
+                        file.media?.size
+                          ? `${(file.media.size / 1024 / 1024).toFixed(2)} Mb`
+                          : '--'
+                      }
                     />
 
                     <InfoDialogModalItem label="Local" value="---" />
@@ -198,6 +203,35 @@ const ExplorerFilesList = () => {
                     : 'Tornar privado'}
                 </DropdownButtonItem>
               </DropdownButton>
+            </StyledExplorerTd>
+            <StyledExplorerTd displayOn="mobile">
+              <InfoDialogModal
+                fileId={file.id}
+                fileType={file.type}
+                filePrivacy={file.privacy}
+                dialogTitle="Informações"
+                btn={<InfoIcon />}
+              >
+                <InfoDialogModalItem label="Nome" value={file.name} />
+
+                <InfoDialogModalItem
+                  label="Tamanho"
+                  value={
+                    file.media?.size
+                      ? `${(file.media.size / 1024 / 1024).toFixed(2)} Mb`
+                      : '--'
+                  }
+                />
+
+                <InfoDialogModalItem label="Local" value="---" />
+
+                <InfoDialogModalItem
+                  label="Criado em"
+                  value={file.created_at}
+                />
+
+                <InfoDialogModalItem label="Privacidade" value={file.privacy} />
+              </InfoDialogModal>
             </StyledExplorerTd>
           </ExplorerFileItem>
         ))}

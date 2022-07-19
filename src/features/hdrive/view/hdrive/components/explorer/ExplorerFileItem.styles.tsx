@@ -32,7 +32,33 @@ const StyledExplorerTd = styled('td', {
     },
     size: {
       lg: {
-        width: '400px',
+        '@desktop': {
+          width: '400px',
+        },
+        '@mobile': {
+          width: '100%',
+        },
+      },
+    },
+    displayOn: {
+      desktop: {
+        '@desktop': {
+          display: 'flex',
+        },
+        '@mobile': {
+          display: 'none',
+        },
+      },
+      mobile: {
+        '@desktop': {
+          display: 'none',
+        },
+        '@mobile': {
+          display: 'flex',
+        },
+      },
+      both: {
+        display: 'flex',
       },
     },
   },

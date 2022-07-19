@@ -4,6 +4,7 @@ import { useQueryDashboard } from '@hooks/useQuery';
 
 import {
   StyledIndicator,
+  StyledProgressBar,
   StyledProgressBarHdrive,
   StyledTitle,
 } from './StorageFileBarHdrive.styles';
@@ -14,7 +15,11 @@ type StorageData = {
   left: number;
 };
 
-const StorageFileBarHdrive = () => {
+type StorageFileBarHdriveProps = {
+  displayOn: 'desktop' | 'mobile' | 'both';
+};
+
+const StorageFileBarHdrive = ({ displayOn }: StorageFileBarHdriveProps) => {
   const { data } = useQueryDashboard<StorageData>('/hdrive/properties', {
     optionsQuery: {
       refetchOnWindowFocus: false,
@@ -29,7 +34,7 @@ const StorageFileBarHdrive = () => {
   }, [data?.total]);
 
   return (
-    <>
+    <StyledProgressBar displayOn={displayOn}>
       <StyledTitle>
         {`${data?.left && (data.left / 1024 / 1024).toFixed(1)} GB Livres`}
       </StyledTitle>
@@ -43,7 +48,7 @@ const StorageFileBarHdrive = () => {
           }}
         />
       </StyledProgressBarHdrive>
-    </>
+    </StyledProgressBar>
   );
 };
 

@@ -6,6 +6,9 @@ const StyledHeaderNavbar = styled('div', {
   width: '100%',
   height: '10rem',
   color: '$black',
+  '@mobile': {
+    height: '7rem',
+  },
 });
 
 const StyledRightContent = styled('div', {
@@ -13,6 +16,9 @@ const StyledRightContent = styled('div', {
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+  '@mobile': {
+    justifyContent: 'unset',
+  },
 });
 
 const StyledLeftContent = styled('div', {
@@ -20,6 +26,9 @@ const StyledLeftContent = styled('div', {
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+  '@mobile': {
+    justifyContent: 'unset',
+  },
 });
 
 export { StyledHeaderNavbar, StyledRightContent, StyledLeftContent };
