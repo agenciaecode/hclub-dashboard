@@ -20,6 +20,7 @@ import {
   StyledDialogContentImg,
   StyledDialogTrigger,
   StyledOverlay,
+  StyledRoot,
   StyledTitle,
   StyledTopBar,
 } from './InfoDialogModal.styles';
@@ -81,7 +82,7 @@ const InfoDialogModal = ({
   }
 
   return (
-    <Dialog.Root>
+    <StyledRoot>
       <StyledDialogTrigger onClick={onClick}>{btn}</StyledDialogTrigger>
       <Dialog.Portal>
         <StyledOverlay>
@@ -97,7 +98,9 @@ const InfoDialogModal = ({
             {isFetching ? (
               'Carregando...'
             ) : (
-              <StyledDialogContentImg src={data?.url} />
+              <a href={data?.url || '#'} target="_blank" rel="noreferrer">
+                <StyledDialogContentImg src={data?.url} />
+              </a>
             )}
             {children}
             <StyledDialogContentBottom>
@@ -133,7 +136,7 @@ const InfoDialogModal = ({
           </StyledDialogContent>
         </StyledOverlay>
       </Dialog.Portal>
-    </Dialog.Root>
+    </StyledRoot>
   );
 };
 

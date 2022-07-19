@@ -11,7 +11,7 @@ import {
 const HeaderNavbar = () => (
   <StyledHeaderNavbar>
     <StyledLeftContent>
-      <HdriveButton text="big">
+      <HdriveButton text="big" href="/dashboard">
         <CaretLeftIcon />
         Meus arquivos
       </HdriveButton>

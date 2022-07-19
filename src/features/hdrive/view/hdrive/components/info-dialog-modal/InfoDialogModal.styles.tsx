@@ -13,11 +13,14 @@ const contentShow = keyframes({
   '100%': { opacity: 1, right: 0 },
 });
 
+const StyledRoot = styled(Dialog.Root, {
+  backgroundColor: '$white',
+});
+
 const StyledOverlay = styled(Dialog.Overlay, {
   display: 'flex',
   position: 'fixed',
-  justifyContent: 'center',
-  alignItems: 'center',
+  justifyContent: 'right',
   zIndex: '2147483648',
   backgroundColor: 'rgba(0, 0, 0, 0.9)',
   inset: 0,
@@ -59,18 +62,16 @@ const StyledTitle = styled(Dialog.Title, {
 const StyledDialogContent = styled(Dialog.Content, {
   display: 'flex',
   width: '337px',
-  height: '100%',
-  flexDirection: 'column',
-  alignSelf: 'end',
-  right: 0,
   backgroundColor: '$white',
+  flexDirection: 'column',
+  right: 0,
   boxShadow:
     'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
-  position: 'fixed',
   animation: `${contentShow} 0.3s forwards`,
   '@mobile': {
     width: '90%',
   },
+  overflowY: 'auto',
   variants: {
     type: {
       btn: {},
@@ -101,6 +102,7 @@ const StyledDialogContentItemLeft = styled('div', {
   lineHeight: '19px',
   marginLeft: '2rem',
 });
+
 const StyledDialogContentItemRight = styled('div', {
   display: 'flex',
   justifyContent: 'end',
@@ -139,9 +141,9 @@ const StyledDialogContentImg = styled('img', {
 
 const StyledDialogContentBottom = styled('div', {
   display: 'flex',
-  height: '100%',
   justifyContent: 'end',
   width: '100%',
+  height: '100%',
   flexDirection: 'column',
   padding: '2rem',
 });
@@ -159,6 +161,7 @@ const StyledDialogButton = styled('button', {
 });
 
 export {
+  StyledRoot,
   StyledDialogContent,
   StyledDialogTrigger,
   StyledOverlay,
