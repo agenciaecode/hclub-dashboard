@@ -9,6 +9,7 @@ const StyledContentWrapper = styled('div', {
   alignItems: 'center',
   justifyContent: 'start',
   gap: '2rem',
+  flexWrap: 'wrap',
   '@md': {
     gap: '5rem',
   },
