@@ -58,6 +58,17 @@ const globalDefaultStyles = globalCss({
   select:-webkit-autofill:focus`]: {
     transition: 'background-color 600000s 0s, color 600000s 0s',
   },
+  '::-webkit-scrollbar': {
+    width: '0.9rem',
+  },
+  '::-webkit-scrollbar-track': {
+    boxShadow: 'inset 0 0 0.4rem rgba(0, 0, 0, 0.2)',
+  },
+  '::-webkit-scrollbar-thumb': {
+    backgroundColor: '$blackScroll',
+    outline: '1px solid $blackScroll',
+    borderRadius: '3.7px',
+  },
 });
 
 export { globalDefaultStyles };
