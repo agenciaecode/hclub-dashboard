@@ -49,7 +49,8 @@ const StyledPreviewContainer = styled('section', {
 
 const StyledStickyPreviewWrapper = styled('div', {
   position: 'sticky',
-  top: 'calc(62rem - 50%)',
+  // top: 'calc(62rem - 50%)',
+  top: '2rem',
 });
 
 const HiddenOnMobile = styled('span', {

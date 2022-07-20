@@ -1,6 +1,4 @@
 /* eslint-disable import/no-cycle */
-import Image from 'next/image';
-
 import { Separator } from '@components/data-display/separator';
 import { Spinner } from '@components/feedback/spinner';
 import { Button } from '@components/forms/button';
@@ -10,7 +8,7 @@ import { Link } from '@components/navigator/link';
 import { ResponsiveBackButton } from '@components/others/back-button';
 import { useAuthUser } from '@hooks/useAuthUser';
 
-import previewImage from './unknown.png';
+import { getUserCardUrl } from '@/constants/APP_URL';
 
 import {
   FlexWrapper,
@@ -26,12 +24,11 @@ import { useCardSlug } from './hooks/useCardSlug';
 import { CardBlocks } from './sections/blocks';
 import { CardAvatar } from './sections/card-avatar';
 import { CardBiography } from './sections/card-bio';
+import { CardPreview } from './sections/card-preview';
 import { SetCardAsDefaultButton } from './sections/set-card-as-default';
 import { CardSocialMedias } from './sections/social-medias';
 // import { ToggleDarkTheme } from './sections/toggle-dark-theme';
 import { ToggleCardNewsletter } from './sections/toggle-newsletter';
-
-const HCLUB_BASE_URL = process.env.APP_HCLUB_BASE_URL;
 
 export const EditCardPage = () => {
   const { user } = useAuthUser();
@@ -53,7 +50,7 @@ export const EditCardPage = () => {
             <StyledToolbar>
               <Flex justifyContent="center" gap="1-6" flexWrap>
                 <Link
-                  href={`${HCLUB_BASE_URL}/${user.username}/${cardSlug}`}
+                  href={getUserCardUrl(user.username, cardSlug)}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -78,13 +75,7 @@ export const EditCardPage = () => {
             </StyledFormsContainer>
             <StyledPreviewContainer>
               <StyledStickyPreviewWrapper>
-                {/* TODO add component preview */}
-                <Image
-                  src={previewImage}
-                  width={305}
-                  height={616}
-                  alt="preview"
-                />
+                <CardPreview />
               </StyledStickyPreviewWrapper>
             </StyledPreviewContainer>
           </StyledContentWrapper>
