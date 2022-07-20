@@ -1,7 +1,6 @@
 import { styled } from '@/theme';
 
 export const StyledButton = styled('button', {
-  padding: '1.5rem 5rem',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -39,6 +38,9 @@ export const StyledButton = styled('button', {
     size: {
       small: {
         padding: '1.4rem',
+      },
+      default: {
+        padding: '1.5rem 5rem',
       },
     },
     outlined: {
@@ -88,5 +90,5 @@ export const StyledButton = styled('button', {
       },
     },
   ],
-  defaultVariants: { btn: 'primary' },
+  defaultVariants: { btn: 'primary', size: 'default' },
 });

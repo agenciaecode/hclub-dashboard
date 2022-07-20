@@ -47,16 +47,23 @@ export const EditCardPage = () => {
               <StyledTitle>Editar informações</StyledTitle>
             </FlexWrapper>
             <StyledToolbar>
-              <Flex justifyContent="center" gap="1-6" flexWrap>
-                <Link
-                  href={getUserCardUrl(user.username, cardSlug)}
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <Link
+                href={getUserCardUrl(user.username, cardSlug)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button
+                  btn="secondary"
+                  block
+                  size={{
+                    '@initial': 'small',
+                    '@sm': 'default',
+                  }}
                 >
-                  <Button btn="secondary">Visualizar</Button>
-                </Link>
-                <SetCardAsDefaultButton />
-              </Flex>
+                  Visualizar
+                </Button>
+              </Link>
+              <SetCardAsDefaultButton />
             </StyledToolbar>
           </StyledHeader>
           <StyledContentWrapper>
