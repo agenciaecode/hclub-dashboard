@@ -17,6 +17,7 @@ const StyledExplorerTd = styled('td', {
   fontWeight: '400',
   fontSize: '2rem',
   lineHeight: '2.3rem',
+  wordBreak: 'break-all',
   variants: {
     svgSpace: {
       right: {
