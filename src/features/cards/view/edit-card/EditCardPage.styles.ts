@@ -47,12 +47,6 @@ const StyledPreviewContainer = styled('section', {
   },
 });
 
-const StyledStickyPreviewWrapper = styled('div', {
-  position: 'sticky',
-  // top: 'calc(62rem - 50%)',
-  top: '2rem',
-});
-
 const HiddenOnMobile = styled('span', {
   display: 'none',
   whiteSpace: 'pre',
@@ -68,7 +62,6 @@ export {
   StyledContentWrapper,
   StyledFormsContainer,
   StyledPreviewContainer,
-  StyledStickyPreviewWrapper,
   FlexWrapper,
   HiddenOnMobile,
 };

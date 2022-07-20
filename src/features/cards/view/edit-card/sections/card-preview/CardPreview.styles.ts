@@ -2,9 +2,18 @@ import Image from 'next/image';
 
 import { styled } from '@/theme';
 
+const PHONE_FRAME_WIDTH = '305px';
+const PHONE_FRAME_HEIGHT = '616px';
+
+const StyledStickyPreviewWrapper = styled('div', {
+  position: 'sticky',
+  $$stickyOffset: `calc((100vh - ${PHONE_FRAME_HEIGHT}) / 2)`,
+  top: 'max(0px, $$stickyOffset)',
+});
+
 const StyledPreviewFrameWrapper = styled('div', {
-  width: 305,
-  height: 616,
+  width: PHONE_FRAME_WIDTH,
+  height: PHONE_FRAME_HEIGHT,
   position: 'relative',
   display: 'flex',
   justifyContent: 'center',
@@ -38,6 +47,7 @@ const StyledPreviewIFrame = styled('iframe', {
 });
 
 export {
+  StyledStickyPreviewWrapper,
   StyledPreviewFrameWrapper,
   StyledPreviewPhoneFrame,
   StyledPhoneNotch,

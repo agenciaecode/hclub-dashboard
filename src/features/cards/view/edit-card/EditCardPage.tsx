@@ -16,7 +16,6 @@ import {
   StyledFormsContainer,
   StyledHeader,
   StyledPreviewContainer,
-  StyledStickyPreviewWrapper,
   StyledTitle,
   StyledToolbar,
 } from './EditCardPage.styles';
@@ -74,9 +73,7 @@ export const EditCardPage = () => {
               <CardBlocks />
             </StyledFormsContainer>
             <StyledPreviewContainer>
-              <StyledStickyPreviewWrapper>
-                <CardPreview />
-              </StyledStickyPreviewWrapper>
+              <CardPreview />
             </StyledPreviewContainer>
           </StyledContentWrapper>
         </>

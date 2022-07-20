@@ -16,6 +16,7 @@ import {
   StyledPreviewFrameWrapper,
   StyledPreviewIFrame,
   StyledPhoneNotch,
+  StyledStickyPreviewWrapper,
 } from './CardPreview.styles';
 
 const EVENT_MESSAGE_PREVIEW_REFRESH = 'preview-refresh';
@@ -56,19 +57,21 @@ export const CardPreview = () => {
   if (!user) return null;
 
   return (
-    <StyledPreviewFrameWrapper>
-      <StyledPreviewPhoneFrame
-        src={previewFrame}
-        layout="fill"
-        alt="phone frame"
-        priority
-      />
-      <StyledPreviewIFrame
-        ref={iframeRef}
-        src={getUserCardUrl(user.username, card)}
-        onLoad={() => setIsIFrameLoaded(true)}
-      />
-      <StyledPhoneNotch />
-    </StyledPreviewFrameWrapper>
+    <StyledStickyPreviewWrapper>
+      <StyledPreviewFrameWrapper>
+        <StyledPreviewPhoneFrame
+          src={previewFrame}
+          layout="fill"
+          alt="phone frame"
+          priority
+        />
+        <StyledPreviewIFrame
+          ref={iframeRef}
+          src={getUserCardUrl(user.username, card)}
+          onLoad={() => setIsIFrameLoaded(true)}
+        />
+        <StyledPhoneNotch />
+      </StyledPreviewFrameWrapper>
+    </StyledStickyPreviewWrapper>
   );
 };
