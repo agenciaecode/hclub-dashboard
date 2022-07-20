@@ -20,6 +20,7 @@ const App = (props: AuthAppProps) => {
     <>
       <Head>
         <title>HClub</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <SentryProvider>
         <QueryClientProvider client={queryClient}>
