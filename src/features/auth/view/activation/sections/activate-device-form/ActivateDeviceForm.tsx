@@ -38,7 +38,7 @@ export const ActivateDeviceForm = ({
 
   useSuccessEffect(activateDeviceMutation.isSuccess, () => {
     showToastSuccessMessage('Dispositivo ativado com sucesso!');
-    router.push('/dashboard');
+    router.push('/hdrive');
   });
 
   function handleActivateDeviceFormSubmit() {

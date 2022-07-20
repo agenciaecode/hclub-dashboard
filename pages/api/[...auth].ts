@@ -8,7 +8,7 @@ export default auth({
     signIn: async credentials => sendLoginRequest(credentials),
   },
   defaultPages: {
-    default: '/dashboard',
+    default: '/hdrive',
     signIn: '/login',
   },
   publicPages: {

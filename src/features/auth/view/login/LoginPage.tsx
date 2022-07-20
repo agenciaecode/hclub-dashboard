@@ -21,7 +21,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      router.push('/dashboard');
+      router.push('/hdrive');
     }
   }, [isAuthenticated, router]);
 
