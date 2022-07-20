@@ -1,4 +1,5 @@
 /* eslint-disable import/no-cycle */
+import { Spinner } from '@components/feedback/spinner';
 import { LoadingButton } from '@components/forms/loading-button';
 import { AlertConfirmation } from '@components/overlay/alert-dialog';
 import { Text } from '@components/typography/text';
@@ -66,6 +67,7 @@ export const SetCardAsDefaultButton = () => {
                 Tornar <HiddenOnMobile> cartão </HiddenOnMobile>padrão
               </>
             ))}
+          {showCardQuery.isLoading && <Spinner color="secondary" />}
           {showCardQuery.isError && (
             <Text color="negative">Falha ao carregar cartão</Text>
           )}
