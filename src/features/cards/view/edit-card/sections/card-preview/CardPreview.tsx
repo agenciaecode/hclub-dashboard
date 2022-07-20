@@ -1,7 +1,5 @@
 /* eslint-disable import/no-cycle */
-import { useEffect, useRef, useState } from 'react';
-
-import { throttle } from '@antfu/utils';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useAuthUser } from '@hooks/useAuthUser';
 
@@ -24,6 +22,7 @@ const EVENT_MESSAGE_PREVIEW_REFRESH = 'preview-refresh';
 
 export const CardPreview = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [isIFrameLoaded, setIsIFrameLoaded] = useState(false);
   const card = useCardSlug();
   const { user } = useAuthUser();
   const showCardQuery = useShowCardQuery({
@@ -36,16 +35,23 @@ export const CardPreview = () => {
     card,
   });
 
-  function refreshPreview() {
-    iframeRef.current?.contentWindow?.postMessage(
-      EVENT_MESSAGE_PREVIEW_REFRESH,
-      APP_URL.HCLUB_BASE ?? '*',
-    );
-  }
+  const refreshPreview = useCallback(() => {
+    if (isIFrameLoaded) {
+      iframeRef.current?.contentWindow?.postMessage(
+        EVENT_MESSAGE_PREVIEW_REFRESH,
+        APP_URL.HCLUB_BASE ?? '*',
+      );
+    }
+  }, [isIFrameLoaded, iframeRef]);
 
   useEffect(() => {
     refreshPreview();
-  }, [showCardQuery.data, cardSocialMediasQuery.data, cardBlocks.data]);
+  }, [
+    showCardQuery.data,
+    cardSocialMediasQuery.data,
+    cardBlocks.data,
+    refreshPreview,
+  ]);
 
   if (!user) return null;
 
@@ -60,6 +66,7 @@ export const CardPreview = () => {
       <StyledPreviewIFrame
         ref={iframeRef}
         src={getUserCardUrl(user.username, card)}
+        onLoad={() => setIsIFrameLoaded(true)}
       />
       <StyledPhoneNotch />
     </StyledPreviewFrameWrapper>
