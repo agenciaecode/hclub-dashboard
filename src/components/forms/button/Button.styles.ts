@@ -40,6 +40,9 @@ export const StyledButton = styled('button', {
       small: {
         padding: '1.4rem',
       },
+      default: {
+        padding: '1.5rem 5rem',
+      },
     },
     outlined: {
       true: {
