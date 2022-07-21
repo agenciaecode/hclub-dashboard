@@ -26,16 +26,7 @@ const StyledTitle = styled('h1', {
 
 const StyledToolbar = styled('div', {
   display: 'flex',
-  flexWrap: 'wrap',
   gap: '1.6rem',
-  width: 'stretch',
-  '@sm': {
-    width: 'unset',
-  },
-  '& > *': {
-    alignSelf: 'stretch',
-    flex: 'auto',
-  },
 });
 
 const StyledContentWrapper = styled('article', {

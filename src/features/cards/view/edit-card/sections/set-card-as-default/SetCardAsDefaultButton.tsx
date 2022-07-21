@@ -54,10 +54,6 @@ export const SetCardAsDefaultButton = () => {
             await animationDelay();
             setCardAsDefaultMutation.reset();
           }}
-          size={{
-            '@initial': 'small',
-            '@sm': 'default',
-          }}
         >
           {showCardQuery.isSuccess &&
             (showCardQuery.data.default ? (
