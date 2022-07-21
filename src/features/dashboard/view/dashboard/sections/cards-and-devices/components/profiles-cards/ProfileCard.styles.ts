@@ -2,18 +2,28 @@ import { styled } from '@/theme';
 import { CSS } from '@/theme/stitches';
 
 import { FlippableCard } from '../flippable-card';
+import {
+  StyledFlippableCardBack,
+  StyledFlippableCardFront,
+} from '../flippable-card/FlippableCard.styles';
 
 const StyledFlippableCard = styled(FlippableCard, {
   variants: {
     type: {
       pro: {
-        background: '$backgroundBlack',
+        [`& ${StyledFlippableCardFront},& ${StyledFlippableCardBack}`]: {
+          background: '$backgroundBlack',
+        },
       },
       social: {
-        background: 'linear-gradient(to bottom, #55FFEB, #0090A4 )',
+        [`& ${StyledFlippableCardFront},& ${StyledFlippableCardBack}`]: {
+          background: 'linear-gradient(to bottom, #55FFEB, #0090A4 )',
+        },
       },
       personal: {
-        background: 'linear-gradient(to bottom, #EAEAEA, #B8B8B8 )',
+        [`& ${StyledFlippableCardFront},& ${StyledFlippableCardBack}`]: {
+          background: 'linear-gradient(to bottom, #EAEAEA, #B8B8B8 )',
+        },
       },
     },
   },

@@ -33,12 +33,13 @@ const cardFaceStyle: CSS<typeof configTheme> = {
   webkitBackfaceVisibility: 'hidden',
   fontSize: '$xl',
   lineHeight: '$xl',
+  borderRadius: '1.4rem',
 };
 
 const StyledFlippableCardFront = styled(
   'div',
   {
-    transform: 'rotateX(0)',
+    willChange: 'transform',
   },
   cardFaceStyle,
 );
